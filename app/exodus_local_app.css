@@ -1,0 +1,8 @@
+#migration_loading { position:fixed; left:50%; top:45%; transform:translate(-50%,-50%); z-index:20000; background:#19232d; color:white; padding:20px; font:16px Arial; }
+#exodus_local_panel { position:fixed; top:68px; right:20px; z-index:10000; width:252px; max-width:calc(100vw - 40px); box-sizing:border-box; padding:7px 10px; background:rgba(25,35,45,.9); color:white; border-radius:4px; font:11px/1.4 Arial,sans-serif; }
+#exodus_local_panel button { margin-top:6px; padding:6px 9px; border:1px solid rgba(255,255,255,.55); border-radius:4px; background:#19232d; color:white; font:inherit; cursor:pointer; }
+#exodus_local_panel h2 { display:none; }
+#exodus_local_panel p { margin:0; }
+.exodus-image-credit { font:11px/1.45 Arial,sans-serif; margin-top:5px; }
+.exodus-image-credit a { color:inherit; text-decoration:underline; }
+@media(max-width:900px) { #exodus_local_panel { top:68px; right:15px; width:min(252px,calc(100vw - 30px)); max-width:calc(100vw - 30px); } }

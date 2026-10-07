@@ -1,0 +1,6 @@
+{
+  "endpoint": "https://photon.komoot.io/api/",
+  "provider": "Photon · komoot",
+  "timeoutMs": 12000,
+  "intervalMs": 1500
+}

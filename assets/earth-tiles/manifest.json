@@ -1,0 +1,11 @@
+{
+  "projection": "geographic",
+  "origin": "north-west",
+  "tileSize": 512,
+  "border": 2,
+  "maxLevel": 3,
+  "source": "earth-blue-marble-june-5400.jpg",
+  "sourceWidth": 5400,
+  "sourceHeight": 2700,
+  "note": "Existing Blue Marble image, no additional source detail."
+}

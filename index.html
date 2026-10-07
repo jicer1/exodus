@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta name="author" content="Jacinto Costoso">
+<title>Exodus — Sur Terre</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+
+<script src="app/huerta_i18n.js?v=start-route-help-20261006"></script>
+<script src="app/huerta_credits.js?v=compact-credits-20261006"></script>
+
+<link rel="stylesheet" href="app/huerta_webgl.css?v=google-earth-route-20261006" type="text/css">
+
+<script type="text/javascript" src="vendor/babylon.js"></script>
+
+<script src="config.js"></script>
+<script src="scene-loader.js"></script>
+<script src="runtime.js?v=selected-zone-1"></script>
+<script type="text/javascript" src="app/huerta_hd_tiles.js"></script>
+
+<script type="text/javascript" src="app/huerta_webgl.js?v=local-walker-1"></script>
+
+<script type="text/javascript" src="app/huerta_hud.js?v=local-relief-1"></script>
+
+<script type="text/javascript" src="app/huerta_menu.js?v=named-start-marker-20261006"></script>
+
+<script type="text/javascript" src="app/huerta_calques.js"></script>
+
+<script type="text/javascript" src="app/huerta_campos.js"></script>
+
+<script type="text/javascript" src="app/huerta_marcheur.js?v=start-route-help-20261006"></script>
+
+<script type="text/javascript" src="app/huerta_commandes.js?v=layer-toggle-20261002"></script>
+
+<script src="verify.js"></script>
+<link rel="stylesheet" href="app/exodus_terre.css?v=huerta-interface-2">
+<script src="app/exodus_navigation.js?v=selection-middle-pan-20261006"></script>
+<script src="assets/earth-sentinel/sources.js?v=1"></script>
+<script src="app/exodus_tiles.js?v=eox-close-zoom-3"></script>
+<script src="app/exodus_search.js?v=place-search-2"></script>
+<script src="app/exodus_zone.js?v=local-walker-1"></script>
+<script src="app/exodus_terre.js?v=zoom-instruction-20261006"></script>
+</head>
+
+<body class="huerta-calques-off huerta-test-off">
+  <div id="main_canvas_container"></div>
+<div id="migration_loading" role="status" style="position:fixed;left:50%;top:45%;transform:translate(-50%,-50%);z-index:20000;background:#19232d;color:white;padding:20px;font:16px Arial">Chargement du terrain…</div>
+  <aside class="huerta-credit" aria-label="Crédits du projet">
+    <div class="huerta-credit__name">Création : Jacinto Costoso</div>
+    <div class="huerta-credit__version">2026 — Version 1.0.4</div>
+    <a class="huerta-credit__link" href="https://www.costoso.net" target="_blank" rel="noopener noreferrer">
+      costoso.net <span aria-hidden="true">↗</span>
+    </a>
+    <button class="huerta-credit__toggle" type="button" aria-expanded="false">Crédits</button>
+    <div class="huerta-credit__details" hidden>
+      <a class="huerta-credit__data" href="CREDITS.txt" target="_blank" rel="noopener">Imagerie dérivée : IGN Espagne · CC BY 4.0 — Crédits</a>
+      <div class="exodus-image-credit">
+      Globe : <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/" target="_blank" rel="noopener">NASA Blue Marble · Reto Stöckli</a><br>
+      <a href="https://s2maps.eu" target="_blank" rel="noopener">Sentinel-2 cloudless</a> par
+      <a href="https://eox.at" target="_blank" rel="noopener">EOX IT Services GmbH</a> ·
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a><br>
+      Contains modified Copernicus Sentinel data 2016 &amp; 2017
+      <br>Recherche : <a href="https://photon.komoot.io" target="_blank" rel="noopener">Photon · komoot</a> ·
+      <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors · ODbL</a>
+      </div>
+    </div>
+  </aside>
+</body>
+
+</html>

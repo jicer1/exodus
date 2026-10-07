@@ -1,0 +1,20 @@
+# Captures de vérification locales
+/essai-*.png
+/essai-*.jpg
+/validation.json
+
+# Fichiers temporaires et réglages personnels
+__pycache__/
+*.py[cod]
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+.vscode/
+.idea/
+
+# Données volumineuses conservées sur le serveur externe costoso.net.
+# Elles ne sont pas nécessaires pour consulter le code du prototype.
+/assets/hd_tiles/
+/assets/marcheur_tiles/

@@ -1,0 +1,29 @@
+HUERTA HERNANDO — BABYLON.JS
+
+Création et conception du projet : Jacinto Costoso
+Site : https://www.costoso.net
+Crédits et composants tiers : CREDITS.txt
+
+Extraire entierement le dossier avant de lancer l'application.
+Sous Windows, double-cliquer Lancer_Huerta.bat et garder la fenetre ouverte.
+Le navigateur s'ouvre sur http://127.0.0.1:8766/.
+Ctrl+C dans la fenetre arrete le serveur.
+Python 3 et un navigateur moderne avec WebGL sont necessaires.
+Sur ce poste Python est deja installe ; ce paquet ne contient pas Python.
+Sur macOS/Linux : python3 serve.py --open.
+Si le port est occupe : python serve.py --port 8767 --open.
+
+Les ressources terrain, imagerie HD, calculateur et moteur Babylon.js sont inclus.
+Le paquet peut etre deplace hors du projet Blender et fonctionne sans acces Internet,
+sauf les liens volontaires vers Google Earth et costoso.net.
+Ne pas ouvrir index.html directement : utiliser le serveur local.
+
+La comparaison de la vue generale a ete acceptee par l'utilisateur.
+Les details visuels du survol et le confort des gestes restent a juger.
+Les jonctions de la ligne 3D peuvent differer de Blend4Web.
+Le bouton Google Earth ouvre un service externe uniquement sur demande.
+
+Pages : / pour l'application, /comparison.html pour les captures,
+/?verify=1 pour les controles techniques, /?verify=1&extended=1 pour le trajet long.
+Les resultats de validation sont dans validation.json, s'ils sont presents.
+Babylon.js 8.26.0 : licence Apache 2.0 dans vendor/LICENSE.babylon.md.

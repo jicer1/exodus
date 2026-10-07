@@ -1,0 +1,208 @@
+"use strict";
+
+/* Calque des repères importés depuis assets/parideras.kmz.
+ * Coordonnées KML WGS84 -> UTM 30N -> coordonnées monde Huerta.
+ */
+HuertaRuntime.register("huerta_calques", function(exports, require) {
+
+var m_camera = require("camera");
+var m_main = require("main");
+var m_physics = require("physics");
+var m_scenes = require("scenes");
+var m_navigation = require("huerta_webgl_main");
+
+var COLLISION_ID = "TERRAIN_NAV_MASQUE";
+var MARKERS = [{"name":"1","lat":40.82547253561693,"lon":-2.276442771410129},{"name":"2","lat":40.82554327011844,"lon":-2.27491308384792},{"name":"3","lat":40.82497039906625,"lon":-2.275158066357219},{"name":"4","lat":40.82415375751414,"lon":-2.275474052788999},{"name":"5","lat":40.82920517037446,"lon":-2.26947005656245},{"name":"6","lat":40.82979701833891,"lon":-2.26913239567561},{"name":"7","lat":40.82980268842497,"lon":-2.268749669749508},{"name":"9","lat":40.82172500060552,"lon":-2.285921747684331},{"name":"10","lat":40.82187157554447,"lon":-2.285865521925822},{"name":"12","lat":40.82587799526034,"lon":-2.289726676686122},{"name":"13","lat":40.83471859940575,"lon":-2.285793441260625},{"name":"14","lat":40.83526316412291,"lon":-2.285756309206224},{"name":"15","lat":40.83618996237082,"lon":-2.277617680462876},{"name":"16","lat":40.82558503401129,"lon":-2.286981072026986},{"name":"17","lat":40.82538989475173,"lon":-2.286930715914826},{"name":"18","lat":40.8243212466709,"lon":-2.286496647410435},{"name":"19","lat":40.82434016105794,"lon":-2.286051359141078},{"name":"20","lat":40.83847380907647,"lon":-2.304799085339464},{"name":"21","lat":40.83826134567458,"lon":-2.30495881845358},{"name":"22","lat":40.83515825429146,"lon":-2.306282795125716},{"name":"23","lat":40.83518867037769,"lon":-2.306705172050561},{"name":"24","lat":40.80479512124891,"lon":-2.335208137237095},{"name":"25","lat":40.81197454117685,"lon":-2.280894369082032},{"name":"26","lat":40.81433957315362,"lon":-2.283654677357134},{"name":"27","lat":40.80984290047978,"lon":-2.295558130939822},{"name":"28","lat":40.8083858997424,"lon":-2.296710718102214},{"name":"29","lat":40.80757685936502,"lon":-2.298414770567848},{"name":"30","lat":40.8040522455373,"lon":-2.305282138509818},{"name":"31-bassine","lat":40.83331887016036,"lon":-2.247501685116132},{"name":"32","lat":40.80299470899129,"lon":-2.296558859033924},{"name":"33","lat":40.80249530672541,"lon":-2.308752296409789},{"name":"34","lat":40.80280320305766,"lon":-2.308465274603857},{"name":"35","lat":40.81677626877516,"lon":-2.256049806625815},{"name":"36","lat":40.81389550871762,"lon":-2.254860110628418},{"name":"37","lat":40.81355222207051,"lon":-2.254364000328437},{"name":"38","lat":40.81366244825872,"lon":-2.255514296716559},{"name":"39","lat":40.81333012466575,"lon":-2.255783770990234},{"name":"40","lat":40.83183759385361,"lon":-2.2618879912443},{"name":"41","lat":40.82977265650601,"lon":-2.265338188069749},{"name":"42","lat":40.80565449935895,"lon":-2.310917657942719},{"name":"43","lat":40.82010298028122,"lon":-2.254068898661105},{"name":"44","lat":40.81883035202092,"lon":-2.308033157120311},{"name":"45","lat":40.82081897054446,"lon":-2.309295136966825},{"name":"46","lat":40.82030463902331,"lon":-2.311916571620803},{"name":"47","lat":40.82325809898403,"lon":-2.303526504398858},{"name":"48","lat":40.82593543979322,"lon":-2.29857217250846},{"name":"49","lat":40.80175910697755,"lon":-2.32127709364079},{"name":"50","lat":40.80456466501342,"lon":-2.317904073856849},{"name":"51","lat":40.80113494768926,"lon":-2.315595788213093},{"name":"52","lat":40.81435766862555,"lon":-2.319629331685499},{"name":"53","lat":40.81476162194194,"lon":-2.319862323403258},{"name":"54","lat":40.85351042834904,"lon":-2.272966523704318},{"name":"55","lat":40.85362207679909,"lon":-2.273807837825367},{"name":"56","lat":40.85401093606047,"lon":-2.268706746280799},{"name":"57","lat":40.81911700883703,"lon":-2.295497079380924},{"name":"58","lat":40.81942766268551,"lon":-2.297301885828546},{"name":"59","lat":40.81806823734764,"lon":-2.295098729389771},{"name":"60","lat":40.82068975431925,"lon":-2.294222722106438},{"name":"61","lat":40.8211244363984,"lon":-2.29914070711816},{"name":"62","lat":40.81926737939922,"lon":-2.302852328540819},{"name":"63","lat":40.8179247721144,"lon":-2.304623672497522},{"name":"64","lat":40.81438939399042,"lon":-2.307043235599706},{"name":"65","lat":40.81110177227175,"lon":-2.300033467438131},{"name":"66","lat":40.81143116717616,"lon":-2.300680819965344},{"name":"67","lat":40.81111957258436,"lon":-2.300752962371353},{"name":"68","lat":40.81145344744149,"lon":-2.301287060793622},{"name":"69","lat":40.81093644274983,"lon":-2.300760563036341},{"name":"70","lat":40.81112358688059,"lon":-2.302041521215359},{"name":"71","lat":40.81079278274041,"lon":-2.301452175048411},{"name":"72","lat":40.81006872769633,"lon":-2.302470461482624},{"name":"73","lat":40.80960353557199,"lon":-2.302954017646555},{"name":"74","lat":40.81041711264602,"lon":-2.302880175832571}];
+var entries = [];
+var enabled = false;
+var simulatorHidden = false;
+var generation = 0;
+var rayQueue = [];
+var panel = null;
+
+// Projection WGS84 vers UTM zone 30N (EPSG:32630).
+function gps_to_utm(latDeg, lonDeg) {
+    var a = 6378137;
+    var ecc2 = 0.0066943799901413165;
+    var k0 = 0.9996;
+    var lat = latDeg * Math.PI / 180;
+    var lon = lonDeg * Math.PI / 180;
+    var lon0 = -3 * Math.PI / 180;
+    var ep2 = ecc2 / (1 - ecc2);
+    var sinLat = Math.sin(lat);
+    var cosLat = Math.cos(lat);
+    var tanLat = Math.tan(lat);
+    var n = a / Math.sqrt(1 - ecc2 * sinLat * sinLat);
+    var t = tanLat * tanLat;
+    var c = ep2 * cosLat * cosLat;
+    var aa = cosLat * (lon - lon0);
+    var e4 = ecc2 * ecc2;
+    var e6 = e4 * ecc2;
+    var m = a * ((1 - ecc2 / 4 - 3 * e4 / 64 - 5 * e6 / 256) * lat
+        - (3 * ecc2 / 8 + 3 * e4 / 32 + 45 * e6 / 1024) * Math.sin(2 * lat)
+        + (15 * e4 / 256 + 45 * e6 / 1024) * Math.sin(4 * lat)
+        - (35 * e6 / 3072) * Math.sin(6 * lat));
+    var x = k0 * n * (aa + (1 - t + c) * Math.pow(aa, 3) / 6
+        + (5 - 18 * t + t * t + 72 * c - 58 * ep2) * Math.pow(aa, 5) / 120) + 500000;
+    var y = k0 * (m + n * tanLat * (aa * aa / 2
+        + (5 - t + 9 * c + 4 * c * c) * Math.pow(aa, 4) / 24
+        + (61 - 58 * t + t * t + 600 * c - 330 * ep2) * Math.pow(aa, 6) / 720));
+    return [x, y];
+}
+
+// Inverse du calage terrain : la scène est centrée sur l'emprise QGIS.
+function gps_to_world(lat, lon) {
+    var utm = gps_to_utm(lat, lon);
+    return [utm[0] - 559563.0, utm[1] - 4519538.0];
+}
+
+function marker_bounds() {
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (var i = 0; i < MARKERS.length; i++) {
+        var p = gps_to_world(MARKERS[i].lat, MARKERS[i].lon);
+        minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]);
+        minY = Math.min(minY, p[1]); maxY = Math.max(maxY, p[1]);
+    }
+    return {x:(minX + maxX) * 0.5, y:(minY + maxY) * 0.5,
+        extent:Math.max(maxX - minX, maxY - minY)};
+}
+
+function create_panel() {
+    if (panel || !document.body) return;
+    panel = document.createElement("div");
+    panel.id = "huerta_calques";
+    panel.style.cssText = "position:fixed;top:78px;right:15px;z-index:10001;font:14px Arial,sans-serif;color:#fff;background:rgba(25,35,45,.9);padding:9px 12px;border:1px solid rgba(255,255,255,.55);border-radius:4px;";
+    var row = document.createElement("div");
+    row.style.cssText = "display:flex;align-items:center;gap:7px;";
+    var label = document.createElement("label");
+    label.style.cssText = "display:flex;align-items:center;gap:7px;cursor:pointer;flex:1;";
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("change", function() { set_enabled(checkbox.checked); }, false);
+    var text = document.createElement("span");
+    text.textContent = "Parideras";
+    label.appendChild(checkbox);
+    label.appendChild(text);
+    row.appendChild(label);
+    var go = document.createElement("button");
+    go.type = "button";
+    go.textContent = "Voir";
+    go.title = "Centrer la caméra sur les repères Parideras";
+    go.style.cssText = "cursor:pointer;padding:2px 7px;";
+    go.addEventListener("click", function() {
+        if (!checkbox.checked) {
+            checkbox.checked = true;
+            set_enabled(true);
+        }
+        var bounds = marker_bounds();
+        m_navigation.go_to_world(bounds.x, bounds.y, bounds.extent);
+    }, false);
+    row.appendChild(go);
+    panel.appendChild(row);
+    document.body.appendChild(panel);
+}
+
+function create_markers() {
+    if (entries.length) return;
+    var overlay = document.createElement("div");
+    overlay.id = "huerta_parideras_markers";
+    overlay.style.cssText = "position:fixed;inset:0;z-index:9998;pointer-events:none;display:none;overflow:hidden;";
+    document.body.appendChild(overlay);
+    for (var i = 0; i < MARKERS.length; i++) {
+        var data = MARKERS[i];
+        var world = gps_to_world(data.lat, data.lon);
+        var el = document.createElement("div");
+        el.textContent = data.name;
+        el.title = "Repère " + data.name + " — " + data.lat.toFixed(6) + ", " + data.lon.toFixed(6);
+        el.style.cssText = "position:absolute;transform:translate(-50%,-100%);min-width:17px;height:20px;padding:0 3px;border-radius:10px 10px 10px 2px;background:#e83d2e;border:2px solid #fff;color:#fff;font:bold 11px/20px Arial,sans-serif;text-align:center;box-shadow:0 1px 4px #000;white-space:nowrap;";
+        overlay.appendChild(el);
+        entries.push({el:el, point:new Float32Array([world[0], world[1], 0]), ready:false});
+    }
+    request_next_height();
+}
+
+function request_next_height() {
+    if (!enabled || !rayQueue.length) return;
+    var item = rayQueue.shift();
+    var ticket = generation;
+    var x = item.point[0], y = item.point[1];
+    var rayId = m_physics.append_ray_test_ext(null, [x,y,10000], [x,y,-10000], COLLISION_ID,
+        function(id, hit_fract, obj_hit, hit_time, hit_pos) {
+            if (ticket !== generation) return;
+            if (hit_pos) {
+                item.point[2] = hit_pos[2] + 2;
+                item.ready = true;
+            } else {
+                // En cas de point hors masque, on garde un repère visible à faible hauteur.
+                item.point[2] = 5;
+                item.ready = true;
+            }
+            request_next_height();
+        }, true, false, true);
+    if (!rayId) {
+        item.point[2] = 5;
+        item.ready = true;
+        request_next_height();
+    }
+}
+
+function set_enabled(value) {
+    enabled = value;
+    generation++;
+    create_markers();
+    var overlay = document.getElementById("huerta_parideras_markers");
+    if (!overlay) return;
+    overlay.style.display = enabled && !simulatorHidden ? "block" : "none";
+    if (enabled) {
+        rayQueue = entries.filter(function(item) { return !item.ready; });
+        request_next_height();
+    }
+}
+
+// Le marcheur est rendu dans la scène ; pendant son fonctionnement les
+// repères d'interface doivent disparaître complètement pour ne pas flotter
+// au-dessus du relief.
+exports.set_simulator_hidden = function(value) {
+    simulatorHidden = !!value;
+    var overlay = document.getElementById("huerta_parideras_markers");
+    if (overlay)
+        overlay.style.display = enabled && !simulatorHidden ? "block" : "none";
+};
+
+function update_markers() {
+    if (!enabled || !entries.length) return;
+    var cam = m_scenes.get_active_camera();
+    var canvas = document.getElementById("main_canvas");
+    if (!canvas) canvas = document.querySelector("#main_canvas_container canvas");
+    if (!cam || !canvas) return;
+    var rect = canvas.getBoundingClientRect();
+    for (var i = 0; i < entries.length; i++) {
+        var item = entries[i];
+        if (!item.ready) { item.el.style.display = "none"; continue; }
+        var projected = m_camera.project_point(cam, item.point, new Float32Array(3));
+        if (!projected || projected[2] < 0 || projected[2] > 1
+                || projected[0] < 0 || projected[1] < 0
+                || projected[0] > rect.width || projected[1] > rect.height) {
+            item.el.style.display = "none";
+            continue;
+        }
+        item.el.style.display = "block";
+        item.el.style.left = (rect.left + projected[0]) + "px";
+        item.el.style.top = (rect.top + projected[1]) + "px";
+    }
+}
+
+function init() {
+    create_panel();
+    create_markers();
+    m_main.append_loop_cb(update_markers);
+}
+
+if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", init, false);
+else
+    init();
+
+});
+
+HuertaRuntime.require("huerta_calques");

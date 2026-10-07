@@ -1,0 +1,71 @@
+HUERTA HERNANDO — CRÉDITS
+
+Création et conception du projet Huerta Hernando : Jacinto Costoso.
+Site du créateur : https://www.costoso.net
+Application : visualisation 3D du territoire, calques cartographiques et calcul de trajets à pied.
+
+MOTEUR TIERS
+Babylon.js 8.26.0 — projet Babylon.js et ses contributeurs.
+Moteur distribué sans modification dans vendor/babylon.js.
+Licence Apache 2.0 conservée intégralement dans vendor/LICENSE.babylon.md.
+Source : https://github.com/BabylonJS/Babylon.js/tree/8.26.0
+La licence de Babylon.js concerne ce moteur ; elle ne définit pas à elle seule les droits sur l’application Huerta ni sur les données cartographiques.
+
+DONNÉES CARTOGRAPHIQUES
+Imagerie : œuvre dérivée de données de l’Instituto Geográfico Nacional de España (IGN), source confirmée par Jacinto Costoso.
+Licence des données IGN : CC BY 4.0.
+Les images ont été préparées et découpées en tuiles pour leur affichage 3D dans Huerta.
+Conditions officielles : https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf
+Le produit exact, son millésime et ses éventuels coproducteurs restent à identifier pour finaliser l’attribution.
+Les sources précises du relief et du cadastre restent à confirmer séparément.
+Aucune revendication de propriété de ces données tierces n’est faite ici.
+
+GLOBE EXODUS — IMAGE DE SURFACE
+NASA Earth Observatory — Blue Marble: Next Generation, Base Map, juin 2004.
+Version globale JPEG 5400 × 2700 pixels (environ 8 km par pixel à l’équateur).
+Crédit : Reto Stöckli, NASA Earth Observatory.
+Source : https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/
+Fichier : assets/earth-blue-marble-june-5400.jpg
+Image utilisée comme couleur de surface, sans modification de la géométrie.
+
+EXODUS — IMAGERIE DÉTAILLÉE RÉGIONALE
+Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH
+(Contains modified Copernicus Sentinel data 2016 & 2017).
+Source EOX : https://eox.at ; service https://maps.eox.at.
+Couche WMTS s2cloudless : mosaïque 2016, grille géographique WGS84, niveau 13.
+Licence : Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+Conditions du fournisseur : https://cloudless.eox.at/pricing
+Images téléchargées autour de Huertahernando, assemblées et redécoupées en
+tuiles locales avec bordures et plusieurs niveaux. Données Sentinel-2 d'environ
+10 m de résolution ; le détail varie selon la scène source et sa préparation.
+Les limites géographiques exactes et les sources figurent dans
+assets/earth-sentinel/manifest.json. Il s'agit d'images de surface, sans relief.
+
+EXODUS — RECHERCHE DE LIEUX
+Recherche par nom : Photon, service public de démonstration fourni par komoot.
+Données : © OpenStreetMap contributors, licence Open Database License (ODbL).
+Attribution et licence : https://www.openstreetmap.org/copyright
+Service : https://photon.komoot.io/api/
+Documentation et conditions : https://github.com/komoot/photon#demo-server
+Le service autorise un usage modéré, sans garantie de disponibilité. Pas de
+recherche automatique à chaque lettre ; demandes manuelles espacées et cache
+local limité à 32 recherches par session. Le nom recherché est envoyé au service.
+La saisie directe de coordonnées GPS est traitée localement, sans géocodage.
+Le fournisseur peut être remplacé dans earth-search.json.
+
+EXODUS — RELIEF DU LIEU CHOISI
+Mapzen Terrain Tiles, jeu mondial hébergé dans AWS Open Data.
+Terrain Tiles was accessed on 2026-10-06 from https://registry.opendata.aws/terrain-tiles.
+Source primaire : https://elevation-tiles-prod.s3.amazonaws.com/terrarium/
+Réplication de secours : https://elevation-tiles-prod-eu.s3.amazonaws.com/terrarium/
+Documentation : https://github.com/tilezen/joerd/tree/master/docs
+Attributions intégrales conservées dans assets/earth-height/ATTRIBUTION.md,
+reliées au cartouche de la vue locale. Les sources et leurs licences varient
+selon les régions ; les données ne sont pas toutes sous une licence unique.
+Liste des sources : https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
+Traitements Exodus : décodage Terrarium en mètres, interpolation bilinéaire,
+projection sur la grille locale géoréférencée et calcul des normales.
+Les hauteurs ne sont pas exagérées. La grille de ce premier prototype est
+d'environ 30 m ; cela ne constitue pas un relevé mondial à 2 m. Des données
+sources plus grossières ou interpolées peuvent être utilisées selon la région.
