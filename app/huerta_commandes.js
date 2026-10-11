@@ -17,7 +17,7 @@
         input.autocomplete = "off";
         input.spellcheck = false;
         input.setAttribute("aria-label", "Commande d’affichage");
-        input.placeholder = "Commande : off calque / on calque / off test / on test";
+        input.placeholder = "";
 
         var button = document.createElement("button");
         button.type = "submit";
@@ -30,7 +30,6 @@
         message.setAttribute("aria-live", "polite");
 
         bar.appendChild(input);
-        bar.appendChild(button);
         bar.appendChild(message);
         document.body.appendChild(bar);
 
@@ -39,20 +38,15 @@
             var command = input.value.trim().toLowerCase().replace(/\s+/g, " ");
             var result = "";
 
-            if (command === "off calque") {
-                document.body.classList.add("huerta-calques-off");
-                result = "Panneaux des calques masqués.";
-            } else if (command === "on calque") {
-                document.body.classList.remove("huerta-calques-off");
-                result = "Panneaux des calques visibles.";
-            } else if (command === "off test") {
-                document.body.classList.add("huerta-test-off");
-                result = "Panneaux de test masqués.";
-            } else if (command === "on test") {
-                document.body.classList.remove("huerta-test-off");
-                result = "Panneaux de test visibles. Les calques gardent leur réglage séparé.";
+            if (command === "edit") {
+                var editing = document.body.classList.contains("huerta-test-off");
+                document.body.classList.toggle("huerta-test-off", !editing);
+                document.body.classList.toggle("huerta-calques-off", !editing);
+                result = editing
+                    ? "Mode édition activé."
+                    : "Mode normal activé.";
             } else {
-                result = "Commande inconnue. Essaie on/off calque ou on/off test.";
+                result = "Commande inconnue. Essaie edit.";
             }
 
             message.textContent = result;

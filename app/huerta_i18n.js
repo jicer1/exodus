@@ -4,6 +4,69 @@
 
     var dictionaries = {
         en: {
+            "Calques ▼": "Layers ▼",
+            "Calques ▲": "Layers ▲",
+            "Image satellite : PNOA 2021": "Satellite image: PNOA 2021",
+            "Image satellite : précédente": "Satellite image: previous",
+            "Modifier Parideras": "Edit Parideras",
+            "Ajouter sur la carte": "Add on map",
+            "Enregistrer": "Save",
+            "Sélectionne Modifier pour gérer les repères.": "Select Edit to manage markers.",
+            "Clique un emplacement sur le terrain.": "Click a location on the terrain.",
+            "Déplacer": "Move",
+            "Renommer": "Rename",
+            "Supprimer": "Delete",
+            "Repère supprimé. Enregistre pour conserver la modification.": "Marker deleted. Save to keep the change.",
+            "Position non détectée.": "Position not detected.",
+            "Nom modifié. Enregistre pour le conserver.": "Name changed. Save to keep it.",
+            "Modification effectuée. Enregistre pour la conserver.": "Change made. Save to keep it.",
+            "Lecture de la position…": "Reading position…",
+            "Marqueurs enregistrés dans parideras_edit.json.": "Markers saved in parideras_edit.json.",
+            "Enregistrement désactivé sur ce serveur.": "Saving is disabled on this server.",
+            "Enregistrement impossible sur ce serveur.": "Unable to save on this server.",
+            "Clique la nouvelle position du repère ": "Click the marker’s new position ",
+            "Aimantation des points proches": "Magnetism of nearby points",
+            "Lissage spline final": "Final spline smoothing",
+            "Marcheur lisse": "Smooth walker",
+            "Marcheur aimanté": "Magnetized walker",
+            "Simulateur en marche.": "Simulator running.",
+            "Arrivée. Tu peux encore orienter la caméra, ou quitter le simulateur.": "Arrived. You can still orient the camera or exit the simulator.",
+            "Simulateur prêt au départ. Règle les curseurs, puis démarre.": "Simulator ready at the start. Adjust the sliders, then start.",
+            "Commande inconnue. Essaie edit.": "Unknown command. Try edit.",
+            "Google Earth + tracé KML": "Google Earth + KML route",
+            "Ouvrir Google Earth au départ et télécharger le tracé": "Open Google Earth at the start and download the route",
+            "Calcule un trajet avant l’export": "Calculate a route before exporting",
+            "Module du marcheur indisponible": "Walker module unavailable",
+            "Google Earth ouvert au départ — KML dans Téléchargements : huerta-babylone-trace.kml": "Google Earth opened at the start — KML in Downloads: huerta-babylone-trace.kml",
+            "Campos abuelo": "Campos abuelo",
+            "Repère Campos abuelo": "Campos abuelo marker",
+            "Choisissez et validez une zone depuis Terre.": "Choose and validate a zone from Earth.",
+            "Clique sur « Choisir plusieurs points » pour commencer un trajet.": "Click “Choose multiple points” to start a route.",
+            "Marcheur en préparation pour ce lieu.": "Walker preparing for this location.",
+            "Relief : Mapzen Terrain Tiles · sources et crédits": "Relief: Mapzen Terrain Tiles · sources and credits",
+            "Coordonnées invalides : latitude de −90 à 90, longitude de −180 à 180.": "Invalid coordinates: latitude −90 to 90, longitude −180 to 180.",
+            "La recherche par nom est temporairement indisponible. Réessayez ou saisissez des coordonnées GPS.": "Name search is temporarily unavailable. Try again or enter GPS coordinates.",
+            "Le repère indique le lieu choisi sur le globe.": "The marker shows the selected place on the globe.",
+            "Lieu choisi :": "Selected place:",
+            "Patientez un instant avant une nouvelle recherche.": "Wait a moment before searching again.",
+            "Recherche du lieu…": "Searching for the place…",
+            "Saisissez une commune ou des coordonnées GPS.": "Enter a town or GPS coordinates.",
+            "Chargement de Huerta en cours…": "Loading Huerta…",
+            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Detailed images are temporarily unavailable. You can continue exploring with the overview.",
+            "Luminosité du globe": "Globe brightness",
+            "Quitte le simulateur de marche avant de passer sur Terre.": "Exit the walking simulator before switching to Earth.",
+            "Sur Terre": "On Earth",
+            "Valider cette zone": "Validate this zone",
+            "Voir la zone détaillée": "View the detailed area",
+            "Zone choisie": "Selected area",
+            "Zoomez fortement, puis déplacez le terrain sous le cadre, ou faites une recherche de lieu, puis validez cette zone.": "Zoom in closely, move the terrain under the frame, or search for a place, then validate this area.",
+            "Certaines images sont indisponibles. Revenez sur Terre pour réessayer.": "Some images are unavailable. Return to Earth to try again.",
+            "Chargement du relief…": "Loading relief…",
+            "Détail variable selon la source": "Detail varies by source",
+            "Images de la zone": "Area images",
+            "Relief chargé": "Relief loaded",
+            "Réessayer le relief": "Retry relief",
+            "Vue locale de la zone choisie": "Local view of the selected area",
             "Chargement du terrain…": "Loading terrain…",
             "Création : Jacinto Costoso": "Created by: Jacinto Costoso",
             "Imagerie dérivée : IGN Espagne · CC BY 4.0 — Crédits": "Imagery: IGN Spain · CC BY 4.0 — Credits",
@@ -66,7 +129,6 @@
             "Temps écoulé : ": "Elapsed time: ",
             "Distance : ": "Distance: ",
             "Marche estimée à 4–5 km/h : ": "Estimated walking time at 4–5 km/h: ",
-            "Conseil : en haute montagne, commencez avec deux points et faites un premier calcul.": "Advice: in high mountains, start with two points and run an initial calculation.",
             "Calcul du trajet en passant par les ": "Calculating a route through ",
             " points, dans l’ordre…": " points in order…",
             "Calcul en cours — annuler": "Calculating — cancel",
@@ -89,21 +151,74 @@
             "Temps maximal de calcul par option, en secondes": "Maximum calculation time per option, in seconds",
             "Hauteur de caméra au-dessus du trajet, en mètres": "Camera height above route, in metres",
             "Vitesse de caméra, en mètres par seconde": "Camera speed, in metres per second",
-            "Inclinaison de la caméra vers le sol, en degrés depuis l'horizontale": "Downward camera angle in degrees from horizontal",
-            "Sur Terre": "On Earth",
-            "Retour à Huertahernando": "Back to Huertahernando",
-            "Luminosité du globe": "Globe brightness",
-            "Vitesse de marche selon la pente": "Walking speed according to slope",
-            "Vitesse de survol, en km/h": "Flyover speed, in km/h",
-            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Detailed imagery is temporarily unavailable. You can continue exploring with the overview.",
-            "Voir la zone détaillée": "View detailed area",
-            "Globe Exodus : clic gauche déplacement, milieu rotation et inclinaison, clic droit rotation et zoom, molette vers le pointeur": "Exodus globe: left click move, middle click rotate and tilt, right click rotate and zoom, wheel zooms toward the pointer",
-            "Gauche : déplacer · Milieu : tourner / incliner · Droit : tourner / zoomer · Molette : zoom vers le pointeur. Approche à 1 km.": "Left: move · Middle: rotate / tilt · Right: rotate / zoom · Wheel: zoom toward pointer. Approach to 1 km.",
-            "Tuiles : image générale": "Tiles: overview image",
-            "Langue :": "Language:",
+            "Inclinaison de la caméra vers le sol, en degrés depuis l'horizontale": "Downward camera angle in degrees from horizontal"
+            ,"Langue :": "Language:",
             "Automatique": "Automatic"
         },
         es: {
+            "Calques ▼": "Capas ▼",
+            "Calques ▲": "Capas ▲",
+            "Image satellite : PNOA 2021": "Imagen satelital: PNOA 2021",
+            "Image satellite : précédente": "Imagen satelital: anterior",
+            "Modifier Parideras": "Editar Parideras",
+            "Ajouter sur la carte": "Añadir al mapa",
+            "Enregistrer": "Guardar",
+            "Sélectionne Modifier pour gérer les repères.": "Selecciona Editar para gestionar las marcas.",
+            "Clique un emplacement sur le terrain.": "Haz clic en un lugar del terreno.",
+            "Déplacer": "Mover",
+            "Renommer": "Renombrar",
+            "Supprimer": "Eliminar",
+            "Repère supprimé. Enregistre pour conserver la modification.": "Marca eliminada. Guarda para conservar el cambio.",
+            "Position non détectée.": "Posición no detectada.",
+            "Nom modifié. Enregistre pour le conserver.": "Nombre cambiado. Guarda para conservarlo.",
+            "Modification effectuée. Enregistre pour la conserver.": "Cambio realizado. Guarda para conservarlo.",
+            "Lecture de la position…": "Leyendo la posición…",
+            "Marqueurs enregistrés dans parideras_edit.json.": "Marcas guardadas en parideras_edit.json.",
+            "Enregistrement désactivé sur ce serveur.": "El guardado está desactivado en este servidor.",
+            "Enregistrement impossible sur ce serveur.": "No se puede guardar en este servidor.",
+            "Clique la nouvelle position du repère ": "Haz clic en la nueva posición de la marca ",
+            "Aimantation des points proches": "Imantación de puntos cercanos",
+            "Lissage spline final": "Suavizado spline final",
+            "Marcheur lisse": "Caminante suavizado",
+            "Marcheur aimanté": "Caminante imantado",
+            "Simulateur en marche.": "Simulador en marcha.",
+            "Arrivée. Tu peux encore orienter la caméra, ou quitter le simulateur.": "Llegada. Aún puedes orientar la cámara o salir del simulador.",
+            "Simulateur prêt au départ. Règle les curseurs, puis démarre.": "Simulador listo al inicio. Ajusta los controles y empieza.",
+            "Commande inconnue. Essaie edit.": "Comando desconocido. Prueba edit.",
+            "Google Earth + tracé KML": "Google Earth + ruta KML",
+            "Ouvrir Google Earth au départ et télécharger le tracé": "Abrir Google Earth al inicio y descargar la ruta",
+            "Calcule un trajet avant l’export": "Calcula una ruta antes de exportar",
+            "Module du marcheur indisponible": "Módulo del caminante no disponible",
+            "Google Earth ouvert au départ — KML dans Téléchargements : huerta-babylone-trace.kml": "Google Earth abierto al inicio — KML en Descargas: huerta-babylone-trace.kml",
+            "Campos abuelo": "Campos abuelo",
+            "Repère Campos abuelo": "Marca de Campos abuelo",
+            "Choisissez et validez une zone depuis Terre.": "Elige y valida una zona desde Tierra.",
+            "Clique sur « Choisir plusieurs points » pour commencer un trajet.": "Haz clic en « Elegir varios puntos » para iniciar una ruta.",
+            "Marcheur en préparation pour ce lieu.": "Caminante preparando este lugar.",
+            "Relief : Mapzen Terrain Tiles · sources et crédits": "Relieve: Mapzen Terrain Tiles · fuentes y créditos",
+            "Coordonnées invalides : latitude de −90 à 90, longitude de −180 à 180.": "Coordenadas no válidas: latitud de −90 a 90, longitud de −180 a 180.",
+            "La recherche par nom est temporairement indisponible. Réessayez ou saisissez des coordonnées GPS.": "La búsqueda por nombre no está disponible temporalmente. Inténtalo de nuevo o introduce coordenadas GPS.",
+            "Le repère indique le lieu choisi sur le globe.": "La marca indica el lugar elegido en el globo.",
+            "Lieu choisi :": "Lugar elegido:",
+            "Patientez un instant avant une nouvelle recherche.": "Espera un momento antes de buscar de nuevo.",
+            "Recherche du lieu…": "Buscando el lugar…",
+            "Saisissez une commune ou des coordonnées GPS.": "Introduce un municipio o coordenadas GPS.",
+            "Chargement de Huerta en cours…": "Cargando Huerta…",
+            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Las imágenes detalladas no están disponibles temporalmente. Puedes seguir explorando con la vista general.",
+            "Luminosité du globe": "Brillo del globo",
+            "Quitte le simulateur de marche avant de passer sur Terre.": "Sal del simulador de caminata antes de pasar a Tierra.",
+            "Sur Terre": "En Tierra",
+            "Valider cette zone": "Validar esta zona",
+            "Voir la zone détaillée": "Ver la zona detallada",
+            "Zone choisie": "Zona elegida",
+            "Zoomez fortement, puis déplacez le terrain sous le cadre, ou faites une recherche de lieu, puis validez cette zone.": "Acerca mucho el zoom, mueve el terreno bajo el marco o busca un lugar y valida esta zona.",
+            "Certaines images sont indisponibles. Revenez sur Terre pour réessayer.": "Algunas imágenes no están disponibles. Vuelve a Tierra para intentarlo de nuevo.",
+            "Chargement du relief…": "Cargando el relieve…",
+            "Détail variable selon la source": "El detalle varía según la fuente",
+            "Images de la zone": "Imágenes de la zona",
+            "Relief chargé": "Relieve cargado",
+            "Réessayer le relief": "Reintentar el relieve",
+            "Vue locale de la zone choisie": "Vista local de la zona elegida",
             "Chargement du terrain…": "Cargando el terreno…",
             "Création : Jacinto Costoso": "Creación: Jacinto Costoso",
             "Imagerie dérivée : IGN Espagne · CC BY 4.0 — Crédits": "Imágenes: IGN España · CC BY 4.0 — Créditos",
@@ -166,7 +281,6 @@
             "Temps écoulé : ": "Tiempo transcurrido: ",
             "Distance : ": "Distancia: ",
             "Marche estimée à 4–5 km/h : ": "Tiempo estimado a 4–5 km/h: ",
-            "Conseil : en haute montagne, commencez avec deux points et faites un premier calcul.": "Consejo: en alta montaña, empieza con dos puntos y haz un primer cálculo.",
             "Calcul du trajet en passant par les ": "Calculando una ruta por ",
             " points, dans l’ordre…": " puntos en orden…",
             "Calcul en cours — annuler": "Calculando — cancelar",
@@ -187,21 +301,74 @@
             "Temps maximal de calcul par option, en secondes": "Tiempo máximo de cálculo por opción, en segundos",
             "Hauteur de caméra au-dessus du trajet, en mètres": "Altura de la cámara sobre la ruta, en metros",
             "Vitesse de caméra, en mètres par seconde": "Velocidad de la cámara, en metros por segundo",
-            "Inclinaison de la caméra vers le sol, en degrés depuis l'horizontale": "Inclinación de la cámara hacia el suelo, en grados desde la horizontal",
-            "Sur Terre": "En la Tierra",
-            "Retour à Huertahernando": "Volver a Huertahernando",
-            "Luminosité du globe": "Luminosidad del globo",
-            "Vitesse de marche selon la pente": "Velocidad de marcha según la pendiente",
-            "Vitesse de survol, en km/h": "Velocidad de vuelo, en km/h",
-            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Las imágenes detalladas no están disponibles temporalmente. Puede seguir explorando con la vista general.",
-            "Voir la zone détaillée": "Ver zona detallada",
-            "Globe Exodus : clic gauche déplacement, milieu rotation et inclinaison, clic droit rotation et zoom, molette vers le pointeur": "Globo Exodus: clic izquierdo mover, clic central girar e inclinar, clic derecho girar y acercar, rueda acerca hacia el puntero",
-            "Gauche : déplacer · Milieu : tourner / incliner · Droit : tourner / zoomer · Molette : zoom vers le pointeur. Approche à 1 km.": "Izquierda: mover · Centro: girar / inclinar · Derecha: girar / acercar · Rueda: acercar al puntero. Aproximación a 1 km.",
-            "Tuiles : image générale": "Teselas: imagen general",
-            "Langue :": "Idioma:",
+            "Inclinaison de la caméra vers le sol, en degrés depuis l'horizontale": "Inclinación de la cámara hacia el suelo, en grados desde la horizontal"
+            ,"Langue :": "Idioma:",
             "Automatique": "Automático"
         },
         ca: {
+            "Calques ▼": "Capes ▼",
+            "Calques ▲": "Capes ▲",
+            "Image satellite : PNOA 2021": "Imatge satèl·lit: PNOA 2021",
+            "Image satellite : précédente": "Imatge satèl·lit: anterior",
+            "Modifier Parideras": "Edita Parideras",
+            "Ajouter sur la carte": "Afegeix al mapa",
+            "Enregistrer": "Desa",
+            "Sélectionne Modifier pour gérer les repères.": "Selecciona Edita per gestionar les marques.",
+            "Clique un emplacement sur le terrain.": "Fes clic en un lloc del terreny.",
+            "Déplacer": "Mou",
+            "Renommer": "Canvia el nom",
+            "Supprimer": "Suprimeix",
+            "Repère supprimé. Enregistre pour conserver la modification.": "Marca suprimida. Desa per conservar el canvi.",
+            "Position non détectée.": "Posició no detectada.",
+            "Nom modifié. Enregistre pour le conserver.": "Nom canviat. Desa per conservar-lo.",
+            "Modification effectuée. Enregistre pour la conserver.": "Canvi fet. Desa per conservar-lo.",
+            "Lecture de la position…": "Llegint la posició…",
+            "Marqueurs enregistrés dans parideras_edit.json.": "Marques desades a parideras_edit.json.",
+            "Enregistrement désactivé sur ce serveur.": "El desat està desactivat en aquest servidor.",
+            "Enregistrement impossible sur ce serveur.": "No es pot desar en aquest servidor.",
+            "Clique la nouvelle position du repère ": "Fes clic a la nova posició de la marca ",
+            "Aimantation des points proches": "Imantació dels punts propers",
+            "Lissage spline final": "Suavitzat spline final",
+            "Marcheur lisse": "Caminant suavitzat",
+            "Marcheur aimanté": "Caminant imantat",
+            "Simulateur en marche.": "Simulador en marxa.",
+            "Arrivée. Tu peux encore orienter la caméra, ou quitter le simulateur.": "Arribada. Encara pots orientar la càmera o sortir del simulador.",
+            "Simulateur prêt au départ. Règle les curseurs, puis démarre.": "Simulador preparat a l’inici. Ajusta els controls i inicia’l.",
+            "Commande inconnue. Essaie edit.": "Comanda desconeguda. Prova edit.",
+            "Google Earth + tracé KML": "Google Earth + trajecte KML",
+            "Ouvrir Google Earth au départ et télécharger le tracé": "Obre Google Earth a l’inici i baixa el trajecte",
+            "Calcule un trajet avant l’export": "Calcula un trajecte abans d’exportar",
+            "Module du marcheur indisponible": "Mòdul del caminant no disponible",
+            "Google Earth ouvert au départ — KML dans Téléchargements : huerta-babylone-trace.kml": "Google Earth obert a l’inici — KML a Descàrregues: huerta-babylone-trace.kml",
+            "Campos abuelo": "Campos abuelo",
+            "Repère Campos abuelo": "Marca de Campos abuelo",
+            "Choisissez et validez une zone depuis Terre.": "Tria i valida una zona des de Terra.",
+            "Clique sur « Choisir plusieurs points » pour commencer un trajet.": "Fes clic a « Tria diversos punts » per iniciar un trajecte.",
+            "Marcheur en préparation pour ce lieu.": "Caminant preparant aquest lloc.",
+            "Relief : Mapzen Terrain Tiles · sources et crédits": "Relleu: Mapzen Terrain Tiles · fonts i crèdits",
+            "Coordonnées invalides : latitude de −90 à 90, longitude de −180 à 180.": "Coordenades no vàlides: latitud de −90 a 90, longitud de −180 a 180.",
+            "La recherche par nom est temporairement indisponible. Réessayez ou saisissez des coordonnées GPS.": "La cerca per nom no està disponible temporalment. Torna-ho a provar o introdueix coordenades GPS.",
+            "Le repère indique le lieu choisi sur le globe.": "La marca indica el lloc triat al globus.",
+            "Lieu choisi :": "Lloc triat:",
+            "Patientez un instant avant une nouvelle recherche.": "Espera un moment abans de tornar a cercar.",
+            "Recherche du lieu…": "Cercant el lloc…",
+            "Saisissez une commune ou des coordonnées GPS.": "Introdueix un municipi o coordenades GPS.",
+            "Chargement de Huerta en cours…": "Carregant Huerta…",
+            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Les imatges detallades no estan disponibles temporalment. Pots continuar explorant amb la vista general.",
+            "Luminosité du globe": "Brillantor del globus",
+            "Quitte le simulateur de marche avant de passer sur Terre.": "Surt del simulador de caminada abans de passar a Terra.",
+            "Sur Terre": "A Terra",
+            "Valider cette zone": "Valida aquesta zona",
+            "Voir la zone détaillée": "Veure la zona detallada",
+            "Zone choisie": "Zona triada",
+            "Zoomez fortement, puis déplacez le terrain sous le cadre, ou faites une recherche de lieu, puis validez cette zone.": "Fes molt zoom, mou el terreny sota el marc o cerca un lloc i valida aquesta zona.",
+            "Certaines images sont indisponibles. Revenez sur Terre pour réessayer.": "Algunes imatges no estan disponibles. Torna a Terra per tornar-ho a provar.",
+            "Chargement du relief…": "Carregant el relleu…",
+            "Détail variable selon la source": "El detall varia segons la font",
+            "Images de la zone": "Imatges de la zona",
+            "Relief chargé": "Relleu carregat",
+            "Réessayer le relief": "Torna a provar el relleu",
+            "Vue locale de la zone choisie": "Vista local de la zona triada",
             "Chargement du terrain…": "Carregant el terreny…",
             "Création : Jacinto Costoso": "Creació: Jacinto Costoso",
             "Imagerie dérivée : IGN Espagne · CC BY 4.0 — Crédits": "Imatges: IGN Espanya · CC BY 4.0 — Crèdits",
@@ -255,7 +422,6 @@
             "Ajoute au moins un second point.": "Afegeix almenys un segon punt.",
             "Départ": "Sortida",
             "Arrivée": "Arribada",
-            "Étape ": "Tram ",
             "Calcul en cours — annuler": "Càlcul en curs — cancel·la",
             "Terminer les points (": "Acaba la selecció de punts (",
             "En attente du point suivant": "Esperant el punt següent",
@@ -263,146 +429,36 @@
             "Calcul en cours…": "Càlcul en curs…",
             "Calcul interrompu. Voir Messages.": "Càlcul interromput. Consulta els missatges.",
             "Calcul annulé. Choisis le premier point.": "Càlcul cancel·lat. Tria el primer punt.",
-            "Sur Terre": "A la Terra",
-            "Retour à Huertahernando": "Torna a Huertahernando",
-            "Luminosité du globe": "Brillantor del globus",
-            "Vitesse de marche selon la pente": "Velocitat de caminada segons el pendent",
-            "Vitesse de survol, en km/h": "Velocitat del sobrevol, en km/h",
-            "Les images détaillées sont temporairement indisponibles. Vous pouvez continuer à explorer avec la vue générale.": "Les imatges detallades no estan disponibles temporalment. Podeu continuar explorant amb la vista general.",
-            "Voir la zone détaillée": "Mostra la zona detallada",
-            "Globe Exodus : clic gauche déplacement, milieu rotation et inclinaison, clic droit rotation et zoom, molette vers le pointeur": "Globus Exodus: clic esquerre per moure, central per girar i inclinar, dret per girar i apropar, roda per apropar cap al punter",
-            "Gauche : déplacer · Milieu : tourner / incliner · Droit : tourner / zoomer · Molette : zoom vers le pointeur. Approche à 1 km.": "Esquerre: moure · Central: girar / inclinar · Dret: girar / apropar · Roda: apropar cap al punter. Aproximació a 1 km.",
-            "Tuiles : image générale": "Rajoles: imatge general",
+            "Commande : off calque / on calque / off test / on test": "Comanda: off calque / on calque / off test / on test",
+            "Google Earth — pivot": "Google Earth — pivot",
+            "Ouvrir Google Earth à la position du dernier pivot": "Obre Google Earth a la posició de l’últim pivot",
+            "Définis un pivot avec le clic milieu ou droit": "Defineix un pivot amb el clic del mig o dret",
+            "Aucun pivot : clique sur le terrain d'abord": "Cap pivot: fes clic primer al terreny",
+            "Parideras": "Parideras",
+            "Centrer la caméra sur les repères Parideras": "Centra la càmera en les marques de Parideras",
+            "5 min par option": "5 min per opció",
+            "Inclinaison vers le sol": "Inclinació cap al terra",
+            "Inclinaison de la caméra vers le sol, en degrés depuis l'horizontale": "Inclinació de la càmera cap al terra, en graus des de l’horitzontal",
+            "Calcul du trajet en passant par les ": "Calculant un trajecte passant pels ",
+            " points, dans l’ordre…": " punts, en ordre…",
+            "Calcul de l’étape ": "Calculant el tram ",
+            "Étape ": "Tram ",
+            "Point 1 choisi. Clique le point suivant.": "Punt 1 triat. Fes clic al punt següent.",
+            " choisi. Continue dans l’ordre, puis relance ce bouton pour calculer.": " triat. Continua en ordre i torna a prémer aquest botó per calcular.",
+            "Points choisis. Relance le bouton pour calculer.": "Punts triats. Torna a prémer el botó per calcular.",
+            "Préparation du calcul…": "Preparació del càlcul…",
+            "Préparation impossible. Voir Messages.": "No es pot preparar el càlcul. Consulta els missatges.",
+            "Survol terminé. La navigation est rétablie.": "Sobrevol acabat. La navegació s’ha restablert.",
+            "Temps maximal de calcul par option, en secondes": "Temps màxim de càlcul per opció, en segons",
+            "Hauteur de caméra au-dessus du trajet, en mètres": "Alçada de la càmera sobre el trajecte, en metres",
+            "Vitesse de caméra, en mètres par seconde": "Velocitat de la càmera, en metres per segon",
+            "Pente de référence du trajet, de 5 à 12 degrés": "Pendent de referència del trajecte, de 5 a 12 graus",
+            "Plafond de pente accepté du trajet, de 5 à 70 degrés": "Límit de pendent acceptat del trajecte, de 5 a 70 graus",
+            "Clique les points successifs du trajet, puis relance ce bouton pour calculer.": "Fes clic als punts successius del trajecte i torna a prémer aquest botó per calcular.",
             "Langue :": "Llengua:",
             "Automatique": "Automàtic"
         }
     };
-
-    var placeSearchTranslations = [
-        ["Clique sur « Choisir plusieurs points » pour commencer un trajet.", "Click ‘Choose multiple points’ to start a route.", "Pulsa « Elegir varios puntos » para comenzar una ruta.", "Prem « Tria diversos punts » per començar una ruta."],
-        ["Google Earth — pivot", "Google Earth — pivot", "Google Earth — punto de giro", "Google Earth — pivot"],
-        ["Définis un pivot avec le clic milieu ou droit", "Set a pivot with the middle or right mouse button", "Define un punto de giro con el botón central o derecho del ratón", "Defineix un pivot amb el botó central o dret del ratolí"],
-        ["Ouvrir Google Earth à la position du dernier pivot", "Open Google Earth at the last pivot position", "Abrir Google Earth en la posición del último punto de giro", "Obre Google Earth a la posició de l’últim pivot"],
-        ["Pente de référence du trajet, de 5 à 12 degrés", "Reference route slope, from 5 to 12 degrees", "Pendiente de referencia de la ruta, de 5 a 12 grados", "Pendent de referència de la ruta, de 5 a 12 graus"],
-        ["Plafond de pente accepté du trajet, de 5 à 70 degrés", "Maximum allowed route slope, from 5 to 70 degrees", "Límite de pendiente de la ruta, de 5 a 70 grados", "Límit de pendent de la ruta, de 5 a 70 graus"],
-        ["Temps maximal de calcul par option, en secondes", "Maximum calculation time per option, in seconds", "Tiempo máximo de cálculo por opción, en segundos", "Temps màxim de càlcul per opció, en segons"],
-        ["Hauteur de caméra au-dessus du trajet, en mètres", "Camera height above route, in metres", "Altura de la cámara sobre la ruta, en metros", "Altura de la càmera sobre la ruta, en metres"],
-        ["Impossible d’entrer dans le simulateur.", "Unable to enter the simulator.", "No se puede entrar en el simulador.", "No es pot entrar al simulador."],
-        ["Préparation du calcul…", "Preparing calculation…", "Preparando el cálculo…", "Preparant el càlcul…"],
-        ["Préparation impossible. Voir Messages.", "Unable to prepare calculation. See Messages.", "No se pudo preparar el cálculo. Consulta los mensajes.", "No s’ha pogut preparar el càlcul. Consulta els missatges."],
-        ["Points choisis. Relance le bouton pour calculer.", "Points selected. Press the button again to calculate.", "Puntos seleccionados. Pulsa el botón de nuevo para calcular.", "Punts seleccionats. Prem el botó de nou per calcular."],
-        ["Calcul de l’étape ", "Calculating leg ", "Calculando el tramo ", "Calculant el tram "],
-        ["Langue", "Language", "Idioma", "Llengua"],
-        ["Ouvrir Google Earth au départ et télécharger le tracé", "Open Google Earth at the start and download the route", "Abrir Google Earth en la salida y descargar la ruta", "Obre Google Earth a la sortida i descarrega la ruta"],
-        ["Tuiles : ", "Tiles: ", "Teselas: ", "Rajoles: "],
-        [" affichées", " displayed", " visibles", " visibles"],
-        ["niveau EOX ", "EOX level ", "nivel EOX ", "nivell EOX "],
-        [" en chargement", " loading", " cargando", " carregant"],
-        ["mémoire ", "cache ", "memoria ", "memòria "],
-        ["vue générale", "overview", "vista general", "vista general"],
-        ["image générale conservée sur les zones indisponibles", "overview retained in unavailable areas", "vista general conservada en las zonas no disponibles", "vista general conservada a les zones no disponibles"],
-        [" min par option", " min per option", " min por opción", " min per opció"],
-        [" s par option", " s per option", " s por opción", " s per opció"],
-        ["Pente de référence", "Reference slope", "Pendiente de referencia", "Pendent de referència"],
-        ["Pente maximale acceptée", "Maximum allowed slope", "Pendiente máxima permitida", "Pendent màxim permès"],
-        ["Temps par option", "Time per option", "Tiempo por opción", "Temps per opció"],
-        ["Messages du calcul", "Calculation messages", "Mensajes del cálculo", "Missatges del càlcul"],
-        ["Messages du calcul Marcheur", "Walker calculation messages", "Mensajes del cálculo del caminante", "Missatges del càlcul del caminant"],
-        ["Fermer", "Close", "Cerrar", "Tanca"],
-        ["Calques des trajets", "Route layers", "Capas de rutas", "Capes de rutes"],
-        ["Hauteur au-dessus du trajet", "Height above route", "Altura sobre la ruta", "Altura sobre la ruta"],
-        ["Vitesse de survol", "Flyover speed", "Velocidad de vuelo", "Velocitat del sobrevol"],
-        ["Inclinaison vers le sol", "Downward camera angle", "Inclinación hacia el suelo", "Inclinació cap al terra"],
-        ["Entrer dans le simulateur de marche", "Enter walking simulator", "Entrar en el simulador de marcha", "Entra al simulador de caminada"],
-        ["Démarrer le marcheur", "Start walker", "Iniciar el caminante", "Inicia el caminant"],
-        ["Pause", "Pause", "Pausa", "Pausa"],
-        ["Reprendre", "Resume", "Reanudar", "Reprèn"],
-        ["Quitter", "Exit", "Salir", "Surt"],
-        ["Choisir plusieurs points", "Choose multiple points", "Elegir varios puntos", "Tria diversos punts"],
-        ["Rechoisir plusieurs points", "Choose points again", "Volver a elegir puntos", "Torna a triar punts"],
-        ["Refaire le calcul", "Recalculate", "Recalcular", "Torna a calcular"],
-        ["Calculer le trajet", "Calculate route", "Calcular la ruta", "Calcula la ruta"],
-        ["Temps écoulé : —", "Elapsed time: —", "Tiempo transcurrido: —", "Temps transcorregut: —"],
-        ["Temps écoulé : ", "Elapsed time: ", "Tiempo transcurrido: ", "Temps transcorregut: "],
-        ["Calcule un trajet pour lancer le survol.", "Calculate a route to start the flyover.", "Calcula una ruta para iniciar el vuelo.", "Calcula una ruta per iniciar el sobrevol."],
-        ["Prêt. Choisis deux points sur la carte.", "Ready. Choose two points on the map.", "Listo. Elige dos puntos en el mapa.", "Preparat. Tria dos punts al mapa."],
-        ["Prêt. Choisis les points du trajet dans l’ordre.", "Ready. Choose route points in order.", "Listo. Elige los puntos de la ruta en orden.", "Preparat. Tria els punts de la ruta en ordre."],
-        ["Simulateur quitté. La vue précédente est restaurée.", "Simulator closed. The previous view has been restored.", "Has salido del simulador. Se ha restaurado la vista anterior.", "Has sortit del simulador. S’ha restaurat la vista anterior."],
-        ["Terminer les points (", "Finish selecting points (", "Terminar selección de puntos (", "Acaba la selecció de punts ("],
-        ["Clique les points successifs du trajet, puis relance ce bouton pour calculer.", "Click the route points in order, then press this button again to calculate.", "Marca los puntos de la ruta en orden y pulsa este botón de nuevo para calcular.", "Marca els punts de la ruta en ordre i prem aquest botó de nou per calcular."],
-        ["Point 1 choisi. Clique le point suivant.", "Point 1 selected. Click the next point.", "Punto 1 seleccionado. Haz clic en el siguiente punto.", "Punt 1 seleccionat. Fes clic al punt següent."],
-        [" choisi. Continue dans l’ordre, puis relance ce bouton pour calculer.", " selected. Continue in order, then press this button again to calculate.", " seleccionado. Continúa en orden y pulsa este botón de nuevo para calcular.", " seleccionat. Continua en ordre i prem aquest botó de nou per calcular."],
-        ["Crédits", "Credits", "Créditos", "Crèdits"],
-        ["Crédits du projet", "Project credits", "Créditos del proyecto", "Crèdits del projecte"],
-        ["Description", "Description", "Descripción", "Descripció"],
-        ["Marche selon la pente : —", "Walking time by slope: —", "Tiempo de marcha según la pendiente: —", "Caminada segons el pendent: —"],
-        ["Marche selon la pente : ", "Walking time by slope: ", "Tiempo de marcha según la pendiente: ", "Caminada segons el pendent: "],
-        ["Aimantation des points proches", "Merge nearby points", "Unir puntos cercanos", "Uneix els punts propers"],
-        ["Lissage spline final", "Final curve smoothing", "Suavizado final de la curva", "Suavitzat final de la corba"],
-        ["Correction globale de vitesse", "Overall speed adjustment", "Ajuste global de velocidad", "Ajust de velocitat global"],
-        ["Marcheur lisse", "Smoothed walker route", "Ruta suavizada", "Ruta suavitzada"],
-        ["Marcheur aimanté", "Merged walker route", "Ruta con puntos unidos", "Ruta amb punts units"],
-        ["Simulateur en marche.", "Simulator running.", "Simulador en marcha.", "Simulador en marxa."],
-        ["Simulateur prêt au départ. Règle les curseurs, puis démarre.", "Simulator ready. Adjust the sliders, then start.", "Simulador listo. Ajusta los controles y empieza.", "Simulador preparat. Ajusta els controls i comença."],
-        ["Arrivée. Tu peux encore orienter la caméra, ou quitter le simulateur.", "Arrived. You can still turn the camera or exit the simulator.", "Has llegado. Puedes orientar la cámara o salir del simulador.", "Has arribat. Pots orientar la càmera o sortir del simulador."],
-        ["En marche", "Walking", "En marcha", "En marxa"],
-        ["En pause", "Paused", "En pausa", "En pausa"],
-        ["En attente d’un trajet.", "Waiting for a route.", "Esperando una ruta.", "Esperant una ruta."],
-        ["Aucun trajet possible", "No route found", "No se ha encontrado una ruta", "No s’ha trobat cap ruta"],
-        ["pente trop raide ou zone infranchissable.", "slope too steep or impassable area.", "pendiente demasiado pronunciada o zona infranqueable.", "pendent massa pronunciat o zona infranquejable."],
-        ["Le départ ou l'arrivée dépasse la pente maximale praticable.", "The start or finish exceeds the maximum walkable slope.", "La salida o la llegada supera la pendiente máxima permitida.", "La sortida o l’arribada supera el pendent màxim permès."],
-        ["Calcul incomplet. Détails dans Messages.", "Calculation incomplete. See Messages for details.", "Cálculo incompleto. Consulta los mensajes.", "Càlcul incomplet. Consulta els missatges."],
-        ["Trajet terminé en suivant les ", "Route completed through ", "Ruta completada pasando por los ", "Ruta completada passant pels "],
-        [" points.", " points.", " puntos.", " punts."],
-        ["Trajet partiel : blocage entre les points ", "Partial route: blocked between points ", "Ruta parcial: bloqueo entre los puntos ", "Ruta parcial: bloqueig entre els punts "],
-        [". Voir Messages.", ". See Messages.", ". Consulta los mensajes.", ". Consulta els missatges."],
-        ["Google Earth + tracé KML", "Google Earth + KML route", "Google Earth + ruta KML", "Google Earth + ruta KML"],
-        ["Module du marcheur indisponible", "Walker unavailable", "Caminante no disponible", "Caminant no disponible"],
-        ["Calcule un trajet avant l’export", "Calculate a route before exporting", "Calcula una ruta antes de exportar", "Calcula una ruta abans d’exportar"],
-        ["Quitte le simulateur de marche avant de passer sur Terre.", "Exit the walking simulator before switching to Earth.", "Sal del simulador antes de pasar a Tierra.", "Surt del simulador abans de passar a Terra."],
-        ["Chargement de Huerta en cours…", "Loading Huerta…", "Cargando Huerta…", "Carregant Huerta…"],
-        ["Conseil : en haute montagne, commencez avec deux points et faites un premier calcul.", "Advice: in high mountains, start with two points and run an initial calculation.", "Consejo: en alta montaña, empieza con dos puntos y haz un primer cálculo.", "Consell: a l’alta muntanya, comença amb dos punts i fes un primer càlcul."],
-        ["Marcheur en préparation pour ce lieu.", "Walker being prepared for this place.", "Caminante en preparación para este lugar.", "Caminant en preparació per a aquest lloc."],
-        ["Chargement du relief…", "Loading terrain heights…", "Cargando el relieve…", "Carregant el relleu…"],
-        ["Relief chargé", "Terrain heights loaded", "Relieve cargado", "Relleu carregat"],
-        ["Détail variable selon la source", "Detail varies by source", "Detalle variable según la fuente", "Detall variable segons la font"],
-        ["Réessayer le relief", "Retry terrain heights", "Reintentar el relieve", "Torna a provar el relleu"],
-        ["Relief indisponible près des pôles. La vue reste plane.", "Terrain heights are unavailable near the poles. The view remains flat.", "El relieve no está disponible cerca de los polos. La vista sigue siendo plana.", "El relleu no està disponible prop dels pols. La vista continua plana."],
-        ["Relief temporairement indisponible. La vue reste plane.", "Terrain heights are temporarily unavailable. The view remains flat.", "El relieve no está disponible temporalmente. La vista sigue siendo plana.", "El relleu no està disponible temporalment. La vista continua plana."],
-        ["Relief : Mapzen Terrain Tiles · sources et crédits", "Terrain: Mapzen Terrain Tiles · sources and credits", "Relieve: Mapzen Terrain Tiles · fuentes y créditos", "Relleu: Mapzen Terrain Tiles · fonts i crèdits"],
-        ["Le marcheur sera disponible après la construction du relief.", "The walker will be available once the terrain heights are added.", "El caminante estará disponible después de construir el relieve.", "El caminant estarà disponible després de construir el relleu."],
-        ["Choisissez et validez une zone depuis Terre.", "Choose and confirm an area from Earth.", "Elija y valide una zona desde Tierra.", "Trieu i valideu una zona des de Terra."],
-        ["Zoomez fortement, puis déplacez le terrain sous le cadre, ou faites une recherche de lieu, puis validez cette zone.", "Zoom in closely, then move the ground beneath the frame, or search for a place, then confirm this area.", "Acerque mucho la vista y después desplace el terreno bajo el marco, o busque un lugar, y confirme esta zona.", "Apropeu molt la vista i després desplaceu el terreny sota el marc, o cerqueu un lloc, i confirmeu aquesta zona."],
-        ["Valider cette zone", "Confirm this area", "Validar esta zona", "Valida aquesta zona"],
-        ["Zone choisie", "Selected area", "Zona elegida", "Zona triada"],
-        ["Vue locale — relief à construire.", "Local view — terrain heights to be added.", "Vista local — relieve por construir.", "Vista local — relleu per construir."],
-        ["Vue locale de la zone choisie", "Local view of the selected area", "Vista local de la zona elegida", "Vista local de la zona triada"],
-        ["Images de la zone", "Area images", "Imágenes de la zona", "Imatges de la zona"],
-        ["Certaines images sont indisponibles. Revenez sur Terre pour réessayer.", "Some images are unavailable. Return to Earth to try again.", "Algunas imágenes no están disponibles. Vuelva a Tierra para intentarlo de nuevo.", "Algunes imatges no estan disponibles. Torneu a Terra per tornar-ho a provar."],
-        ["Retour sur Terre", "Return to Earth", "Volver a Tierra", "Torna a Terra"],
-        ["Revenir au lieu choisi", "Return to the selected place", "Volver al lugar elegido", "Torna al lloc triat"],
-        ["Gauche : déplacer · Milieu : tourner / incliner · Molette : zoomer.", "Left: pan · Middle: rotate / tilt · Wheel: zoom.", "Izquierdo: desplazar · Central: girar / inclinar · Rueda: zoom.", "Esquerre: desplaçar · Central: girar / inclinar · Roda: zoom."],
-        ["Recherchez une commune ou saisissez ses coordonnées GPS.", "Search for a town or enter its GPS coordinates.", "Busque un municipio o introduzca sus coordenadas GPS.", "Cerqueu un municipi o introduïu-ne les coordenades GPS."],
-        ["Terre", "Earth", "Tierra", "Terra"],
-        ["Choisir un lieu sur Terre", "Choose a place on Earth", "Elegir un lugar en la Tierra", "Trieu un lloc a la Terra"],
-        ["Commune ou coordonnées GPS", "Town or GPS coordinates", "Municipio o coordenadas GPS", "Municipi o coordenades GPS"],
-        ["Huertahernando, Espagne ou 40.827897, -2.288334", "Huertahernando, Spain or 40.827897, -2.288334", "Huertahernando, España o 40.827897, -2.288334", "Huertahernando, Espanya o 40.827897, -2.288334"],
-        ["Rechercher", "Search", "Buscar", "Cerca"],
-        ["GPS : latitude, longitude en degrés décimaux.", "GPS: latitude, longitude in decimal degrees.", "GPS: latitud, longitud en grados decimales.", "GPS: latitud, longitud en graus decimals."],
-        ["Lieux trouvés", "Places found", "Lugares encontrados", "Llocs trobats"],
-        ["Lieu choisi :", "Selected place:", "Lugar elegido:", "Lloc triat:"],
-        ["Le repère indique le lieu choisi sur le globe.", "The marker shows the selected place on the globe.", "El marcador indica el lugar elegido en el globo.", "El marcador indica el lloc triat al globus."],
-        ["Choisissez un lieu dans la liste.", "Choose a place from the list.", "Elija un lugar de la lista.", "Trieu un lloc de la llista."],
-        ["Aucun lieu trouvé. Précisez la région ou le pays, ou saisissez des coordonnées GPS.", "No place found. Specify a region or country, or enter GPS coordinates.", "No se ha encontrado ningún lugar. Indique la región o el país, o introduzca coordenadas GPS.", "No s'ha trobat cap lloc. Indiqueu la regió o el país, o introduïu coordenades GPS."],
-        ["Saisissez une commune ou des coordonnées GPS.", "Enter a town or GPS coordinates.", "Introduzca un municipio o coordenadas GPS.", "Introduïu un municipi o coordenades GPS."],
-        ["Coordonnées invalides : latitude de −90 à 90, longitude de −180 à 180.", "Invalid coordinates: latitude from −90 to 90, longitude from −180 to 180.", "Coordenadas no válidas: latitud de −90 a 90, longitud de −180 a 180.", "Coordenades no vàlides: latitud de −90 a 90, longitud de −180 a 180."],
-        ["Patientez un instant avant une nouvelle recherche.", "Wait a moment before searching again.", "Espere un momento antes de volver a buscar.", "Espereu un moment abans de tornar a cercar."],
-        ["Recherche du lieu…", "Searching for the place…", "Buscando el lugar…", "Cercant el lloc…"],
-        ["La recherche par nom est temporairement indisponible. Réessayez ou saisissez des coordonnées GPS.", "Place name search is temporarily unavailable. Try again or enter GPS coordinates.", "La búsqueda por nombre no está disponible temporalmente. Inténtelo de nuevo o introduzca coordenadas GPS.", "La cerca per nom no està disponible temporalment. Torneu-ho a provar o introduïu coordenades GPS."]
-    ];
-    placeSearchTranslations.forEach(function(row) {
-        ["en", "es", "ca"].forEach(function(code, i) { dictionaries[code][row[0]] = row[i + 1]; });
-    });
 
     var preferences = navigator.languages && navigator.languages.length
         ? navigator.languages.slice()
@@ -418,23 +474,6 @@
     var browserLanguage = language;
     var dictionary = dictionaries[language] || {};
 
-    function replaceTerms(value, pairs) {
-        var replacements = new Map(pairs.filter(function(pair) { return pair[0]; }));
-        var terms = Array.from(replacements.keys()).sort(function(a, b) { return b.length - a.length; });
-        if (!terms.length) return value;
-        var pattern = new RegExp(terms.map(function(term) {
-            return term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        }).join("|"), "gu");
-        return value.replace(pattern, function(match, offset) {
-            // Do not replace short labels inside words: Spanish "Ver" must
-            // never alter "Version" when returning to French or Catalan.
-            var letter = /\p{L}/u;
-            if ((letter.test(match[0]) && offset > 0 && letter.test(value[offset - 1])) ||
-                (letter.test(match[match.length - 1]) && letter.test(value[offset + match.length] || ""))) return match;
-            return replacements.get(match);
-        });
-    }
-
     function setActiveLanguage(nextLanguage) {
         if (language === nextLanguage) return;
         var reverse = Object.keys(dictionary).map(function(source) {
@@ -444,13 +483,17 @@
         function restoreNode(node) {
             if (node.nodeType === 3) {
                 var original = node.nodeValue;
-                original = replaceTerms(original, reverse);
+                reverse.forEach(function(pair) {
+                    if (pair[0]) original = original.split(pair[0]).join(pair[1]);
+                });
                 node.nodeValue = original;
             } else if (node.nodeType === 1) {
                 ["title", "placeholder", "aria-label"].forEach(function(attribute) {
                     if (!node.hasAttribute(attribute)) return;
                     var value = node.getAttribute(attribute);
-                    value = replaceTerms(value, reverse);
+                    reverse.forEach(function(pair) {
+                        if (pair[0]) value = value.split(pair[0]).join(pair[1]);
+                    });
                     node.setAttribute(attribute, value);
                 });
                 Array.prototype.slice.call(node.childNodes).forEach(restoreNode);
@@ -466,23 +509,14 @@
         translateNode(document.body);
         window.HuertaI18n.language = language;
         window.HuertaI18n.t = translate;
-        document.querySelectorAll('input[name="huerta_language"]').forEach(function(radio) {
-            radio.checked = radio.value === language;
-        });
-        // The selected terrain lives in a separate document. Both language
-        // menus must control the same language, including an already open zone.
-        if (window.parent !== window && window.parent.HuertaI18n) {
-            window.parent.HuertaI18n.setLanguage(language);
-        }
-        var localFrame = document.getElementById("exodus_local_frame");
-        if (localFrame && localFrame.contentWindow.HuertaI18n) {
-            localFrame.contentWindow.HuertaI18n.setLanguage(language);
-        }
     }
 
     function translate(value) {
         if (Object.prototype.hasOwnProperty.call(dictionary, value)) return dictionary[value];
-        return replaceTerms(value, Object.keys(dictionary).map(function(source) { return [source, dictionary[source]]; }));
+        return Object.keys(dictionary).sort(function(a, b) { return b.length - a.length; })
+            .reduce(function(result, source) {
+                return result.indexOf(source) === -1 ? result : result.split(source).join(dictionary[source]);
+            }, value);
     }
 
     function translateNode(node) {
@@ -565,3 +599,4 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, false);
     else start();
 })();
+

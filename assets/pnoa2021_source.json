@@ -1,0 +1,1 @@
+{"source":"IGN PNOA2021","service":"https://www.ign.es/wms/pnoa-historico","layer":"PNOA2021","srs":"EPSG:25830","bbox":[554886,4515098,564240,4523978],"tile_grid":{"rows":18,"columns":20,"tile_size_m":512,"bleed_m":16,"pixels":2176}}

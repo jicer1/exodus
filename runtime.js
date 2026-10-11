@@ -59,7 +59,6 @@
                 window.addEventListener("resize", () => engine.resize());
                 engine.runRenderLoop(() => {
                     if (!loaded) return;
-                    if (state.worldMode === "earth" || state.worldMode === "local") return;
                     for (const callback of loops) callback(performance.now()/1000, engine.getDeltaTime()/1000);
                     scene.render(); state.frames++;
                 });
@@ -153,16 +152,41 @@
     }});
     modules.set("textures", {change_image(obj,name,path,callback) {
         // Each HD mesh owns its material; only the shared base texture is cached.
-        const old=obj.material.diffuseTexture;
-        if (path.endsWith("Huerta_Satellite_MNT_100m_8000.jpg")) {
+        const serial=(obj._huertaTextureSerial || 0) + 1;
+        obj._huertaTextureSerial=serial;
+        if (path.endsWith("Huerta_Satellite_MNT_100m_8000.jpg") ||
+            path.endsWith("Huerta_Satellite_previous.jpg")) {
+            const old=obj.material.diffuseTexture;
             obj.material.diffuseTexture=loaded.objects.get(HuertaConfig.terrain).material.diffuseTexture;
             if(old && old!==obj.material.diffuseTexture) old.dispose();
             queueMicrotask(() => callback(true)); return;
         }
         const texture=new B.Texture(path,scene,false,true,B.Texture.TRILINEAR_SAMPLINGMODE,() => {
+            if(serial!==obj._huertaTextureSerial) {
+                texture.dispose(); callback(false); return;
+            }
+            const old=obj.material.diffuseTexture;
             obj.material.diffuseTexture=texture;
             const base=loaded.objects.get(HuertaConfig.terrain).material.diffuseTexture;
             if(old && old!==base && old!==texture) old.dispose();
+            callback(true);
+        },() => {texture.dispose(); callback(false);});
+    }, change_base_image(path,callback) {
+        if(!loaded || !scene) {callback(false); return;}
+        const texture=new B.Texture(path,scene,false,true,B.Texture.TRILINEAR_SAMPLINGMODE,() => {
+            const terrain=loaded.objects.get(HuertaConfig.terrain);
+            if(!terrain || !terrain.material) {texture.dispose(); callback(false); return;}
+            const oldBase=terrain.material.diffuseTexture;
+            terrain.material.diffuseTexture=texture;
+            for(const [name,obj] of loaded.objects) {
+                if(obj===terrain || !obj.material ||
+                   (obj.material.diffuseTexture!==oldBase && !/^terrain_hd_r\d\d_c\d\d$/.test(name))) continue;
+                obj._huertaTextureSerial=(obj._huertaTextureSerial || 0) + 1;
+                const old=obj.material.diffuseTexture;
+                obj.material.diffuseTexture=texture;
+                if(old && old!==oldBase && old!==texture) old.dispose();
+            }
+            if(oldBase && oldBase!==texture) oldBase.dispose();
             callback(true);
         },() => {texture.dispose(); callback(false);});
     }});

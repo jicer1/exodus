@@ -17,6 +17,18 @@ var _camera = null;
 var _assets_path = "";
 var _tiles = [];
 var _last_update = 0;
+var _imagery = "pnoa2021";
+var _switching = false;
+
+function base_image() {
+    return _assets_path + (_imagery === "previous" ?
+        "Huerta_Satellite_previous.jpg" : "Huerta_Satellite_MNT_100m_8000.jpg");
+}
+
+function tile_image(tile) {
+    return _assets_path + (_imagery === "previous" ?
+        "hd_tiles_pnoa2024_original/" : "hd_tiles/") + tile.image;
+}
 
 function add_tile(row, col, x, y) {
     var name = PREFIX + row + "_c" + col;
@@ -64,7 +76,6 @@ function hide_all() {
 function unload_tile(tile) {
     if (!tile.loaded && !tile.loading)
         return;
-    var was_loading = tile.loading;
     tile.generation++;
     tile.loading = false;
     tile.loaded = false;
@@ -72,9 +83,9 @@ function unload_tile(tile) {
         m_scenes.hide_object(tile.object);
     // Replacing with the already loaded base map releases the large HD image
     // when texture caching is disabled, while keeping the object's material valid.
-    if (tile.object && !was_loading)
+    if (tile.object)
         m_textures.change_image(tile.object, tile.texture,
-            _assets_path + "Huerta_Satellite_MNT_100m_8000.jpg", function() {});
+            base_image(), function() {});
 }
 
 function load_tile(tile) {
@@ -83,13 +94,8 @@ function load_tile(tile) {
     tile.loading = true;
     var generation = ++tile.generation;
     m_textures.change_image(tile.object, tile.texture,
-        _assets_path + "hd_tiles/" + tile.image, function(success) {
-            if (generation !== tile.generation) {
-                m_textures.change_image(tile.object, tile.texture,
-                    _assets_path + "Huerta_Satellite_MNT_100m_8000.jpg",
-                    function() {});
-                return;
-            }
+        tile_image(tile), function(success) {
+            if (generation !== tile.generation) return;
             tile.loading = false;
             if (success) {
                 tile.loaded = true;
@@ -109,6 +115,7 @@ function distance_to_tile(x, y, tile) {
 }
 
 function update() {
+    if (_switching || !_camera) return;
     var now = Date.now();
     if (now - _last_update < UPDATE_INTERVAL * 1000)
         return;
@@ -139,5 +146,33 @@ exports.init = function(camera, assets_path) {
     m_main.append_loop_cb(update);
     console.log("HUERTA HD : chargeur prêt | tuiles locales :", _tiles.length);
 };
+
+exports.set_imagery = function(mode, callback) {
+    if (!_camera || _switching || (mode !== "pnoa2021" && mode !== "previous")) {
+        callback(false); return;
+    }
+    if (mode === _imagery) {callback(true); return;}
+    _switching = true;
+    window.dispatchEvent(new CustomEvent("exodus-imagery", {detail:{mode:_imagery, loading:true}}));
+    for (var i = 0; i < _tiles.length; i++) {
+        var tile = _tiles[i];
+        tile.generation++;
+        tile.loading = false;
+        tile.loaded = false;
+        if (tile.object) m_scenes.hide_object(tile.object);
+    }
+    var image = _assets_path + (mode === "previous" ?
+        "Huerta_Satellite_previous.jpg" : "Huerta_Satellite_MNT_100m_8000.jpg");
+    m_textures.change_base_image(image, function(success) {
+        if (success) _imagery = mode;
+        _switching = false;
+        window.dispatchEvent(new CustomEvent("exodus-imagery", {detail:{mode:_imagery, loading:false}}));
+        _last_update = 0;
+        update();
+        callback(success);
+    });
+};
+
+exports.get_imagery = function() {return _imagery;};
 
 });

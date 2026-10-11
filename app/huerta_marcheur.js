@@ -14,8 +14,8 @@ var m_scenes = require("scenes");
 var m_huerta = require("huerta_webgl_main");
 var m_calques = require("huerta_calques");
 
-var UTM_OFFSET_X = window.ExodusLocalContext ? 0 : 559563.0;
-var UTM_OFFSET_Y = window.ExodusLocalContext ? 0 : 4519538.0;
+var UTM_OFFSET_X = 559563.0;
+var UTM_OFFSET_Y = 4519538.0;
 var TERRAIN_LINE_CLEARANCE_M = 3.0;
 var canvas = null;
 var context = null;
@@ -37,7 +37,6 @@ var timeLimitInput = null;
 var timeLimitValue = null;
 var elapsedPanel = null;
 var elapsedLabel = null;
-var routeMessageLabel = null;
 var routeSummary = null;
 var routeDistanceLabel = null;
 var routeWalkingTimeLabel = null;
@@ -59,7 +58,6 @@ var flightStopButton = null;
 var flightAltitudeInput = null;
 var flightAltitudeValue = null;
 var flightSpeedInput = null;
-var ROUTE_FLIGHT_DEFAULT_SPEED_KMH = 5;
 var flightSpeedValue = null;
 var flightInclinationInput = null;
 var flightInclinationValue = null;
@@ -149,23 +147,15 @@ function create_interface() {
     elapsedLabel.id = "huerta_marcheur_elapsed";
     elapsedLabel.textContent = "Temps écoulé : —";
     elapsedLabel.style.cssText = "display:block;box-sizing:border-box;margin:0 0 5px;padding:5px 6px;background:rgba(0,0,0,.22);border-radius:3px;font-size:11px;text-align:center;font-variant-numeric:tabular-nums;";
-    routeMessageLabel = document.createElement("div");
-    routeMessageLabel.id = "huerta_marcheur_route_message";
-    routeMessageLabel.style.cssText = "display:none;box-sizing:border-box;margin:0 0 5px;padding:5px 6px;background:rgba(112,35,35,.5);border-radius:3px;font-size:10px;line-height:1.35;text-align:left;";
    routeSummary = document.createElement("div");
     routeSummary.id = "huerta_marcheur_route_summary";
     routeSummary.style.cssText = "display:block;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.2);font-size:11px;line-height:1.45;text-align:left;";
-    var routeAdvice = document.createElement("div");
-    routeAdvice.id = "huerta_marcheur_route_advice";
-    routeAdvice.textContent = "Conseil : en haute montagne, commencez avec deux points et faites un premier calcul.";
-    routeAdvice.style.cssText = "margin:0 0 6px;padding:5px 6px;border-left:3px solid #e9b965;background:rgba(233,185,101,.12);font-size:10px;line-height:1.35;";
     routeDistanceLabel = document.createElement("div");
     routeWalkingTimeLabel = document.createElement("div");
     routeSlopeWalkingTimeLabel = document.createElement("div");
     routeDistanceLabel.textContent = "Distance : —";
     routeWalkingTimeLabel.textContent = "Marche estimée à 4–5 km/h : —";
     routeSlopeWalkingTimeLabel.textContent = "Marche selon la pente : —";
-    routeSummary.appendChild(routeAdvice);
     routeSummary.appendChild(routeDistanceLabel);
     routeSummary.appendChild(routeWalkingTimeLabel);
     routeSummary.appendChild(routeSlopeWalkingTimeLabel);
@@ -254,9 +244,8 @@ function create_interface() {
     messageButton.addEventListener("click", toggle_message_panel, false);
 
     pickStatus = document.createElement("div");
-    pickStatus.id = "huerta_marcheur_pick_status";
     pickStatus.style.cssText = "margin:0 0 7px;font-size:11px;line-height:1.35;max-width:100%;overflow-wrap:anywhere;";
-    pickStatus.textContent = "Clique sur « Choisir plusieurs points » pour commencer un trajet.";
+    pickStatus.textContent = "Prêt. Choisis deux points sur la carte.";
 
     messagePanel = document.createElement("div");
     messagePanel.id = "huerta_marcheur_messages";
@@ -373,19 +362,18 @@ function create_interface() {
     speedLabel.style.cssText = "display:block;font-size:11px;margin-top:4px;";
     flightSpeedInput = document.createElement("input");
     flightSpeedInput.type = "range";
-    flightSpeedInput.min = "0";
-    flightSpeedInput.max = "100";
+    flightSpeedInput.min = "1";
+    flightSpeedInput.max = "80";
     flightSpeedInput.step = "1";
-    flightSpeedInput.value = String(ROUTE_FLIGHT_DEFAULT_SPEED_KMH);
-    flightSpeedInput.setAttribute("aria-label", "Vitesse de survol, en km/h");
+    flightSpeedInput.value = "14";
+    flightSpeedInput.setAttribute("aria-label", "Vitesse de caméra, en mètres par seconde");
     flightSpeedInput.style.cssText = "display:block;width:100%;margin:0;";
     flightSpeedValue = document.createElement("div");
-    flightSpeedValue.textContent = ROUTE_FLIGHT_DEFAULT_SPEED_KMH + " km/h";
+    flightSpeedValue.textContent = "14 m/s";
     flightSpeedValue.style.cssText = "text-align:center;font-size:10px;";
     flightSpeedInput.addEventListener("input", function() {
-        var speedKmh = Number(flightSpeedInput.value);
-        flightSpeedValue.textContent = speedKmh + " km/h";
-        m_huerta.set_route_flight_speed(speedKmh / 3.6);
+        flightSpeedValue.textContent = flightSpeedInput.value + " m/s";
+        m_huerta.set_route_flight_speed(Number(flightSpeedInput.value));
     }, false);
 
     var inclinationLabel = document.createElement("label");
@@ -454,7 +442,6 @@ function create_interface() {
     flightPanel.appendChild(flightSpeedInput);
     flightPanel.appendChild(flightSpeedValue);
     flightStatusLabel = document.createElement("div");
-    flightStatusLabel.id = "huerta_marcheur_flight_status";
     flightStatusLabel.style.cssText = "min-height:14px;margin-top:4px;font-size:10px;line-height:1.3;text-align:center;";
     flightStatusLabel.textContent = "Calcule un trajet pour lancer le survol.";
     flightPanel.appendChild(flightStatusLabel);
@@ -467,7 +454,6 @@ function create_interface() {
     panel.appendChild(sectionTitle);
     panel.appendChild(pickButton);
     panel.appendChild(elapsedLabel);
-    panel.appendChild(routeMessageLabel);
     panel.appendChild(repeatRouteButton);
     panel.appendChild(redAngleLabel);
     panel.appendChild(redAngleInput);
@@ -539,7 +525,7 @@ function enter_route_flight_ui() {
     var started = m_huerta.start_route_flight(
         points,
         Number(flightAltitudeInput.value),
-        Number(flightSpeedInput.value) / 3.6,
+        Number(flightSpeedInput.value),
         0
     );
     if (!started) {
@@ -909,11 +895,6 @@ function update_point_control_availability() {
 }
 
 function format_picked_point(point, label) {
-    if(window.ExodusLocalContext) {
-        var gps=ExodusZone.geographic(window.ExodusLocalContext.zone,point[0],point[1]);
-        return label+" — GPS "+gps.latitude.toFixed(6)+", "+gps.longitude.toFixed(6)+
-            ", altitude="+point[2].toFixed(2)+" m";
-    }
     return label + " — EPSG:25830 X=" + (point[0] + UTM_OFFSET_X).toFixed(2) +
         " m, Y=" + (point[1] + UTM_OFFSET_Y).toFixed(2) +
         " m, altitude=" + point[2].toFixed(2) + " m";
@@ -1042,7 +1023,7 @@ function toggle_multi_point_selection() {
             picking = false;
             m_huerta.set_terrain_pick_mode(false);
             pickButton.textContent = "Choisir plusieurs points";
-            pickStatus.textContent = "Clique sur « Choisir plusieurs points » pour commencer un trajet.";
+            pickStatus.textContent = "Prêt. Choisis les points du trajet dans l’ordre.";
             draw_route();
             return;
         }
@@ -1135,12 +1116,6 @@ function on_terrain_click(event) {
 }
 
 function load_routing_data(callback) {
-    if (window.ExodusLocalContext) {
-        var routing = window.ExodusLocalContext.routing;
-        if (!routing) {callback(new Error("Le relief de ce lieu doit être chargé avant le calcul."));return;}
-        callback(null,{localGrid:routing.grid});
-        return;
-    }
     if (routingData) {
         callback(null, routingData);
         return;
@@ -1170,10 +1145,11 @@ function set_calculate_buttons_disabled(disabled) {
 }
 
 function format_elapsed_time(milliseconds) {
-    return (Math.max(0, milliseconds) / 1000).toLocaleString(
-        window.HuertaI18n ? window.HuertaI18n.language : "fr",
-        {minimumFractionDigits:1, maximumFractionDigits:1, useGrouping:false}
-    ) + " s";
+    var seconds = Math.max(0, Math.floor(milliseconds / 1000));
+    var minutes = Math.floor(seconds / 60);
+    var remainder = seconds % 60;
+    if (!minutes) return seconds + " s";
+    return minutes + " min" + (remainder ? " " + remainder + " s" : "");
 }
 
 function format_walking_duration(distanceKm, speedKmh) {
@@ -1262,32 +1238,20 @@ function update_route_summary(distanceMeters) {
     routeSummary.style.display = "block";
 }
 
-function set_route_calculation_message(message) {
-    if (!routeMessageLabel) return;
-    var text = message == null ? "" : String(message).replace(/\s+/g, " ").trim();
-    routeMessageLabel.textContent = text;
-    routeMessageLabel.style.display = text ? "block" : "none";
-}
-
-function route_failure_message(detail) {
-    var text = detail == null ? "" : String(detail).replace(/\s+/g, " ").trim();
-    return "Aucun trajet possible" + (text ? " : " + text : " : pente trop raide ou zone infranchissable.");
-}
-
 function refresh_elapsed_indicator() {
     if (!elapsedLabel || !calculationStartedAt) return;
-    var elapsed = performance.now() - calculationStartedAt;
-    elapsedLabel.textContent = "Temps écoulé : " + format_elapsed_time(elapsed);
+    var elapsed = Date.now() - calculationStartedAt;
+    elapsedLabel.textContent = "Temps écoulé : " + format_elapsed_time(elapsed) +
+        " / " + format_elapsed_time(calculationTimeLimitMs);
 }
 
 function start_elapsed_indicator(limitMs) {
     stop_elapsed_indicator(false);
-    calculationStartedAt = performance.now();
+    calculationStartedAt = Date.now();
     calculationTimeLimitMs = limitMs;
     elapsedPanel.style.display = "block";
     refresh_elapsed_indicator();
-    // Independent of worker progress: show activity even during a long search.
-    elapsedTimer = window.setInterval(refresh_elapsed_indicator, 100);
+    elapsedTimer = window.setInterval(refresh_elapsed_indicator, 1000);
 }
 
 function stop_elapsed_indicator(showResult) {
@@ -1306,12 +1270,14 @@ function calculate_route(angle, maxAngle) {
         return;
     if (pickedPoints.length < 2 || routeCalculationActive || picking)
         return;
+    // Refaire le calcul commence par effacer tous les anciens tracés,
+    // notamment le résultat aimanté/lissé encore visible.
+    clear_route_for_reselection();
     if (multiPointRoute && pickedPoints.length > 2) {
         calculate_multi_point_route(angle, maxAngle);
         return;
     }
     routeCalculationActive = true;
-    set_route_calculation_message("");
     clear_progressive_display_queue();
     pickButton.textContent = "Calcul en cours — annuler";
     var calculationId = ++routeCalculationId;
@@ -1351,7 +1317,6 @@ function calculate_route(angle, maxAngle) {
             redAngleInput.disabled = false;
             redMaxAngleInput.disabled = false;
             pickStatus.textContent = "Préparation impossible. Voir Messages.";
-            set_route_calculation_message(route_failure_message(loadError.message));
             return;
         }
         routeWorker = new Worker(HuertaConfig.worker);
@@ -1400,11 +1365,9 @@ function calculate_route(angle, maxAngle) {
                 redAngleInput.disabled = false;
                 redMaxAngleInput.disabled = false;
                 pickStatus.textContent = "Calcul interrompu. Voir Messages.";
-                set_route_calculation_message(route_failure_message(event.data.error));
                 return;
             }
             var successfulDistance = null;
-            var failedMessages = [];
             event.data.results.forEach(function(item) {
                 log_message(item.ok
                     ? item.angle + "° terminé : " + (item.length / 1000).toFixed(2) + " km, " +
@@ -1416,7 +1379,6 @@ function calculate_route(angle, maxAngle) {
                         (item.maxMargin ? " Marge de recherche max : " + item.maxMargin + " m." : "") +
                         (item.guideStrategy ? " Guide : " + item.guideStrategy + "." : "")
                     : item.angle + "° : " + item.error, item.ok ? "info" : "warn");
-                if (!item.ok && item.error) failedMessages.push(item.error);
                 if (item.ok && item.slopeRanges && item.slopeRanges.length) {
                     item.slopeRanges.forEach(function(range) {
                         log_message("Pente utilisée sur les tronçons-guide " + range.from +
@@ -1457,7 +1419,6 @@ function calculate_route(angle, maxAngle) {
             pickStatus.textContent = successCount
                 ? ""
                 : "Calcul incomplet. Détails dans Messages.";
-            set_route_calculation_message(successCount ? "" : route_failure_message(failedMessages.join(" ; ")));
             draw_route();
         };
         routeWorker.onerror = function(error) {
@@ -1475,12 +1436,10 @@ function calculate_route(angle, maxAngle) {
             redAngleInput.disabled = false;
             redMaxAngleInput.disabled = false;
             pickStatus.textContent = "Calcul interrompu. Voir Messages.";
-            set_route_calculation_message(route_failure_message(error.message));
         };
         routeWorker.postMessage({manifest: data.manifest, guide: data.guide,
             angles: [angle],
             maximumAngle: maxAngle,
-            localGrid:data.localGrid,
             start: pickedPoints[0], end: pickedPoints[1], offset: [UTM_OFFSET_X, UTM_OFFSET_Y],
             timeLimitMs: timeLimitMs});
     });
@@ -1490,7 +1449,6 @@ function calculate_multi_point_route(angle, maxAngle) {
     if (m_huerta.get_route_flight_status().active || routeCalculationActive || pickedPoints.length < 3)
         return;
     routeCalculationActive = true;
-    set_route_calculation_message("");
     clear_progressive_display_queue();
     pickButton.textContent = "Calcul en cours — annuler";
     var calculationId = ++routeCalculationId;
@@ -1581,7 +1539,6 @@ function calculate_multi_point_route(angle, maxAngle) {
             ? "Trajet terminé en suivant les " + points.length + " points."
             : "Trajet partiel : blocage entre les points " + (completedLegs + 1) +
                 " et " + (completedLegs + 2) + ". Voir Messages.";
-        if (success) set_route_calculation_message("");
         draw_route();
     }
 
@@ -1616,7 +1573,6 @@ function calculate_multi_point_route(angle, maxAngle) {
             }
             if (message.phase === "error") {
                 log_message("Étape " + (index + 1) + " : " + message.error, "error");
-                set_route_calculation_message(route_failure_message("étape " + (index + 1) + " — " + message.error));
                 finishMultiPointRoute(false);
                 return;
             }
@@ -1629,8 +1585,6 @@ function calculate_multi_point_route(angle, maxAngle) {
                 if (result && result.coordinates) currentCoordinates = localize(result.coordinates);
                 log_message("Étape " + (index + 1) + " : " +
                     (result && result.error ? result.error : "aucun trajet trouvé."), "warn");
-                set_route_calculation_message(route_failure_message("étape " + (index + 1) + " — " +
-                    (result && result.error ? result.error : "aucun chemin praticable trouvé")));
                 refreshCombinedRoute();
                 finishMultiPointRoute(false);
                 return;
@@ -1650,12 +1604,10 @@ function calculate_multi_point_route(angle, maxAngle) {
         routeWorker.onerror = function(error) {
             if (calculationId !== routeCalculationId || !routeCalculationActive) return;
             log_message("Étape " + (index + 1) + " : erreur du calculateur — " + error.message, "error");
-            set_route_calculation_message(route_failure_message("étape " + (index + 1) + " — " + error.message));
             finishMultiPointRoute(false);
         };
         routeWorker.postMessage({manifest:routingData.manifest, guide:routingData.guide,
             angles:[angle], maximumAngle:maxAngle,
-            localGrid:routingData.localGrid,
             start:points[index], end:points[index + 1], offset:[UTM_OFFSET_X, UTM_OFFSET_Y],
             timeLimitMs:perLegLimitMs});
     }
@@ -1664,7 +1616,6 @@ function calculate_multi_point_route(angle, maxAngle) {
         if (calculationId !== routeCalculationId || !routeCalculationActive) return;
         if (loadError) {
             log_message(loadError.message, "error");
-            set_route_calculation_message(route_failure_message(loadError.message));
             finishMultiPointRoute(false);
             return;
         }
@@ -1728,7 +1679,6 @@ function draw_route() {
         pickedPoints.forEach(function(point, index) {
             var label = index === 0 ? "Départ" :
                 (index === pickedPoints.length - 1 ? "Arrivée" : "Étape " + (index + 1));
-            if (window.HuertaI18n) label = window.HuertaI18n.t(label);
             draw_projected_marker(point, camera, rect, "#e2a52b", label);
         });
     }
@@ -1819,11 +1769,6 @@ exports.get_export_route = function() {
     return points.map(function(point) {
         return [Number(point[0]), Number(point[1]), Number(point[2])];
     });
-};
-
-exports.dispose = function() {
-    cancel_route_calculation();
-    if (flightUiTimer !== null) {window.clearInterval(flightUiTimer);flightUiTimer=null;}
 };
 
 function init() {

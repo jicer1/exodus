@@ -1,7 +1,7 @@
 "use strict";
 window.HuertaConfig = Object.freeze({
     assets: "assets/",
-    worker: "Marcheur_autonome/huerta_marcheur_worker.js?v=local-walker-1",
+    worker: "Marcheur_autonome/huerta_marcheur_worker.js?v=progressive-points-20261005",
     routingReference: "Marcheur_autonome/reference_case/reference_case.json",
     routingLongReference: "Marcheur_autonome/real_cases/Taguenza/reference_case.json",
     scene: "huerta_webgl.json",

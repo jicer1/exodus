@@ -40,25 +40,20 @@
 
             var navigation = HuertaRuntime.require("huerta_webgl_main");
             var geodesy = HuertaRuntime.require("huerta_hud");
-            var marcheur = HuertaRuntime.require("huerta_marcheur");
             var pivot = navigation.get_pivot();
-            var route = marcheur.get_export_route();
-            var origin = route && route.length > 1 ? route[0] : pivot;
 
-            if (!origin) {
+            if (!pivot) {
                 status.textContent = "Aucun pivot : clique sur le terrain d'abord";
                 return;
             }
 
             // Même conversion que les coordonnées GPS affichées dans le HUD.
-            var gps = geodesy.world_to_gps(origin[0], origin[1]);
+            var gps = geodesy.world_to_gps(pivot[0], pivot[1]);
             var lat = gps.lat.toFixed(6);
             var lon = gps.lon.toFixed(6);
             var url = "https://earth.google.com/web/search/" + lat + "," + lon;
 
-            status.textContent = route && route.length > 1
-                ? "Ouverture au départ : " + lat + ", " + lon
-                : "Ouverture du pivot : " + lat + ", " + lon;
+            status.textContent = "Ouverture du pivot : " + lat + ", " + lon;
             window.open(url, "_blank", "noopener,noreferrer");
         }, false);
 

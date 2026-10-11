@@ -167,6 +167,59 @@ window.createExodusNavigation = function (B, scene, camera, canvas, radius, mini
     window.addEventListener("blur", () => release());
     refresh();
     return {
+        keyboard(key, shift) {
+            if (!active) return false;
+            release();
+            if (key === " ") return true;
+            const pivot = surfaceAt(scene.getEngine().getRenderWidth()/2, scene.getEngine().getRenderHeight()/2)
+                || camera.position.normalizeToNew().scale(radius);
+            const normal = pivot.normalizeToNew();
+            const forward = target.subtract(camera.position).normalize();
+            const right = B.Vector3.Cross(forward, up).normalize();
+            const height = Math.max(minimumAltitude, camera.position.length() - radius);
+            if (key.startsWith("Arrow")) {
+                const horizontal = key === "ArrowLeft" ? -1 : key === "ArrowRight" ? 1 : 0;
+                const vertical = key === "ArrowUp" ? 1 : key === "ArrowDown" ? -1 : 0;
+                if (shift && !selection) {
+                    const axis = horizontal ? normal : right;
+                    const angle = (horizontal ? -horizontal : -vertical) * .03;
+                    const offset = rotate(camera.position.subtract(pivot), axis, angle);
+                    const next = pivot.add(offset);
+                    if (next.length() >= floorRadius && next.length() <= maximumRadius && B.Vector3.Dot(offset.normalizeToNew(), normal) > .02) {
+                        camera.position.copyFrom(next);
+                        target = next.add(rotate(forward, axis, angle));
+                        up = rotate(up, axis, angle);
+                    }
+                } else {
+                    const direction = right.scale(horizontal).add(B.Vector3.Cross(normal, right).scale(vertical));
+                    const axis = B.Vector3.Cross(normal, direction).normalize();
+                    const angle = Math.min(.04, height / radius * .035);
+                    camera.position.copyFrom(rotate(camera.position, axis, angle));
+                    target = rotate(target, axis, angle); up = rotate(up, axis, angle);
+                }
+            } else if (key === "PageUp" || key === "PageDown") {
+                if (shift) {
+                    const next = camera.position.normalizeToNew().scale(Math.max(floorRadius, Math.min(maximumRadius,
+                        camera.position.length() + (key === "PageUp" ? 1 : -1) * height * .04)));
+                    target.addInPlace(next.subtract(camera.position)); camera.position.copyFrom(next);
+                } else zoom(pivot, key === "PageUp" ? .92 : 1.08);
+            } else if (["n","u","r","o"].includes(key)) {
+                let north = new B.Vector3(0,0,1).subtract(normal.scale(normal.z));
+                if (north.lengthSquared() < 1e-12) north = new B.Vector3(0,1,0);
+                north.normalize();
+                const offset = camera.position.subtract(pivot), distance = offset.length();
+                let tangent = offset.subtract(normal.scale(B.Vector3.Dot(offset, normal)));
+                if (tangent.lengthSquared() < 1e-12) tangent = north.scale(-1);
+                tangent.normalize();
+                let tilt = Math.acos(Math.max(-1, Math.min(1, B.Vector3.Dot(offset.normalizeToNew(), normal))));
+                if (key === "n" || key === "r") tangent = north.scale(-1);
+                if (key === "u" || key === "r") tilt = 0;
+                if (key === "o") tilt = tilt > .1 ? 0 : Math.PI/4;
+                camera.position.copyFrom(pivot.add(normal.scale(distance*Math.cos(tilt))).add(tangent.scale(distance*Math.sin(tilt))));
+                target = pivot; up = tilt < .001 ? tangent.scale(-1) : normal;
+            } else return false;
+            refresh(); return true;
+        },
         setActive(value) {active = value; if (!value) release(); refresh();},
         setSelection(value) { selection = value; release(); },
         centre() {

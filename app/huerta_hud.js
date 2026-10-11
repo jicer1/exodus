@@ -437,7 +437,6 @@ function hud_ray_cb(
         utm.x,
         utm.y
     );
-    if (window.ExodusLocalContext) gps = exports.world_to_gps(world_x, world_y);
 
 
     // ========================================================
@@ -456,7 +455,7 @@ function hud_ray_cb(
     if (_hud_longitude)
         _hud_longitude.textContent = "LON " + gps.lon.toFixed(6);
     if (_hud_altitude)
-        _hud_altitude.textContent = window.ExodusLocalContext && !window.ExodusLocalContext.terrainReady ? "ALT —" : "ALT " + altitude.toFixed(2) + " m";
+        _hud_altitude.textContent = "ALT " + altitude.toFixed(2) + " m";
 
 
     // ========================================================
@@ -711,10 +710,6 @@ function utm_to_gps(
 
 // Conversion partagée avec le bouton Google Earth.
 exports.world_to_gps = function(world_x, world_y) {
-    if (window.ExodusLocalContext) {
-        var point = ExodusZone.geographic(window.ExodusLocalContext.zone, world_x, world_y);
-        return {lat: point.latitude, lon: point.longitude};
-    }
     var utm = world_to_utm(world_x, world_y);
     return utm_to_gps(utm.x, utm.y);
 };

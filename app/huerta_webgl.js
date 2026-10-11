@@ -701,14 +701,6 @@ function smooth_route_flight_points(points, requestedRadius) {
             smoothed.push(sample);
         }
     }
-    if (window.ExodusLocalContext?.routing) {
-        smoothed.forEach(function(point) {
-            var bounds = window.ExodusLocalContext.routing.grid.bounds;
-            point[0] = Math.max(bounds.west,Math.min(bounds.east,point[0]));
-            point[1] = Math.max(bounds.south,Math.min(bounds.north,point[1]));
-            point[2] = window.ExodusLocalContext.routing.sample(point[0],point[1]);
-        });
-    }
     return smoothed;
 }
 
@@ -820,10 +812,6 @@ function apply_route_flight_camera(cam, blend, manualRotation) {
     var point = route_flight_point_at(state.distance);
     var lookAhead = Math.max(30, Math.min(120, state.speed * 4));
     var target = route_flight_point_at(Math.min(state.total, state.distance + lookAhead));
-    if (window.ExodusLocalContext?.routing) {
-        point[2] = window.ExodusLocalContext.routing.sample(point[0],point[1]);
-        target[2] = window.ExodusLocalContext.routing.sample(target[0],target[1]);
-    }
     var cameraPosition = new Float32Array([
         point[0],
         point[1],
@@ -918,8 +906,7 @@ function start_route_flight(points, altitude, speed, inclination) {
     m_camera.get_translation(cam, state.savedPosition);
     m_camera.static_get_rotation(cam, state.savedRotation);
     state.altitude = Math.max(5, Number(altitude) || 60);
-    var requestedSpeed = Number(speed);
-    state.speed = Number.isFinite(requestedSpeed) ? Math.max(0, Math.min(80, requestedSpeed)) : 15;
+    state.speed = Math.max(1, Number(speed) || 15);
     state.inclination = 0;
     state.distance = 0;
     state.lastTime = performance.now();
@@ -3044,6 +3031,93 @@ exports.get_pivot =
 exports.go_to_world = go_to_world;
 exports.go_to_initial_view = go_to_initial_view;
 
+// Keyboard navigation reuses the mouse orbit and the current terrain pivot.
+exports.keyboard_navigate = function(key, shift) {
+    var cam = m_scenes.get_active_camera();
+    if (!cam) return false;
+    if (key === " ") {
+        _mode = MODE_NONE;
+        _move_pending = false;
+        _drag_ready = false;
+        _navigation_generation++;
+        _route_flight.playing = false;
+        return true;
+    }
+    if (_route_flight.active) {
+        // Keep the simulator on its rail; arrows control only its orientation.
+        if (key.indexOf("Arrow") === 0) {
+            apply_simulator_camera_rotation(cam,
+                key === "ArrowLeft" ? -15 : key === "ArrowRight" ? 15 : 0,
+                key === "ArrowUp" ? -15 : key === "ArrowDown" ? 15 : 0);
+            m_camera.static_get_rotation(cam, _route_flight.manualBlendRotation);
+            _route_flight.manualViewLocked = true;
+            return true;
+        }
+        if (key === "PageUp" || key === "PageDown") {
+            if (shift) exports.set_route_flight_altitude(Math.max(1,
+                _route_flight.altitude + (key === "PageUp" ? 1 : -1)));
+            else if (_route_flight.started) mouse_wheel({deltaY:key === "PageUp" ? -40 : 40, deltaMode:0, preventDefault:function(){}});
+            return true;
+        }
+        return false;
+    }
+    if (!_has_pivot) return false;
+    _mode = MODE_NONE;
+    _move_pending = false;
+    var pos = m_camera.get_translation(cam, new Float32Array(3));
+    var rotation = m_camera.static_get_rotation(cam, new Float32Array(4));
+    var distance = Math.max(MIN_DISTANCE, distance3(pos, _pivot));
+    var step = Math.max(1, distance * 0.025);
+    if (key.indexOf("Arrow") === 0 && shift) {
+        _drag_camera_pos.set(pos);
+        _drag_camera_quat.set(rotation);
+        _drag_pivot.set(_pivot);
+        for (var i = 0; i < 3; i++) _drag_vector[i] = pos[i] - _pivot[i];
+        _drag_distance = distance;
+        _drag_ready = true;
+        apply_middle(cam, key === "ArrowLeft" ? -15 : key === "ArrowRight" ? 15 : 0,
+            key === "ArrowUp" ? -15 : key === "ArrowDown" ? 15 : 0);
+        _drag_ready = false;
+        return true;
+    }
+    if (key.indexOf("Arrow") === 0) {
+        var right = new Float32Array(3);
+        rotate_vector_quat([1, 0, 0], rotation, right);
+        var length = Math.hypot(right[0], right[1]) || 1;
+        var rx = right[0] / length, ry = right[1] / length;
+        var side = key === "ArrowLeft" ? -step : key === "ArrowRight" ? step : 0;
+        var forward = key === "ArrowUp" ? step : key === "ArrowDown" ? -step : 0;
+        var dx = rx * side - ry * forward, dy = ry * side + rx * forward;
+        pos[0] += dx; pos[1] += dy;
+        _pivot[0] += dx; _pivot[1] += dy;
+    } else if (key === "PageUp" || key === "PageDown") {
+        if (shift) pos[2] = Math.max(_pivot[2] + MIN_CAMERA_HEIGHT,
+            pos[2] + (key === "PageUp" ? step : -step));
+        else {
+            var nextDistance = Math.max(MIN_DISTANCE, Math.min(MAX_DISTANCE,
+                distance * (key === "PageUp" ? 0.92 : 1.08)));
+            for (var j = 0; j < 3; j++) pos[j] = _pivot[j] + (pos[j] - _pivot[j]) * nextDistance / distance;
+            pos[2] = Math.max(_pivot[2] + MIN_CAMERA_HEIGHT, pos[2]);
+        }
+    } else if (["n", "u", "r", "o"].indexOf(key) !== -1) {
+        var horizontal = Math.hypot(pos[0] - _pivot[0], pos[1] - _pivot[1]);
+        var heading = horizontal > 0.01 ? Math.atan2(pos[0] - _pivot[0], -(pos[1] - _pivot[1])) : 0;
+        var tilt = Math.acos(Math.max(-1, Math.min(1, (pos[2] - _pivot[2]) / distance)));
+        if (key === "n" || key === "r") heading = 0;
+        if (key === "u" || key === "r") tilt = 0;
+        if (key === "o") tilt = tilt > 0.1 ? 0 : Math.PI / 4;
+        pos[0] = _pivot[0] + distance * Math.sin(tilt) * Math.sin(heading);
+        pos[1] = _pivot[1] - distance * Math.sin(tilt) * Math.cos(heading);
+        pos[2] = _pivot[2] + distance * Math.cos(tilt);
+        m_camera.static_setup(cam, {pos:pos, look_at:_pivot});
+        m_camera.correct_up(cam, tilt < 0.001 ? [-Math.sin(heading), Math.cos(heading), 0] : WORLD_UP, true);
+    } else return false;
+    m_camera.set_translation(cam, pos);
+    _camera_pos.set(pos);
+    update_pivot_marker(cam);
+    return true;
+};
+
 exports.start_route_flight = start_route_flight;
 exports.get_smoothed_route_flight_path = function(points, radius) {
     return smooth_route_flight_points(points, radius);
@@ -3066,8 +3140,7 @@ exports.stop_route_flight = function() {
     stop_route_flight(true);
 };
 exports.set_route_flight_speed = function(speed) {
-    var requestedSpeed = Number(speed);
-    _route_flight.speed = Number.isFinite(requestedSpeed) ? Math.max(0, Math.min(80, requestedSpeed)) : 15;
+    _route_flight.speed = Math.max(1, Math.min(80, Number(speed) || 15));
     if (_route_flight.active && !_route_flight.playing)
         apply_route_flight_camera(m_scenes.get_active_camera());
 };

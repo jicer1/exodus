@@ -21,6 +21,34 @@ class Handler(SimpleHTTPRequestHandler):
             return
         super().do_GET()
 
+    def do_POST(self):
+        if self.path != '/__huerta_save_markers__':
+            self.send_error(404)
+            return
+        try:
+            length = int(self.headers.get('Content-Length', '0'))
+            data = json.loads(self.rfile.read(length).decode('utf-8'))
+            if not isinstance(data, list) or any(
+                    not isinstance(item, dict) or
+                    not isinstance(item.get('name'), str) or
+                    not isinstance(item.get('lat'), (int, float)) or
+                    not isinstance(item.get('lon'), (int, float))
+                    for item in data):
+                raise ValueError('format de marqueurs invalide')
+            target = ROOT / 'assets' / 'parideras_edit.json'
+            temporary = target.with_suffix('.json.tmp')
+            temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+            temporary.replace(target)
+            body = json.dumps({'saved': True, 'count': len(data)}).encode('utf-8')
+            self.send_response(200)
+        except Exception as error:
+            body = json.dumps({'saved': False, 'error': str(error)}).encode('utf-8')
+            self.send_response(400)
+        self.send_header('Content-Type', 'application/json')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def end_headers(self):
         self.send_header('Cache-Control','no-cache')
         # .gz terrain tiles are decompressed by the application worker.

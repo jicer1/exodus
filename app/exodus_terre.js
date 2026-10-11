@@ -91,6 +91,7 @@
 
     const state = window.ExodusWorld = {
         mode: "huerta", ready: false, radiusMetres: EARTH_RADIUS_M,
+        keyboardNavigate(key, shift) {return navigation ? navigation.keyboard(key, shift) : false;},
         displayRadius: DISPLAY_RADIUS,
         // Z is north, X at longitude 0, Y at longitude 90 east.
         geographicToPosition(latitude, longitude, altitude = 0) {
