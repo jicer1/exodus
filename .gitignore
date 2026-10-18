@@ -18,3 +18,15 @@ Thumbs.db
 # Elles ne sont pas nécessaires pour consulter le code du prototype.
 /assets/hd_tiles/
 /assets/marcheur_tiles/
+
+# Sauvegardes et sorties locales
+/Sauvegarde/
+/serve-local.err
+/assets/*_avant_*
+/assets/parideras_edit_avant_*.json
+/assets/hd_tiles_1956_57/
+/assets/hd_tiles_1956_57_couleur/
+/assets/hd_tiles_topographique/
+/assets/igme_geode50/tiles/
+/assets/igme_magna50/tiles/
+/terrain-lod/*.png

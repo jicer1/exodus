@@ -14,6 +14,14 @@ raisonnable.
 
 Huertahernando constitue le territoire de départ et le repère du projet. La vue « Sur Terre » permet de rechercher un lieu par son nom ou ses coordonnées GPS, puis de choisir une zone. Son relief et ses images sont chargés pour créer un espace local où un marcheur autonome calcule des trajets entre les points sélectionnés, en tenant compte des pentes.
 
+## Version 2.0.3
+
+Terrain à niveaux de détail, ciel bleu avec nuages et marcheur libre dans un panneau indépendant.
+Le marcheur démarre à 50 km/h, avec une vitesse réglable de 0,5 à 80 km/h par le curseur ou la molette.
+Z/S ou les flèches haut/bas permettent d’avancer et de reculer ; Q/D ou les flèches gauche/droite permettent de tourner.
+Maintenir le bouton central et déplacer la souris pour orienter le regard. Échap restaure la vue précédente.
+Les données détaillées du terrain restent sur le serveur externe.
+
 ## Utilisation
 
 Le programme est conçu pour un ordinateur Mac ou PC, avec un navigateur prenant en charge WebGL. Il n’est pas adapté aux téléphones.

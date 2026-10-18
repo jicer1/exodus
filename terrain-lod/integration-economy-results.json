@@ -1,0 +1,529 @@
+{
+  "architecture": "Retain ready local detail during low-height retreat",
+  "profile": "economy",
+  "status": "passed",
+  "results": [
+    {
+      "test": "Scene ready",
+      "ok": true,
+      "details": []
+    },
+    {
+      "test": "362 original meshes",
+      "ok": true,
+      "details": 362
+    },
+    {
+      "test": "Terrain collision is hidden",
+      "ok": true,
+      "details": false
+    },
+    {
+      "test": "Original 1.0.15 base and navigation retained; redundant HD geometry released",
+      "ok": true,
+      "details": 720017
+    },
+    {
+      "test": "Navigation buffers no longer retain the complete legacy export",
+      "ok": true
+    },
+    {
+      "test": "LOD initialized",
+      "ok": true
+    },
+    {
+      "test": "Original base ready without initial geometry requests",
+      "ok": true
+    },
+    {
+      "test": "Bounded LOD geometry and DEM cache",
+      "ok": true
+    },
+    {
+      "test": "Terrain height ray",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        1063.2366409301776
+      ]
+    },
+    {
+      "test": "Initial camera centers the terrain",
+      "ok": true,
+      "details": [
+        640,
+        360,
+        0.9999600052833557
+      ]
+    },
+    {
+      "test": "Projection/ray round trip",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        1063.2366409301794
+      ]
+    },
+    {
+      "test": "Translation preserves quaternion",
+      "ok": true
+    },
+    {
+      "test": "Yaw rotates screen axes with quaternion",
+      "ok": true,
+      "details": {
+        "before": [
+          647,
+          360,
+          0.9999600052833557
+        ],
+        "after": [
+          640,
+          367,
+          0.9999600052833557
+        ]
+      }
+    },
+    {
+      "test": "Pointer press preserves native mouse navigation",
+      "ok": true
+    },
+    {
+      "test": "Left drag pans without tilt",
+      "ok": true,
+      "details": [
+        -357.1496276855469,
+        214.289794921875,
+        21063.236328125
+      ]
+    },
+    {
+      "test": "Middle drag rotates horizontally",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        -0.04997916892170906,
+        0.9987502694129944
+      ]
+    },
+    {
+      "test": "Middle drag tilts",
+      "ok": true,
+      "details": [
+        0,
+        0.07991468906402588,
+        -0.9968017339706421
+      ]
+    },
+    {
+      "test": "Right drag rotates without tilt",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        -0.04997916892170906,
+        0.9987502694129944
+      ]
+    },
+    {
+      "test": "Right vertical drag zooms without tilt",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        18106.111328125
+      ]
+    },
+    {
+      "test": "Wheel zooms toward terrain",
+      "ok": true,
+      "details": [
+        0,
+        0,
+        19863.236328125
+      ]
+    },
+    {
+      "test": "World to GPS",
+      "ok": true,
+      "details": {
+        "lat": 40.82470515358741,
+        "lon": -2.2936434359687796
+      }
+    },
+    {
+      "test": "Original worker calculates reference route",
+      "ok": true,
+      "details": {
+        "length": 476.49956672411236,
+        "points": 197,
+        "loadedTiles": 4,
+        "elapsedMs": 119.5,
+        "errors": []
+      }
+    },
+    {
+      "test": "Flight smoothing returns finite path",
+      "ok": true,
+      "details": 1177
+    },
+    {
+      "test": "Flight enters prepared state",
+      "ok": true,
+      "details": {
+        "active": true,
+        "playing": false,
+        "prepared": true,
+        "started": false,
+        "completed": false,
+        "distance": 0,
+        "total": 481.522689127699,
+        "speed": 14,
+        "altitude": 60,
+        "inclination": 0
+      }
+    },
+    {
+      "test": "Flight starts, progresses and pauses",
+      "ok": true,
+      "details": {
+        "active": true,
+        "playing": false,
+        "prepared": true,
+        "started": true,
+        "completed": false,
+        "distance": 4.041800000002608,
+        "total": 481.522689127699,
+        "speed": 14,
+        "altitude": 60,
+        "inclination": 0
+      }
+    },
+    {
+      "test": "Flight exits",
+      "ok": true
+    },
+    {
+      "test": "Route ribbon has all segments",
+      "ok": true,
+      "details": 1176
+    },
+    {
+      "test": "Redrawing preserves hidden line state",
+      "ok": true
+    },
+    {
+      "test": "Clearing route removes old 3D trace",
+      "ok": true
+    },
+    {
+      "test": "HD tiles load near camera",
+      "ok": true,
+      "details": 6
+    },
+    {
+      "test": "Near terrain reaches detailed mode",
+      "ok": true,
+      "details": "detail"
+    },
+    {
+      "test": "Shared HD imagery is bound separately for visible geometry tiles",
+      "ok": true,
+      "details": {
+        "bound": 8,
+        "usingHD": 5
+      }
+    },
+    {
+      "test": "Panorama test has real ground",
+      "ok": true
+    },
+    {
+      "test": "Local terrain prepared in every direction",
+      "ok": true,
+      "details": {
+        "tiles": 24,
+        "bytes": 43940896
+      }
+    },
+    {
+      "test": "Horizontal 360 degree panorama keeps detail",
+      "ok": true,
+      "details": [
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail"
+      ]
+    },
+    {
+      "test": "Horizontal rotation reuses resident geometry without rebuilding",
+      "ok": true,
+      "details": {
+        "before": 29,
+        "after": 29
+      }
+    },
+    {
+      "test": "Original base fills sectors outside local detail",
+      "ok": true
+    },
+    {
+      "test": "Horizontal right drag tolerates vertical hand jitter",
+      "ok": true,
+      "details": {
+        "mode": "detail",
+        "before": 2,
+        "after": 2
+      }
+    },
+    {
+      "test": "Small ground-level retreat retains detail without construction",
+      "ok": true,
+      "details": {
+        "mode": "detail",
+        "height": 24.99999999999818,
+        "before": 29,
+        "after": 29
+      }
+    },
+    {
+      "test": "Rotation after low retreat retains geometry without restarting construction",
+      "ok": true
+    },
+    {
+      "test": "Alternating zoom in and out near ground never switches globally to SD",
+      "ok": true,
+      "details": [
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail",
+        "detail"
+      ]
+    },
+    {
+      "test": "Ground-level horizontal view tolerates a distant pivot",
+      "ok": true,
+      "details": "detail"
+    },
+    {
+      "test": "Ready detail survives gradual retreat until 350 m above terrain",
+      "ok": true,
+      "details": [
+        {
+          "mode": "detail",
+          "height": 85.1064503180969
+        },
+        {
+          "mode": "detail",
+          "height": 90.5388233649719
+        },
+        {
+          "mode": "detail",
+          "height": 96.3178760993469
+        },
+        {
+          "mode": "detail",
+          "height": 102.4658253180969
+        },
+        {
+          "mode": "detail",
+          "height": 109.0062305915344
+        },
+        {
+          "mode": "detail",
+          "height": 115.9641163337219
+        },
+        {
+          "mode": "detail",
+          "height": 123.3660938727844
+        },
+        {
+          "mode": "detail",
+          "height": 131.2404835212219
+        },
+        {
+          "mode": "detail",
+          "height": 139.6175587165344
+        },
+        {
+          "mode": "detail",
+          "height": 148.5293018805969
+        },
+        {
+          "mode": "detail",
+          "height": 158.0098927009094
+        },
+        {
+          "mode": "detail",
+          "height": 168.0955860602844
+        },
+        {
+          "mode": "detail",
+          "height": 178.8250782477844
+        },
+        {
+          "mode": "detail",
+          "height": 190.2393848884094
+        },
+        {
+          "mode": "detail",
+          "height": 202.3823292243469
+        },
+        {
+          "mode": "detail",
+          "height": 215.3004200446594
+        },
+        {
+          "mode": "detail",
+          "height": 229.0429737555969
+        },
+        {
+          "mode": "detail",
+          "height": 243.6627247321594
+        },
+        {
+          "mode": "detail",
+          "height": 259.2157032477844
+        },
+        {
+          "mode": "detail",
+          "height": 275.7613575446594
+        },
+        {
+          "mode": "detail",
+          "height": 293.3631641852844
+        },
+        {
+          "mode": "detail",
+          "height": 312.0885059821594
+        },
+        {
+          "mode": "detail",
+          "height": 332.0090382087219
+        },
+        {
+          "mode": "base-1.0.15",
+          "height": 353.2010548102844
+        }
+      ]
+    },
+    {
+      "test": "Higher retreat restores base without constructing coarser tiles",
+      "ok": true,
+      "details": {
+        "mode": "base-1.0.15",
+        "height": 353.2010548102844,
+        "before": 68,
+        "after": 68
+      }
+    },
+    {
+      "test": "Deliberate vertical right drag keeps immediate zoom-out without building",
+      "ok": true,
+      "details": {
+        "mode": "base-1.0.15",
+        "before": 68,
+        "after": 68
+      }
+    },
+    {
+      "test": "Backward wheel immediately restores original base",
+      "ok": true
+    },
+    {
+      "test": "Backward wheel triggers no new tile build",
+      "ok": true,
+      "details": {
+        "before": 73,
+        "after": 73
+      }
+    },
+    {
+      "test": "Zoom-out immediately uses original terrain",
+      "ok": true
+    },
+    {
+      "test": "Zoom-out sends no geometry construction request",
+      "ok": true,
+      "details": {
+        "before": 73,
+        "after": 73,
+        "duringRetreat": 0
+      }
+    },
+    {
+      "test": "Unused detail and DEM cache released after zoom-out",
+      "ok": true
+    },
+    {
+      "test": "HD tiles hide after zooming out",
+      "ok": true,
+      "details": 0
+    },
+    {
+      "test": "HD image textures released after zooming out",
+      "ok": true,
+      "details": {
+        "remainingHD": 0,
+        "totalIncludingTemporaryMorph": 1
+      }
+    },
+    {
+      "test": "Imagery switch historic1956color",
+      "ok": true
+    },
+    {
+      "test": "Imagery switch topographic",
+      "ok": true
+    },
+    {
+      "test": "Imagery switch geology",
+      "ok": true
+    },
+    {
+      "test": "Imagery switch pnoa2021",
+      "ok": true
+    },
+    {
+      "test": "No runtime errors",
+      "ok": true,
+      "details": []
+    },
+    {
+      "test": "No LOD errors",
+      "ok": true,
+      "details": []
+    },
+    {
+      "test": "LOD statistics",
+      "ok": true,
+      "details": {
+        "tiles": 0,
+        "triangles": 0,
+        "geometryBytes": 36612128,
+        "cacheBytes": 0,
+        "cacheTiles": 0,
+        "maxUploadMs": 3.900000000372529,
+        "maxFrameMs": 222.09999999962747,
+        "fps": 19.745935628252262
+      }
+    }
+  ]
+}

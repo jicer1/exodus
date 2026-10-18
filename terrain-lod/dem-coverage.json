@@ -1,0 +1,881 @@
+{
+  "totalSamples": 20765880,
+  "invalidSamples": 7130734,
+  "invalidPercent": 34.33870368123094,
+  "totalTiles": 342,
+  "affectedTiles": 174,
+  "entirelyInvalidTiles": 92,
+  "affected": [
+    {
+      "row": 0,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 4,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 5,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 6,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 7,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 8,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 9,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 10,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 11,
+      "invalidSamples": 61812
+    },
+    {
+      "row": 0,
+      "col": 12,
+      "invalidSamples": 45816
+    },
+    {
+      "row": 0,
+      "col": 13,
+      "invalidSamples": 41067
+    },
+    {
+      "row": 0,
+      "col": 14,
+      "invalidSamples": 53152
+    },
+    {
+      "row": 0,
+      "col": 15,
+      "invalidSamples": 18089
+    },
+    {
+      "row": 0,
+      "col": 16,
+      "invalidSamples": 31535
+    },
+    {
+      "row": 0,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 0,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 5,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 6,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 7,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 1,
+      "col": 8,
+      "invalidSamples": 61737
+    },
+    {
+      "row": 1,
+      "col": 9,
+      "invalidSamples": 30160
+    },
+    {
+      "row": 1,
+      "col": 10,
+      "invalidSamples": 11261
+    },
+    {
+      "row": 1,
+      "col": 11,
+      "invalidSamples": 1165
+    },
+    {
+      "row": 1,
+      "col": 16,
+      "invalidSamples": 4007
+    },
+    {
+      "row": 1,
+      "col": 17,
+      "invalidSamples": 54075
+    },
+    {
+      "row": 1,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "invalidSamples": 45255
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "invalidSamples": 17216
+    },
+    {
+      "row": 2,
+      "col": 7,
+      "invalidSamples": 11494
+    },
+    {
+      "row": 2,
+      "col": 8,
+      "invalidSamples": 4423
+    },
+    {
+      "row": 2,
+      "col": 17,
+      "invalidSamples": 4533
+    },
+    {
+      "row": 2,
+      "col": 18,
+      "invalidSamples": 10666
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "invalidSamples": 34729
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "invalidSamples": 54
+    },
+    {
+      "row": 3,
+      "col": 17,
+      "invalidSamples": 16015
+    },
+    {
+      "row": 3,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 4,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 4,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "invalidSamples": 32547
+    },
+    {
+      "row": 4,
+      "col": 17,
+      "invalidSamples": 35545
+    },
+    {
+      "row": 4,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 5,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 5,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 5,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 5,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "invalidSamples": 36842
+    },
+    {
+      "row": 5,
+      "col": 17,
+      "invalidSamples": 49872
+    },
+    {
+      "row": 5,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 6,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 6,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 6,
+      "col": 2,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 6,
+      "col": 3,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 6,
+      "col": 4,
+      "invalidSamples": 39940
+    },
+    {
+      "row": 6,
+      "col": 16,
+      "invalidSamples": 866
+    },
+    {
+      "row": 6,
+      "col": 17,
+      "invalidSamples": 62127
+    },
+    {
+      "row": 6,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 7,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 7,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 7,
+      "col": 2,
+      "invalidSamples": 64767
+    },
+    {
+      "row": 7,
+      "col": 3,
+      "invalidSamples": 47130
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "invalidSamples": 12907
+    },
+    {
+      "row": 7,
+      "col": 16,
+      "invalidSamples": 16879
+    },
+    {
+      "row": 7,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 7,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 8,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 8,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 8,
+      "col": 2,
+      "invalidSamples": 64804
+    },
+    {
+      "row": 8,
+      "col": 3,
+      "invalidSamples": 6142
+    },
+    {
+      "row": 8,
+      "col": 16,
+      "invalidSamples": 28638
+    },
+    {
+      "row": 8,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 8,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 9,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 9,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 9,
+      "col": 2,
+      "invalidSamples": 64460
+    },
+    {
+      "row": 9,
+      "col": 3,
+      "invalidSamples": 11128
+    },
+    {
+      "row": 9,
+      "col": 16,
+      "invalidSamples": 31984
+    },
+    {
+      "row": 9,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 9,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 10,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 10,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 10,
+      "col": 2,
+      "invalidSamples": 58248
+    },
+    {
+      "row": 10,
+      "col": 3,
+      "invalidSamples": 6667
+    },
+    {
+      "row": 10,
+      "col": 16,
+      "invalidSamples": 30482
+    },
+    {
+      "row": 10,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 10,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 11,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 11,
+      "col": 1,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 11,
+      "col": 2,
+      "invalidSamples": 41946
+    },
+    {
+      "row": 11,
+      "col": 16,
+      "invalidSamples": 17615
+    },
+    {
+      "row": 11,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 11,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 12,
+      "col": 0,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 12,
+      "col": 1,
+      "invalidSamples": 50278
+    },
+    {
+      "row": 12,
+      "col": 2,
+      "invalidSamples": 34115
+    },
+    {
+      "row": 12,
+      "col": 16,
+      "invalidSamples": 9703
+    },
+    {
+      "row": 12,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 12,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 13,
+      "col": 0,
+      "invalidSamples": 65494
+    },
+    {
+      "row": 13,
+      "col": 1,
+      "invalidSamples": 9988
+    },
+    {
+      "row": 13,
+      "col": 2,
+      "invalidSamples": 154
+    },
+    {
+      "row": 13,
+      "col": 16,
+      "invalidSamples": 3924
+    },
+    {
+      "row": 13,
+      "col": 17,
+      "invalidSamples": 65533
+    },
+    {
+      "row": 13,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 14,
+      "col": 0,
+      "invalidSamples": 62172
+    },
+    {
+      "row": 14,
+      "col": 1,
+      "invalidSamples": 13935
+    },
+    {
+      "row": 14,
+      "col": 9,
+      "invalidSamples": 2547
+    },
+    {
+      "row": 14,
+      "col": 10,
+      "invalidSamples": 38
+    },
+    {
+      "row": 14,
+      "col": 16,
+      "invalidSamples": 456
+    },
+    {
+      "row": 14,
+      "col": 17,
+      "invalidSamples": 57772
+    },
+    {
+      "row": 14,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 15,
+      "col": 0,
+      "invalidSamples": 32343
+    },
+    {
+      "row": 15,
+      "col": 8,
+      "invalidSamples": 10840
+    },
+    {
+      "row": 15,
+      "col": 9,
+      "invalidSamples": 56975
+    },
+    {
+      "row": 15,
+      "col": 10,
+      "invalidSamples": 11218
+    },
+    {
+      "row": 15,
+      "col": 12,
+      "invalidSamples": 3920
+    },
+    {
+      "row": 15,
+      "col": 16,
+      "invalidSamples": 43316
+    },
+    {
+      "row": 15,
+      "col": 17,
+      "invalidSamples": 65039
+    },
+    {
+      "row": 15,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 16,
+      "col": 0,
+      "invalidSamples": 6467
+    },
+    {
+      "row": 16,
+      "col": 2,
+      "invalidSamples": 9390
+    },
+    {
+      "row": 16,
+      "col": 3,
+      "invalidSamples": 21499
+    },
+    {
+      "row": 16,
+      "col": 4,
+      "invalidSamples": 34141
+    },
+    {
+      "row": 16,
+      "col": 5,
+      "invalidSamples": 49996
+    },
+    {
+      "row": 16,
+      "col": 6,
+      "invalidSamples": 51710
+    },
+    {
+      "row": 16,
+      "col": 7,
+      "invalidSamples": 52207
+    },
+    {
+      "row": 16,
+      "col": 8,
+      "invalidSamples": 62893
+    },
+    {
+      "row": 16,
+      "col": 9,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 16,
+      "col": 10,
+      "invalidSamples": 55300
+    },
+    {
+      "row": 16,
+      "col": 11,
+      "invalidSamples": 57293
+    },
+    {
+      "row": 16,
+      "col": 12,
+      "invalidSamples": 59155
+    },
+    {
+      "row": 16,
+      "col": 13,
+      "invalidSamples": 39304
+    },
+    {
+      "row": 16,
+      "col": 14,
+      "invalidSamples": 38849
+    },
+    {
+      "row": 16,
+      "col": 15,
+      "invalidSamples": 26655
+    },
+    {
+      "row": 16,
+      "col": 16,
+      "invalidSamples": 44516
+    },
+    {
+      "row": 16,
+      "col": 17,
+      "invalidSamples": 65536
+    },
+    {
+      "row": 16,
+      "col": 18,
+      "invalidSamples": 17664
+    },
+    {
+      "row": 17,
+      "col": 0,
+      "invalidSamples": 18946
+    },
+    {
+      "row": 17,
+      "col": 1,
+      "invalidSamples": 4015
+    },
+    {
+      "row": 17,
+      "col": 2,
+      "invalidSamples": 20065
+    },
+    {
+      "row": 17,
+      "col": 3,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 4,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 5,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 6,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 7,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 8,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 9,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 10,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 11,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 12,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 13,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 14,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 15,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 16,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 17,
+      "invalidSamples": 22528
+    },
+    {
+      "row": 17,
+      "col": 18,
+      "invalidSamples": 6072
+    }
+  ],
+  "note": "Coverage of rectangular extent; missing samples may be outside the actual surveyed footprint. Do not invent elevations."
+}

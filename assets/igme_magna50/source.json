@@ -1,0 +1,224 @@
+{
+  "source": "©CN Instituto Geológico y Minero de España (IGME)",
+  "service": "https://mapas.igme.es/gis/rest/services/Cartografia_Geologica/IGME_MAGNA_50/MapServer",
+  "scale": "1:50 000",
+  "crs": "EPSG:25830",
+  "bbox": [
+    554886,
+    4515098,
+    564240,
+    4523978
+  ],
+  "sheets": {
+    "488": "Ablanque",
+    "513": "Zaorejas"
+  },
+  "raster_layers": [
+    0,
+    2,
+    9,
+    10,
+    11
+  ],
+  "tile_grid": {
+    "rows": 18,
+    "columns": 20,
+    "tile_size_m": 512,
+    "bleed_m": 16,
+    "pixels": 1088
+  },
+  "units_in_extent": [
+    {
+      "sheet": "488",
+      "code": 9,
+      "lithology": "CARNIOLAS, DOLOMIAS TABLEADAS A LA BASE",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "488",
+      "code": 10,
+      "lithology": "CALIZAS Y DOLOMIAS TABLEADAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "488",
+      "code": 11,
+      "lithology": "CALIZAS BIOCLASTICAS. MARGAS GRISES A LA BASE",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "488",
+      "code": 12,
+      "lithology": "ALTERNANCIA DE CALIZAS Y MARGAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "488",
+      "code": 13,
+      "lithology": "CALIZAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "488",
+      "code": 14,
+      "lithology": "CALIZAS, ARCILLAS Y CONGLOMERADOS EN \"FACIES WEALD\"",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "488",
+      "code": 15,
+      "lithology": "ARENAS EN \"FACIES UTRILLAS\"",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "488",
+      "code": 16,
+      "lithology": "MARGAS Y CALIZAS CON FAUNA",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "488",
+      "code": 17,
+      "lithology": "DOLOMIAS, DOLOMIAS MARGOSAS Y CALIZAS. CONJUNTO TABLEADO",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "488",
+      "code": 26,
+      "lithology": "ALUVIAL Y TERRAZA INFERIOR",
+      "period": "Quaternaire"
+    },
+    {
+      "sheet": "488",
+      "code": 28,
+      "lithology": "CUBETAS DE CALCIFICACION",
+      "period": "Quaternaire"
+    },
+    {
+      "sheet": "513",
+      "code": 2,
+      "lithology": "CARNIONAS, DOLOMIAS TABLEADAS A LA BASE",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "513",
+      "code": 3,
+      "lithology": "CALIZAS Y DOLOMIAS TABLEADAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "513",
+      "code": 4,
+      "lithology": "CALIZAS BIOCLASTICAS. MARGAS GRISES A LA BASE",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "513",
+      "code": 5,
+      "lithology": "ALTERNANCIA DE CALIZAS Y MARGAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "513",
+      "code": 6,
+      "lithology": "CALIZAS",
+      "period": "Jurassique"
+    },
+    {
+      "sheet": "513",
+      "code": 7,
+      "lithology": "CALIZAS, ARCILLAS Y CONGLOMERADOS EN \"FACIES WEALD\"",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 8,
+      "lithology": "ARENAS EN \"FACIES UTRILLAS\"",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 9,
+      "lithology": "MARGAS Y CALIZAS CON FAUNA",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 10,
+      "lithology": "DOLOMIAS, DOLOMIAS MARGOSAS Y CALIZAS. CONJUNTO TABLEADO",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 11,
+      "lithology": "CALIZAS NODULOSAS CON FAUNA. MARGAS A TECHO",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 12,
+      "lithology": "DOLOMIAS Y CALIZAS DOLOMITICAS EN BANCOS GRUESOS",
+      "period": "Crétacé"
+    },
+    {
+      "sheet": "513",
+      "code": 22,
+      "lithology": "DERRUBIOS DE LADERA",
+      "period": "Quaternaire"
+    },
+    {
+      "sheet": "513",
+      "code": 23,
+      "lithology": "ALUVIAL",
+      "period": "Quaternaire"
+    }
+  ],
+  "period_labels": [
+    {
+      "period": "Crétacé",
+      "x": 559612.08,
+      "y": 4518091.52
+    },
+    {
+      "period": "Crétacé",
+      "x": 561783.67,
+      "y": 4516578.01
+    },
+    {
+      "period": "Jurassique",
+      "x": 563349.37,
+      "y": 4522276.74
+    },
+    {
+      "period": "Crétacé",
+      "x": 562913.02,
+      "y": 4519594.5
+    },
+    {
+      "period": "Jurassique",
+      "x": 561856.31,
+      "y": 4519960.25
+    },
+    {
+      "period": "Crétacé",
+      "x": 563107.83,
+      "y": 4518253.0
+    },
+    {
+      "period": "Jurassique",
+      "x": 560471.95,
+      "y": 4521451.5
+    },
+    {
+      "period": "Jurassique",
+      "x": 555839.64,
+      "y": 4516502.28
+    },
+    {
+      "period": "Quaternaire",
+      "x": 559878.59,
+      "y": 4522648.5
+    }
+  ],
+  "mask_source": "Existing topographic base and border tile blue exterior"
+}

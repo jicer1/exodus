@@ -69,3 +69,13 @@ projection sur la grille locale géoréférencée et calcul des normales.
 Les hauteurs ne sont pas exagérées. La grille de ce premier prototype est
 d'environ 30 m ; cela ne constitue pas un relevé mondial à 2 m. Des données
 sources plus grossières ou interpolées peuvent être utilisées selon la région.
+
+Carte topographique actuelle : IGN Espagne, service WMS mapa-raster, couche mtn_rasterizado. Données téléchargées le 13/10/2026 ; images découpées selon l’emprise Exodus. Attribution IGN / CNIG, CC BY 4.0.
+
+Carte géologique MAGNA 1:50 000 : feuilles 488 Ablanque et 513 Zaorejas.
+Origen de los datos: ©CN Instituto Geológico y Minero de España (IGME).
+Service : https://mapas.igme.es/gis/rest/services/Cartografia_Geologica/IGME_MAGNA_50/MapServer
+Légendes et feuilles : https://info.igme.es/cartografiadigital/
+
+Carte géologique continue GEODE 1:50 000 : ©CN Instituto Geológico y Minero de España (IGME).
+Service : https://mapas.igme.es/gis/rest/services/Cartografia_Geologica/IGME_Geode_50/MapServer

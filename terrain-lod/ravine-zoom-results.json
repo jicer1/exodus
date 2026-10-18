@@ -1,0 +1,26 @@
+{
+  "viewpoint": "HUD river point 40.795392, -2.286982; nearby camera reconstructed for reproduction",
+  "gestures": [
+    "wheel out",
+    "horizontal rotation right",
+    "wheel in",
+    "horizontal rotation left"
+  ],
+  "requestsBefore": 32,
+  "statsAfter": {
+    "display": "detail",
+    "fps": 31.50267772761301,
+    "cachedDetailTiles": 32,
+    "triangles": 1555064,
+    "geometryMiB": 58.18378448486328,
+    "cacheTiles": 32,
+    "cacheMiB": 7.015625,
+    "buildRequests": 32,
+    "buildRequestsDuringRetreat": 0,
+    "heightAboveGround": 17.979673794074188,
+    "retainedZoomOuts": 2,
+    "maximumUploadMs": 21.40000000037253,
+    "maximumFrameMs": 144.70000000018626,
+    "errors": []
+  }
+}

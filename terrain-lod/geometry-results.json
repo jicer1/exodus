@@ -1,0 +1,35 @@
+{
+  "tests": "Native DEM heights, manifold topology, winding, area and both seams for all 25 LOD pairs passed",
+  "results": [
+    {
+      "stepMeters": 2,
+      "vertices": 66049,
+      "triangles": 131072,
+      "geometryBytes": 3686432
+    },
+    {
+      "stepMeters": 4,
+      "vertices": 17661,
+      "triangles": 34296,
+      "geometryBytes": 976704
+    },
+    {
+      "stepMeters": 8,
+      "vertices": 5245,
+      "triangles": 9464,
+      "geometryBytes": 281408
+    },
+    {
+      "stepMeters": 16,
+      "vertices": 2109,
+      "triangles": 3192,
+      "geometryBytes": 105792
+    },
+    {
+      "stepMeters": 32,
+      "vertices": 1309,
+      "triangles": 1592,
+      "geometryBytes": 60992
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "method": "One page open, identical sampler, same camera positions; local warm-cache exploratory measurements, not a controlled hardware benchmark",
+  "results": [
+    {
+      "version": "1.0.15",
+      "phase": "overview",
+      "initialReadyMs": 1603.1000000000931,
+      "fps": 59.90415335465475,
+      "worstFrameMs": 29.90000000037253,
+      "p95FrameMs": 19.300000000745058,
+      "activeTriangles": 1305728,
+      "camera": [
+        0,
+        0,
+        21063.236328125
+      ],
+      "errors": [],
+      "lod": null
+    },
+    {
+      "version": "1.0.15",
+      "phase": "near",
+      "initialReadyMs": 1603.1000000000931,
+      "fps": 59.97600959625036,
+      "worstFrameMs": 149.5,
+      "p95FrameMs": 16.90000000037253,
+      "activeTriangles": 1322272,
+      "camera": [
+        0,
+        0,
+        1363.2366409301776
+      ],
+      "errors": [],
+      "lod": null
+    },
+    {
+      "version": "2.0.1-development",
+      "phase": "overview",
+      "initialReadyMs": 5135.700000000186,
+      "fps": 59.988002399564834,
+      "worstFrameMs": 31.700000000186265,
+      "p95FrameMs": 19.100000000558794,
+      "activeTriangles": 686451,
+      "camera": [
+        0,
+        0,
+        21063.236328125
+      ],
+      "errors": [],
+      "lod": {
+        "tiles": 249,
+        "geometryBytes": 22961892,
+        "cacheBytes": 6152192,
+        "cacheTiles": 32,
+        "maxUploadMs": 1.400000000372529,
+        "errors": []
+      }
+    },
+    {
+      "version": "2.0.1-development",
+      "phase": "near",
+      "initialReadyMs": 5135.700000000186,
+      "fps": 47.778308647916454,
+      "worstFrameMs": 156.90000000037253,
+      "p95FrameMs": 26.199999999254942,
+      "activeTriangles": 262144,
+      "camera": [
+        0,
+        0,
+        1363.2366409301776
+      ],
+      "errors": [],
+      "lod": {
+        "tiles": 2,
+        "geometryBytes": 7372864,
+        "cacheBytes": 6840320,
+        "cacheTiles": 32,
+        "maxUploadMs": 16.100000000558794,
+        "errors": []
+      }
+    }
+  ]
+}

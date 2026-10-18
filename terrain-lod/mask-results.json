@@ -1,0 +1,6 @@
+{
+  "tilesWithGeometry": 249,
+  "trianglesAt32m": 686451,
+  "areaSquareMeters": 54499830,
+  "tests": "All 342 tiles: finite vertices, positive triangle areas, exact equality with the native valid-triangle footprint (including the isolated missing pixel and partial edge tiles)"
+}

@@ -55,6 +55,49 @@
                 scene.preventDefaultOnPointerUp = false;
                 scene.clearColor = B.Color4.FromArray(HuertaConfig.background);
                 scene.imageProcessingConfiguration.isEnabled = false;
+                // Ciel procédural léger, orienté selon le Z vertical du paysage.
+                B.Effect.ShadersStore.exodusSkyVertexShader = `
+                    precision highp float;
+                    attribute vec3 position;
+                    uniform mat4 worldViewProjection;
+                    varying vec3 skyDirection;
+                    void main() {
+                        skyDirection=position;
+                        gl_Position=worldViewProjection*vec4(position,1.0);
+                        gl_Position.z=gl_Position.w*0.999999;
+                    }`;
+                B.Effect.ShadersStore.exodusSkyFragmentShader = `
+                    precision highp float;
+                    varying vec3 skyDirection;
+                    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+                    float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
+                        return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+                            mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+                    float cloud(vec2 p){return .55*noise(p)+.27*noise(p*2.03)+.13*noise(p*4.07)+.05*noise(p*8.1);}
+                    void main(){
+                        vec3 d=normalize(skyDirection);
+                        float height=max(d.z,0.0);
+                        vec3 horizon=vec3(.83,.89,.91), zenith=vec3(.19,.43,.70);
+                        vec3 color=mix(horizon,zenith,pow(height,.48));
+                        vec3 sun=normalize(vec3(-.45,.65,.43));
+                        float alignment=max(dot(d,sun),0.0);
+                        color+=vec3(1.0,.79,.48)*pow(alignment,18.0)*.13;
+                        color=mix(color,vec3(1.0,.96,.83),smoothstep(.99945,.9998,alignment)*.8);
+                        vec2 uv=d.xy/max(d.z+.12,.08)*1.8;
+                        float cover=smoothstep(.49,.69,cloud(uv));
+                        float veil=smoothstep(.025,.18,d.z)*(1.0-smoothstep(.7,1.0,d.z));
+                        color=mix(color,vec3(.97,.97,.95),cover*veil*.82);
+                        color=mix(vec3(.81,.85,.85),color,smoothstep(-.22,.02,d.z));
+                        gl_FragColor=vec4(color,1.0);
+                    }`;
+                const sky=B.MeshBuilder.CreateSphere("exodus-sky",{diameter:2000,segments:24},scene);
+                sky.isPickable=false;sky.infiniteDistance=true;sky.alwaysSelectAsActiveMesh=true;
+                const skyMaterial=new B.ShaderMaterial("exodus-sky-material",scene,
+                    {vertex:"exodusSky",fragment:"exodusSky"},
+                    {attributes:["position"],uniforms:["worldViewProjection"]});
+                skyMaterial.backFaceCulling=false;skyMaterial.disableDepthWrite=true;
+                sky.material=skyMaterial;
+
                 state.engine = engine; state.scene = scene; state.canvas = canvas;
                 window.addEventListener("resize", () => engine.resize());
                 engine.runRenderLoop(() => {

@@ -20,14 +20,22 @@ var _last_update = 0;
 var _imagery = "pnoa2021";
 var _switching = false;
 
+var IMAGERY = {
+    previous: {base:"Huerta_Satellite_previous.jpg", tiles:"hd_tiles_pnoa2024_original/", query:""},
+    pnoa2021: {base:"Huerta_Satellite_MNT_100m_8000.jpg", tiles:"hd_tiles/", query:""},
+    historic1956: {base:"Huerta_Satellite_1956_57.jpg?recalage=20261013&niveaux=20261013", tiles:"hd_tiles_1956_57/", query:"?niveaux=20261013"},
+    historic1956color: {base:"Huerta_Satellite_1956_57_couleur.jpg?color=20261013-bordure", tiles:"hd_tiles_1956_57_couleur/", query:"?color=20261013-bordure"},
+    topographic: {base:"Huerta_Carte_topographique.jpg?carto=20261013-calage", tiles:"hd_tiles_topographique/", query:"?carto=20261013-calage"},
+    geology: {base:"igme_geode50/base.jpg?geode=20261015", tiles:"igme_geode50/tiles/", query:"?geode=20261015"}
+};
+
 function base_image() {
-    return _assets_path + (_imagery === "previous" ?
-        "Huerta_Satellite_previous.jpg" : "Huerta_Satellite_MNT_100m_8000.jpg");
+    return _assets_path + IMAGERY[_imagery].base;
 }
 
 function tile_image(tile) {
-    return _assets_path + (_imagery === "previous" ?
-        "hd_tiles_pnoa2024_original/" : "hd_tiles/") + tile.image;
+    var imagery = IMAGERY[_imagery];
+    return _assets_path + imagery.tiles + tile.image + imagery.query;
 }
 
 function add_tile(row, col, x, y) {
@@ -148,7 +156,8 @@ exports.init = function(camera, assets_path) {
 };
 
 exports.set_imagery = function(mode, callback) {
-    if (!_camera || _switching || (mode !== "pnoa2021" && mode !== "previous")) {
+    if (!_camera || _switching || !Object.prototype.hasOwnProperty.call(IMAGERY, mode) ||
+            (mode === "historic1956" && !document.body.classList.contains("huerta-edit-on"))) {
         callback(false); return;
     }
     if (mode === _imagery) {callback(true); return;}
@@ -161,8 +170,7 @@ exports.set_imagery = function(mode, callback) {
         tile.loaded = false;
         if (tile.object) m_scenes.hide_object(tile.object);
     }
-    var image = _assets_path + (mode === "previous" ?
-        "Huerta_Satellite_previous.jpg" : "Huerta_Satellite_MNT_100m_8000.jpg");
+    var image = _assets_path + IMAGERY[mode].base;
     m_textures.change_base_image(image, function(success) {
         if (success) _imagery = mode;
         _switching = false;
@@ -171,6 +179,12 @@ exports.set_imagery = function(mode, callback) {
         update();
         callback(success);
     });
+};
+
+exports.available_imagery = function() {
+    var modes = ["previous", "pnoa2021", "historic1956color", "topographic", "geology"];
+    if (document.body.classList.contains("huerta-edit-on")) modes.splice(2, 0, "historic1956");
+    return modes;
 };
 
 exports.get_imagery = function() {return _imagery;};

@@ -450,6 +450,80 @@ var _camera_pos =
 var _camera_start =
     new Float32Array(3);
 
+// Marche libre : même caméra que le survol, position contrainte au terrain.
+var _free_walk = {active:false, pending:false, generation:0, keys:{}, last:0, speed:50,
+    yaw:0, pitch:0, savedPosition:new Float32Array(3), savedRotation:new Float32Array(4)};
+function free_walk_pose(cam, pos) {
+    var w = _free_walk, c = Math.cos(w.pitch);
+    m_camera.static_setup(cam, {pos:pos, look_at:[pos[0]+Math.cos(w.yaw)*c,
+        pos[1]+Math.sin(w.yaw)*c, pos[2]+Math.sin(w.pitch)]});
+    m_camera.set_vertical_axis(cam, WORLD_UP);
+    m_camera.correct_up(cam, WORLD_UP, true);
+    _camera_pos.set(pos);
+}
+function free_walk_ground(x, y, callback) {
+    m_physics.append_ray_test_ext(null,[x,y,10000],[x,y,-10000],COLLISION_TEST_ID,
+        function(id,fraction,obj,time,hit) {callback(hit);},true,false,true);
+}
+function stop_free_walk() {
+    var w=_free_walk;
+    if (!w.active && !w.pending) return;
+    w.generation++; w.active=false; w.pending=false; w.keys={};
+    _mode=MODE_NONE; _move_pending=false;
+    var cam=m_scenes.get_active_camera();
+    if(cam) {m_camera.set_translation(cam,w.savedPosition);
+        m_camera.static_set_rotation(cam,w.savedRotation); _camera_pos.set(w.savedPosition);
+        update_pivot_marker(cam);}
+}
+function update_free_walk() {
+    var w=_free_walk, now=performance.now(), dt=Math.min(.05,Math.max(0,(now-w.last)/1000));
+    w.last=now;
+    if(!w.active) return;
+    var cam=m_scenes.get_active_camera(); if(!cam) return;
+    var turn=(w.keys.ArrowLeft?1:0)-(w.keys.ArrowRight?1:0);
+    w.yaw+=turn*1.4*dt;
+    var pos=m_camera.get_translation(cam,new Float32Array(3));
+    free_walk_pose(cam,pos);
+    var forward=(w.keys.ArrowUp?1:0)-(w.keys.ArrowDown?1:0);
+    if(!forward || w.pending) return;
+    var step=forward*(w.speed/3.6)*dt, x=pos[0]+Math.cos(w.yaw)*step, y=pos[1]+Math.sin(w.yaw)*step;
+    var ticket=w.generation; w.pending=true;
+    free_walk_ground(x,y,function(hit) {
+        if(ticket!==w.generation) return;
+        w.pending=false;
+        // Une limite ou une pente infranchissable arrête le pas.
+        if(!w.active || !hit || Math.abs(hit[2]+1.7-pos[2])>Math.abs(step)*1.8+.03) return;
+        free_walk_pose(cam,new Float32Array([x,y,hit[2]+1.7]));
+    });
+}
+exports.start_free_walk=function() {
+    var w=_free_walk, cam=m_scenes.get_active_camera();
+    if(!cam || w.active || w.pending) return false;
+    stop_route_flight(true);
+    m_camera.get_translation(cam,w.savedPosition); m_camera.static_get_rotation(cam,w.savedRotation);
+    var point=_has_pivot?Array.from(_pivot):Array.from(w.savedPosition);
+    var view=m_camera.get_view_vector(cam,new Float32Array(3));
+    w.yaw=Math.hypot(view[0],view[1])>.01?Math.atan2(view[1],view[0]):Math.PI/2;
+    w.pitch=0; w.keys={}; w.pending=true; var ticket=++w.generation;
+    free_walk_ground(point[0],point[1],function(hit) {
+        if(ticket!==w.generation) return;
+        w.pending=false; if(!hit) return;
+        w.active=true; w.last=performance.now(); _navigation_generation++;
+        _mode=MODE_NONE; _move_pending=false; _pan_ready=false; _drag_ready=false;
+        remove_pivot_marker(); free_walk_pose(cam,new Float32Array([hit[0],hit[1],hit[2]+1.7]));
+    });
+    return true;
+};
+exports.set_free_walk_speed=function(kmh) {
+    var value=Number(kmh);
+    if(Number.isFinite(value)) _free_walk.speed=Math.max(.5,Math.min(80,value));
+    return _free_walk.speed;
+};
+exports.stop_free_walk=stop_free_walk;
+exports.get_free_walk_status=function(){return {active:_free_walk.active,pending:_free_walk.pending,speed:_free_walk.speed};};
+exports.free_walk_key=function(key,down){_free_walk.keys[key]=down;};
+exports.clear_free_walk_keys=function(){_free_walk.keys={};};
+
 // Lecture caméra le long d'une ligne calculée par le Marcheur.
 var _route_flight = {
     active: false,
@@ -879,6 +953,7 @@ function start_route_flight(points, altitude, speed, inclination) {
     if (!points || points.length < 2)
         return false;
 
+    stop_free_walk();
     stop_route_flight(true);
 
     var cam = m_scenes.get_active_camera();
@@ -2420,6 +2495,11 @@ function apply_wheel(
  * ========================================================= */
 
 function mouse_down(event) {
+    if (_free_walk.active) {
+        if(event.button===1) {_mode=MODE_RIGHT; _middle_start_x=event.offsetX; _middle_start_y=event.offsetY;}
+        event.preventDefault(); return;
+    }
+
 
     var cam =
         m_scenes.get_active_camera();
@@ -2563,6 +2643,15 @@ function process_mouse_move() {
     if (!cam)
         return;
 
+    if (_free_walk.active) {
+        if (_mode===MODE_RIGHT) {
+            _free_walk.yaw-=(_mouse_x-_middle_start_x)*ROTATION_SPEED;
+            _free_walk.pitch=Math.max(-1.35,Math.min(1.35,_free_walk.pitch-(_mouse_y-_middle_start_y)*TILT_SPEED));
+            _middle_start_x=_mouse_x; _middle_start_y=_mouse_y;
+            free_walk_pose(cam,m_camera.get_translation(cam,new Float32Array(3)));
+        }
+        return;
+    }
     if (_route_flight.active && _route_flight.started && _mode == MODE_RIGHT) {
         apply_simulator_camera_rotation(
             cam,
@@ -2694,6 +2783,12 @@ function mouse_up(event) {
  * ========================================================= */
 
 function mouse_wheel(event) {
+    if (_free_walk.active) {
+        event.preventDefault();
+        if(event.deltaY) exports.set_free_walk_speed(_free_walk.speed + (event.deltaY < 0 ? .5 : -.5));
+        return;
+    }
+
 
     if (_route_flight.active && _route_flight.started) {
         var wheelDelta = Number(event.deltaY) || 0;
@@ -2816,6 +2911,7 @@ function scene_loaded(
         return;
 
     m_main.append_loop_cb(update_route_flight);
+    m_main.append_loop_cb(update_free_walk);
 
     m_hd_tiles.init(cam, APP_ASSETS_PATH);
 
@@ -3035,6 +3131,7 @@ exports.go_to_initial_view = go_to_initial_view;
 exports.keyboard_navigate = function(key, shift) {
     var cam = m_scenes.get_active_camera();
     if (!cam) return false;
+    if (_free_walk.active) { if(key === " ") _free_walk.keys={}; return true; }
     if (key === " ") {
         _mode = MODE_NONE;
         _move_pending = false;

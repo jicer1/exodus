@@ -6,6 +6,7 @@
             return;
 
         document.body.classList.add("huerta-calques-off", "huerta-test-off");
+        document.body.classList.remove("huerta-edit-on");
 
         var bar = document.createElement("form");
         bar.id = "huerta_command_bar";
@@ -39,14 +40,20 @@
             var result = "";
 
             if (command === "edit") {
-                var editing = document.body.classList.contains("huerta-test-off");
-                document.body.classList.toggle("huerta-test-off", !editing);
-                document.body.classList.toggle("huerta-calques-off", !editing);
-                result = editing
-                    ? "Mode édition activé."
-                    : "Mode normal activé.";
+                document.body.classList.add("huerta-edit-on", "huerta-test-off");
+                document.body.classList.remove("huerta-calques-off");
+                result = "Mode édition activé.";
+            } else if (command === "test") {
+                document.body.classList.remove("huerta-test-off", "huerta-edit-on");
+                document.body.classList.remove("huerta-calques-off");
+                result = "Mode test activé.";
+            } else if (command === "normal") {
+                document.body.classList.remove("huerta-edit-on");
+                document.body.classList.add("huerta-test-off");
+                document.body.classList.remove("huerta-calques-off");
+                result = "Mode normal activé.";
             } else {
-                result = "Commande inconnue. Essaie edit.";
+                result = "Commande inconnue. Essaie edit, test ou normal.";
             }
 
             message.textContent = result;

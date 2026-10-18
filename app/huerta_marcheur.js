@@ -86,6 +86,24 @@ var progressiveDisplayQueue = [];
 var progressiveDisplayTimer = null;
 var routingData = null;
 
+function get_local_routing_data() {
+    var context = window.ExodusLocalContext;
+    var grid = context && context.routing && context.routing.grid;
+    if (!grid || !grid.elevations || !grid.bounds)
+        return null;
+    return {localGrid: {
+        width: grid.width, height: grid.height,
+        cellSizeX: grid.cellSizeX, cellSizeY: grid.cellSizeY,
+        xMin: grid.xMin, yMax: grid.yMax,
+        bounds: grid.bounds,
+        elevations: new Float32Array(grid.elevations)
+    }};
+}
+
+function is_local_routing() {
+    return !!get_local_routing_data();
+}
+
 function position_flight_panel() {
     var marcheurPanel = document.getElementById("huerta_marcheur");
     var flightPanel = document.getElementById("huerta_marcheur_flight");
@@ -1116,6 +1134,11 @@ function on_terrain_click(event) {
 }
 
 function load_routing_data(callback) {
+    var local = get_local_routing_data();
+    if (local) {
+        callback(null, local);
+        return;
+    }
     if (routingData) {
         callback(null, routingData);
         return;
@@ -1338,7 +1361,8 @@ function calculate_route(angle, maxAngle) {
             }
             if (event.data.phase === "partial") {
                 calculatedRoutes[routeKey] = event.data.coordinates.map(function(point) {
-                    return [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
+                    return is_local_routing() ? point.slice() :
+                        [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
                 });
                 calculatedRoutes[11] = [];
                 partialRouteFlags[routeKey] = true;
@@ -1388,7 +1412,8 @@ function calculate_route(angle, maxAngle) {
                 if (item.ok) {
                     successfulDistance = item.length;
                     calculatedRoutes[routeKey] = item.coordinates.map(function(point) {
-                        return [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
+                        return is_local_routing() ? point.slice() :
+                            [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
                     });
                     partialRouteFlags[routeKey] = false;
                 }
@@ -1437,11 +1462,11 @@ function calculate_route(angle, maxAngle) {
             redMaxAngleInput.disabled = false;
             pickStatus.textContent = "Calcul interrompu. Voir Messages.";
         };
-        routeWorker.postMessage({manifest: data.manifest, guide: data.guide,
+        routeWorker.postMessage(Object.assign({}, data, {
             angles: [angle],
             maximumAngle: maxAngle,
             start: pickedPoints[0], end: pickedPoints[1], offset: [UTM_OFFSET_X, UTM_OFFSET_Y],
-            timeLimitMs: timeLimitMs});
+            timeLimitMs: timeLimitMs}));
     });
 }
 
@@ -1487,7 +1512,8 @@ function calculate_multi_point_route(angle, maxAngle) {
 
     function localize(coordinates) {
         return (coordinates || []).map(function(point) {
-            return [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
+            return is_local_routing() ? point.slice() :
+                [point[0] - UTM_OFFSET_X, point[1] - UTM_OFFSET_Y, point[2]];
         });
     }
 
@@ -1606,10 +1632,10 @@ function calculate_multi_point_route(angle, maxAngle) {
             log_message("Étape " + (index + 1) + " : erreur du calculateur — " + error.message, "error");
             finishMultiPointRoute(false);
         };
-        routeWorker.postMessage({manifest:routingData.manifest, guide:routingData.guide,
+        routeWorker.postMessage(Object.assign({}, routingData, {
             angles:[angle], maximumAngle:maxAngle,
             start:points[index], end:points[index + 1], offset:[UTM_OFFSET_X, UTM_OFFSET_Y],
-            timeLimitMs:perLegLimitMs});
+            timeLimitMs:perLegLimitMs}));
     }
 
     load_routing_data(function(loadError, data) {

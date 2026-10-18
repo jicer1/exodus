@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><title>EXODUS 2.0.1 — Prototype terrain</title>
+<style>html,body,canvas{width:100%;height:100%;margin:0;overflow:hidden}canvas{touch-action:none}aside{position:absolute;top:12px;left:12px;background:#19232deb;color:white;padding:12px;font:14px Arial;max-width:390px}button,select{margin:4px}pre{white-space:pre-wrap;font:12px monospace}</style>
+<canvas id="view"></canvas><aside><b>EXODUS 2.0.1 — Prototype limité</b>
+<p>Glisser pour tourner, molette pour approcher.</p>
+<label>Zone <select id="area"><option value="patch">Quatre tuiles de 512 m</option><option value="territory">Territoire complet</option></select></label><br>
+<label>Qualité <select id="quality"><option value="standard">Standard</option><option value="economy">Économe</option></select></label><br>
+<select id="mode"><option value="auto">LOD automatique</option><option value="old">Maillage 1.0.15</option><option value="1">2 m</option><option value="2">4 m</option><option value="4">8 m</option><option value="8">16 m</option><option value="16">32 m</option></select>
+<label><input id="wire" type="checkbox">Fil de fer</label><button id="export">Exporter les mesures</button><button id="reset">Réinitialiser les mesures</button>
+<pre id="status">Chargement…</pre><a href="../index-lod.html" style="color:white">Essayer EXODUS 2.0.1</a> · <a href="../index-1.0.15.html" style="color:white">Retour à la 1.0.15</a></aside>
+<script src="../vendor/babylon.js"></script><script src="geometry.js"></script><script src="prototype.js"></script></html>

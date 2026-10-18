@@ -1,0 +1,329 @@
+{
+  "source": "©CN Instituto Geológico y Minero de España (IGME)",
+  "service": "https://mapas.igme.es/gis/rest/services/Cartografia_Geologica/IGME_Geode_50/MapServer",
+  "series": "GEODE — cartografía geológica continua 1:50 000",
+  "crs": "EPSG:25830",
+  "bbox": [
+    554886,
+    4515098,
+    564240,
+    4523978
+  ],
+  "units_in_extent": [
+    {
+      "code": "142",
+      "lithology": "Carniolas, brechas calco-dolomíticas y dolomías. Fm Cortes de Tajuña y Fm Imón",
+      "age_from": "RHAETIENSE",
+      "age_to": "SINEMURIENSE",
+      "symbol": "01950000",
+      "color": [
+        0,
+        128,
+        216
+      ],
+      "legend": {
+        "lithology": "Cargneules, brèches calcaires et dolomitiques, dolomies",
+        "explanation": "Cargneules : roches carbonatées souvent creusées de cavités. Brèches : fragments anguleux de roche cimentés ensemble.",
+        "period": "Trias supérieur – Jurassique inférieur",
+        "stages": "Rhétien – Sinémurien",
+        "age_ma": [
+          205.7,
+          192.9
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "143",
+      "lithology": "Calizas y dolomías en bancos. Fm Cuevas Labradas",
+      "age_from": "SINEMURIENSE",
+      "age_to": "CARIXIENSE",
+      "symbol": "01960000",
+      "color": [
+        0,
+        80,
+        216
+      ],
+      "legend": {
+        "lithology": "Calcaires et dolomies en bancs",
+        "explanation": "Couches de roches carbonatées. Le calcaire est surtout formé de calcite ; la dolomie contient surtout le minéral dolomite.",
+        "period": "Jurassique inférieur",
+        "stages": "Sinémurien – Carixien (Pliensbachien inférieur)",
+        "age_ma": [
+          199.5,
+          184.2
+        ],
+        "regional_age_envelope": true
+      }
+    },
+    {
+      "code": "146",
+      "lithology": "Calizas bioclásticas y margas. Fms Barahona y Cerro del Pez",
+      "age_from": "CARIXIENSE",
+      "age_to": "TOARCIENSE",
+      "symbol": "00640000",
+      "color": [
+        0,
+        176,
+        255
+      ],
+      "legend": {
+        "lithology": "Calcaires bioclastiques et marnes",
+        "explanation": "Bioclastes : fragments de coquilles ou de squelettes d’organismes. Marnes : mélange de carbonate de calcium et d’argile.",
+        "period": "Jurassique inférieur",
+        "stages": "Carixien (Pliensbachien inférieur) – Toarcien",
+        "age_ma": [
+          192.9,
+          174.7
+        ],
+        "regional_age_envelope": true
+      }
+    },
+    {
+      "code": "149",
+      "lithology": "Margas y margocalizas y calizas margosas. Fm Turmiel",
+      "age_from": "DOMERIENSE",
+      "age_to": "AALENIENSE",
+      "symbol": "01760000",
+      "color": [
+        0,
+        128,
+        176
+      ],
+      "legend": {
+        "lithology": "Marnes, marno-calcaires et calcaires marneux",
+        "explanation": "Roches contenant différentes proportions d’argile et de carbonate de calcium ; les niveaux plus argileux sont souvent moins résistants à l’érosion.",
+        "period": "Jurassique inférieur – moyen",
+        "stages": "Domérien (Pliensbachien supérieur) – Aalénien",
+        "age_ma": [
+          192.9,
+          170.9
+        ],
+        "regional_age_envelope": true
+      }
+    },
+    {
+      "code": "155",
+      "lithology": "Calizas tableadas y nodulosas. Fms El Pedregal",
+      "age_from": "AALENIENSE",
+      "age_to": "BAJOCIENSE",
+      "symbol": "00650000",
+      "color": [
+        0,
+        128,
+        255
+      ],
+      "legend": {
+        "lithology": "Calcaires en dalles et calcaires noduleux",
+        "explanation": "Calcaires disposés en couches minces ou présentant des nodules, c’est-à-dire des masses arrondies dans la roche.",
+        "period": "Jurassique moyen",
+        "stages": "Aalénien – Bajocien",
+        "age_ma": [
+          174.7,
+          168.2
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "293",
+      "lithology": "Areniscas blanco amarillentas, conglomerados y arcillas. Fm Utrillas",
+      "age_from": "ALBIENSE",
+      "age_to": "CENOMANIENSE",
+      "symbol": "00171002",
+      "color": [
+        216,
+        255,
+        176
+      ],
+      "legend": {
+        "lithology": "Grès blanchâtres à jaunâtres, conglomérats et argiles",
+        "explanation": "Grès : grains de sable cimentés. Conglomérats : galets arrondis cimentés. Les argiles sont formées de particules très fines.",
+        "period": "Crétacé inférieur – supérieur",
+        "stages": "Albien – Cénomanien",
+        "age_ma": [
+          113.2,
+          93.9
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "297",
+      "lithology": "Calizas arenosas, margas, arenas y arcillas. Fm Santa Maria de las Hoyas y equivalentes laterales",
+      "age_from": "CENOMANIENSE",
+      "age_to": "CENOMANIENSE",
+      "symbol": "00570000",
+      "color": [
+        128,
+        255,
+        80
+      ],
+      "legend": {
+        "lithology": "Calcaires sableux, marnes, sables et argiles",
+        "explanation": "Ensemble de couches carbonatées et de sédiments sableux ou argileux ; leur composition change d’un niveau à l’autre.",
+        "period": "Crétacé supérieur",
+        "stages": "Cénomanien",
+        "age_ma": [
+          100.5,
+          93.9
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "298",
+      "lithology": "Dolomías y/o calizas dolomíticas. Fm Villa de Ves o Nuévalos",
+      "age_from": "CENOMANIENSE",
+      "age_to": "CENOMANIENSE",
+      "symbol": "01270000",
+      "color": [
+        80,
+        216,
+        128
+      ],
+      "legend": {
+        "lithology": "Dolomies et calcaires dolomitiques",
+        "explanation": "Roches carbonatées contenant de la dolomite, un minéral riche en calcium et en magnésium.",
+        "period": "Crétacé supérieur",
+        "stages": "Cénomanien",
+        "age_ma": [
+          100.5,
+          93.9
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "304",
+      "lithology": "Calizas nodulosas y margas. Fm Monterde",
+      "age_from": "CENOMANIENSE",
+      "age_to": "TURONIENSE",
+      "symbol": "01241026",
+      "color": [
+        176,
+        216,
+        80
+      ],
+      "legend": {
+        "lithology": "Calcaires noduleux et marnes",
+        "explanation": "Association de calcaires à masses arrondies et de roches mêlant argile et carbonate de calcium.",
+        "period": "Crétacé supérieur",
+        "stages": "Cénomanien – Turonien",
+        "age_ma": [
+          100.5,
+          89.8
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "331",
+      "lithology": "Dolomías masivas y tableadas y brechas. Fms Pantano de la Tranquera, Cuenca y/o Somolinos, incluyendo a veces la Fm Ciudad Encantada",
+      "age_from": "TURONIENSE",
+      "age_to": "CAMPANIENSE",
+      "symbol": "00561029",
+      "color": [
+        176,
+        255,
+        80
+      ],
+      "legend": {
+        "lithology": "Dolomies massives ou en dalles, et brèches",
+        "explanation": "Dolomies en masses épaisses ou en couches minces, avec des roches formées de fragments anguleux cimentés.",
+        "period": "Crétacé supérieur",
+        "stages": "Turonien – Campanien",
+        "age_ma": [
+          93.9,
+          72.2
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "461",
+      "lithology": "Lutitas con cantos y bloques",
+      "age_from": "HOLOCENO",
+      "age_to": "HOLOCENO",
+      "symbol": "05470000",
+      "color": [
+        208,
+        192,
+        192
+      ],
+      "legend": {
+        "lithology": "Lutites à galets et blocs",
+        "explanation": "Matériaux fins limoneux ou argileux contenant aussi des éléments de roche plus gros. L’âge concerne le dépôt, pas celui de chaque bloc.",
+        "period": "Quaternaire · Holocène",
+        "stages": "",
+        "age_ma": [
+          0.0117,
+          0
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "468",
+      "lithology": "Gravas, arenas y lutitas",
+      "age_from": "HOLOCENO",
+      "age_to": "HOLOCENO",
+      "symbol": "05010000",
+      "color": [
+        200,
+        216,
+        216
+      ],
+      "legend": {
+        "lithology": "Graviers, sables et lutites",
+        "explanation": "Dépôts de grains grossiers et fins, généralement peu ou pas consolidés. L’âge concerne leur mise en place.",
+        "period": "Quaternaire · Holocène",
+        "stages": "",
+        "age_ma": [
+          0.0117,
+          0
+        ],
+        "regional_age_envelope": false
+      }
+    },
+    {
+      "code": "5000",
+      "lithology": "Masa de Agua",
+      "age_from": "INDIFERENCIADO",
+      "age_to": "INDIFERENCIADO",
+      "symbol": "00020000",
+      "color": [
+        216,
+        255,
+        255
+      ],
+      "legend": {
+        "lithology": "Surface d’eau",
+        "explanation": "Élément de la carte, sans âge géologique attribué.",
+        "period": "",
+        "stages": "",
+        "age_ma": null,
+        "regional_age_envelope": false
+      }
+    }
+  ],
+  "tile_grid": {
+    "rows": 18,
+    "columns": 20,
+    "tile_size_m": 512,
+    "bleed_m": 16,
+    "pixels": 1088
+  },
+  "mask_source": "Existing topographic base and border tile blue exterior",
+  "units_outside_footprint": [
+    "272",
+    "450"
+  ],
+  "chronology": {
+    "reference": "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf",
+    "version": "2024/12",
+    "unit": "Ma",
+    "regional_substages_reference": "https://www.cambridge.org/core/journals/geological-magazine/article/abs/ivthe-lower-pliensbachian-carixianof-charmouth/6E61508D2E477501C62831C21DEA2B6C",
+    "note": "Approximate stage envelopes, not direct dating of local outcrops. Carixian and Domerian ranges conservatively include the whole Pliensbachian. Original IGME lithology, age labels, codes and colours are retained."
+  }
+}

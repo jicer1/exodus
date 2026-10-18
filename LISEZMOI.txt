@@ -1,11 +1,11 @@
-HUERTA HERNANDO — BABYLON.JS
+EXODUS — BABYLON.JS
 
 Création et conception du projet : Jacinto Costoso
 Site : https://www.costoso.net
 Crédits et composants tiers : CREDITS.txt
 
 Extraire entierement le dossier avant de lancer l'application.
-Sous Windows, double-cliquer Lancer_Huerta.bat et garder la fenetre ouverte.
+Sous Windows, double-cliquer Lancer_Exodus.bat et garder la fenetre ouverte.
 Le navigateur s'ouvre sur http://127.0.0.1:8766/.
 Ctrl+C dans la fenetre arrete le serveur.
 Python 3 et un navigateur moderne avec WebGL sont necessaires.

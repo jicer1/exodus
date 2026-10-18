@@ -18,6 +18,8 @@ var DEFAULT_MARKERS = [{"name":"1","lat":40.82547253561693,"lon":-2.276442771410
 var MARKERS = DEFAULT_MARKERS.slice();
 var entries = [];
 var enabled = false;
+var workspaceManaged = false;
+var workspaceMarkerSignature = null;
 var simulatorHidden = false;
 var generation = 0;
 var rayQueue = [];
@@ -27,6 +29,8 @@ var panel = null;
 var editorList = null;
 var editorStatus = null;
 var editorSaveButton = null;
+var editorContent = null;
+var editorToggle = null;
 var editorAction = null;
 var editorMoveIndex = -1;
 var editorFocusIndex = -1;
@@ -69,6 +73,12 @@ function gps_to_world(lat, lon) {
     return [utm[0] - 559563.0, utm[1] - 4519538.0];
 }
 
+exports.gps_to_world = gps_to_world;
+exports.cancel_editor_action = function() {
+    editorAction = null;
+    editorMoveIndex = -1;
+};
+
 function marker_bounds() {
     var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     for (var i = 0; i < MARKERS.length; i++) {
@@ -92,6 +102,8 @@ function create_panel() {
     header.style.cssText = "display:block;width:100%;margin:0 0 6px;padding:3px 5px;text-align:left;cursor:pointer;border:0;border-bottom:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:bold 13px Arial,sans-serif;";
     var content = document.createElement("div");
     content.style.display = "none";
+    content.style.maxHeight = "calc(100vh - 190px)";
+    content.style.overflowY = "auto";
     header.addEventListener("click", function() {
         var collapsed = content.style.display === "none";
         content.style.display = collapsed ? "block" : "none";
@@ -99,6 +111,7 @@ function create_panel() {
         header.setAttribute("aria-expanded", collapsed ? "true" : "false");
     }, false);
     var row = document.createElement("div");
+    row.id = "huerta_parideras_layer";
     row.style.cssText = "display:flex;align-items:center;gap:7px;";
     var label = document.createElement("label");
     label.style.cssText = "display:flex;align-items:center;gap:7px;cursor:pointer;flex:1;";
@@ -126,41 +139,221 @@ function create_panel() {
     }, false);
     row.appendChild(go);
     content.appendChild(row);
-    var imageryLabel = document.createElement("label");
-    imageryLabel.style.cssText = "display:flex;align-items:center;gap:7px;cursor:pointer;margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.3);white-space:nowrap;";
-    var imagerySwitch = document.createElement("input");
-    imagerySwitch.type = "checkbox";
-    imagerySwitch.setAttribute("role", "switch");
-    var imageryText = document.createElement("span");
-    function updateImageryText() {
-        var caption = imagerySwitch.checked ? "Image satellite : précédente" : "Image satellite : PNOA 2021";
-        imageryText.textContent = window.HuertaI18n ? window.HuertaI18n.t(caption) : caption;
-    }
-    imagerySwitch.addEventListener("change", function() {
-        imagerySwitch.disabled = true;
-        m_hd_tiles.set_imagery(imagerySwitch.checked ? "previous" : "pnoa2021", function(success) {
-            imagerySwitch.checked = m_hd_tiles.get_imagery() === "previous";
-            imagerySwitch.disabled = false;
-            updateImageryText();
-        });
-    }, false);
-    imageryLabel.appendChild(imagerySwitch);
-    window.addEventListener("exodus-imagery", function(event) {
-        imagerySwitch.checked = event.detail.mode === "previous";
-        imagerySwitch.disabled = event.detail.loading;
-        updateImageryText();
-    });
-    imageryLabel.appendChild(imageryText);
-    updateImageryText();
-    content.appendChild(imageryLabel);
     var editor = document.createElement("div");
     editor.id = "huerta_parideras_editor";
-    editor.style.cssText = "margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,.3);";
-    var editorTitle = document.createElement("div");
-    editorTitle.textContent = "Modifier Parideras";
-    editorTitle.style.cssText = "font-weight:bold;font-size:12px;margin-bottom:4px;";
-    editor.appendChild(editorTitle);
-    var addButton = document.createElement("button");
+    editor.style.cssText = "margin-top:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,.3);";
+    editorToggle = document.createElement("button");
+    editorToggle.type = "button";
+    editorToggle.textContent = "Modifier Parideras ▼";
+    editorToggle.setAttribute("aria-expanded", "false");
+    editorToggle.style.cssText = "display:block;width:100%;padding:3px 5px;text-align:left;cursor:pointer;border:0;background:transparent;color:#fff;font:bold 12px Arial,sans-serif;";
+    editorContent = document.createElement("div");
+    editorContent.style.display = "none";
+    editorToggle.addEventListener("click", function() {
+        var open = editorContent.style.display === "none";
+        editorContent.style.display = open ? "block" : "none";
+        editorToggle.textContent = open ? "Modifier Parideras ▲" : "Modifier Parideras ▼";
+        editorToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }, false);
+    editor.appendChild(editorToggle);
+    editor.appendChild(editorContent);
+    content.appendChild(editor);
+
+    var imageryTitle = document.createElement("div");
+    imageryTitle.textContent = "Cartes et images";
+    imageryTitle.style.cssText = "margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,.3);font-weight:bold;";
+    content.appendChild(imageryTitle);
+    var imageryModes = [
+        {mode:"previous", label:"Hiver"},
+        {mode:"pnoa2021", label:"Printemps"},
+        {mode:"historic1956", label:"1956-57 — noir et blanc", editOnly:true},
+        {mode:"historic1956color", label:"1956-57 couleur"},
+        {mode:"topographic", label:"Carte topographique"},
+        {mode:"geology", label:"Carte géologique"}
+    ];
+    var imageryChecks = {};
+    var imageryRows = {};
+    function updateImageryLayers() {
+        var active = m_hd_tiles.get_imagery();
+        geologyLegendButton.style.display = active === "geology" ? "block" : "none";
+        var legend = document.getElementById("exodus_geology_legend");
+        if (legend && active !== "geology") legend.style.display = "none";
+        imageryModes.forEach(function(item) {
+            if (imageryChecks[item.mode]) imageryChecks[item.mode].checked = active === item.mode;
+            if (imageryRows[item.mode]) imageryRows[item.mode].style.display = item.editOnly && !document.body.classList.contains("huerta-edit-on") ? "none" : "flex";
+        });
+    }
+    function selectImagery(mode) {
+        imageryModes.forEach(function(item) {
+            if (imageryChecks[item.mode]) imageryChecks[item.mode].disabled = true;
+        });
+        m_hd_tiles.set_imagery(mode, function() {
+            imageryModes.forEach(function(item) {
+                if (imageryChecks[item.mode]) imageryChecks[item.mode].disabled = false;
+            });
+            updateImageryLayers();
+        });
+    }
+    imageryModes.forEach(function(item) {
+        var label = document.createElement("label");
+        label.style.cssText = "display:flex;align-items:center;gap:7px;cursor:pointer;margin-top:4px;white-space:nowrap;";
+        var check = document.createElement("input");
+        check.type = "checkbox";
+        check.addEventListener("change", function() { if (check.checked) selectImagery(item.mode); else updateImageryLayers(); }, false);
+        imageryChecks[item.mode] = check;
+        imageryRows[item.mode] = label;
+        label.appendChild(check);
+        var text = document.createElement("span");
+        text.textContent = item.label;
+        label.appendChild(text);
+        content.appendChild(label);
+    });
+
+    var geologyLegendButton = document.createElement("button");
+    geologyLegendButton.type = "button";
+    geologyLegendButton.textContent = "Légende géologique";
+    geologyLegendButton.style.cssText = "display:none;margin:5px 0 2px 24px;padding:3px 7px;cursor:pointer;";
+    geologyLegendButton.addEventListener("click", openGeologyLegend, false);
+    content.appendChild(geologyLegendButton);
+    function openGeologyLegend() {
+        var old = document.getElementById("exodus_geology_legend");
+        if (old) { old.style.display = "flex"; window.dispatchEvent(new CustomEvent("exodus-dialog-open", {detail:old.id})); return; }
+        function tr(value) { return window.HuertaI18n ? HuertaI18n.t(value) : value; }
+        var legendData = null, legendFailed = false;
+        var box = document.createElement("section");
+        box.id = "exodus_geology_legend";
+        box.setAttribute("data-exodus-localized", "true");
+        box.setAttribute("role", "dialog");
+        box.setAttribute("aria-label", "Légende géologique");
+        box.style.cssText = "position:fixed;top:12vh;left:0;width:min(620px,95vw);height:min(680px,76vh);z-index:25000;background:#f6f7f6;color:#18232e;border:1px solid #445664;border-radius:5px;box-shadow:0 8px 30px #0009;font:13px Arial,sans-serif;display:flex;flex-direction:column;";
+        var head = document.createElement("div");
+        head.style.cssText = "background:#263744;color:white;display:flex;justify-content:space-between;align-items:center;padding:8px 10px;cursor:move;user-select:none;";
+        var title = document.createElement("strong");
+        title.textContent = "Carte géologique continue GEODE 1:50 000";
+        head.appendChild(title);
+        var close = document.createElement("button");
+        close.type = "button"; close.textContent = "×";
+        close.setAttribute("aria-label", "Fermer");
+        close.style.cssText = "background:transparent;color:white;border:0;font-size:21px;cursor:pointer;";
+        close.addEventListener("click", function() { window.removeEventListener("huerta-language-changed", renderLegend); box.remove(); }, false);
+        head.appendChild(close); box.appendChild(head);
+        var body = document.createElement("div");
+        body.style.cssText = "min-height:0;flex:1;overflow-y:auto;padding:10px 14px;";
+        var intro = document.createElement("p");
+        intro.textContent = "Unités de la carte géologique continue de l’IGME. Les numéros et les couleurs correspondent à cette même carte.";
+        body.appendChild(intro);
+        var unitsSummary = document.createElement("h3");
+        unitsSummary.textContent = "Unités présentes";
+        unitsSummary.style.cssText = "font-size:14px;margin:9px 0;";
+        body.appendChild(unitsSummary);
+        var present = document.createElement("div");
+        present.style.cssText = "font-size:12px;line-height:1.45;";
+        present.textContent = "Chargement des unités géologiques…";
+        body.appendChild(present);
+        var link = document.createElement("a");
+        link.href = "https://mapas.igme.es/gis/rest/services/Cartografia_Geologica/IGME_Geode_50/MapServer";
+        link.target = "_blank"; link.rel = "noopener noreferrer";
+        link.textContent = "Voir la source officielle IGME";
+        link.style.cssText = "display:block;margin-top:12px;";
+        body.appendChild(link);
+        var credit = document.createElement("p");
+        credit.textContent = "Données : ©CN Instituto Geológico y Minero de España (IGME). Échelle 1:50 000.";
+        var timeSource = document.createElement("a");
+        timeSource.href = "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf";
+        timeSource.target = "_blank"; timeSource.rel = "noopener noreferrer";
+        timeSource.style.cssText = "display:block;margin-top:7px;";
+        body.appendChild(timeSource);
+        function renderLegend() {
+            box.lang = window.HuertaI18n ? HuertaI18n.language : "fr";
+            box.setAttribute("aria-label", tr("Légende géologique"));
+            close.setAttribute("aria-label", tr("Fermer"));
+            title.textContent = tr("Carte géologique continue GEODE 1:50 000");
+            intro.textContent = tr("Unités de la carte géologique continue de l’IGME. Les numéros et les couleurs correspondent à cette même carte.");
+            unitsSummary.textContent = tr("Unités présentes") + (legendData ? " (" + legendData.units_in_extent.length + ")" : "");
+            link.textContent = tr("Voir la source officielle IGME");
+            timeSource.textContent = tr("Échelle des temps géologiques — ICS (2024/12)");
+            credit.textContent = tr("Données : ©CN Instituto Geológico y Minero de España (IGME). Échelle 1:50 000.");
+            present.textContent = legendData ? "" : tr(legendFailed ? "Impossible de charger les unités géologiques." : "Chargement des unités géologiques…");
+            if (!legendData) return;
+            var format = new Intl.NumberFormat(box.lang, {maximumFractionDigits:1});
+            legendData.units_in_extent.forEach(function(u) {
+                var details = u.legend;
+                var row = document.createElement("div");
+                row.style.cssText = "display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #d5dce0;";
+                var swatch = document.createElement("span");
+                swatch.style.cssText = "flex:none;width:20px;height:18px;border:1px solid #50606c;";
+                if (u.color) swatch.style.backgroundColor = "rgb(" + u.color.slice(0,3).join(",") + ")";
+                row.appendChild(swatch);
+                var description = document.createElement("div");
+                var name = document.createElement("strong");
+                name.textContent = u.code + " · " + tr(details ? details.lithology : u.lithology);
+                description.appendChild(name);
+                if (details) {
+                    var period = document.createElement("div");
+                    period.textContent = tr(details.period) + (details.stages ? " · " + tr(details.stages) : "");
+                    if (period.textContent) description.appendChild(period);
+                    if (details.age_ma) {
+                        var age = document.createElement("div"); age.style.cssText = "font-weight:600;color:#285275;margin:2px 0;";
+                        age.textContent = details.age_ma[0] === 0.0117
+                            ? tr("Depuis environ 11 700 ans jusqu’à aujourd’hui (0,0117 Ma à 0)")
+                            : tr("Il y a environ {older} à {younger} millions d’années (Ma)").replace("{older}",format.format(details.age_ma[0])).replace("{younger}",format.format(details.age_ma[1]));
+                        if (details.regional_age_envelope) age.textContent += " *";
+                        description.appendChild(age);
+                    }
+                    var explanation = document.createElement("div");
+                    explanation.style.cssText = "margin-top:3px;color:#42515c;";
+                    explanation.textContent = tr(details.explanation);
+                    description.appendChild(explanation);
+                }
+                row.appendChild(description); present.appendChild(row);
+            });
+            ["Ma = millions d’années avant aujourd’hui. Les âges sont approximatifs : ils situent les unités dans le temps, sans dater chaque affleurement.",
+             "* Carixien et Domérien sont des subdivisions régionales du Pliensbachien. Pour ces unités, la fourchette numérique englobe le Pliensbachien entier ; elle est volontairement plus large que l’âge exact des couches."].forEach(function(value) {
+                var note = document.createElement("p"); note.style.cssText = "font-size:11px;line-height:1.4;";
+                note.textContent = tr(value); present.appendChild(note);
+            });
+        }
+        window.addEventListener("huerta-language-changed", renderLegend);
+        renderLegend();
+        fetch("assets/igme_geode50/source.json?legend=20261016").then(function(r) {
+            if (!r.ok) throw new Error("legend metadata"); return r.json();
+        }).then(function(data) { legendData=data; renderLegend(); })
+          .catch(function() { legendFailed=true; renderLegend(); });
+        credit.style.cssText = "font-size:11px;margin-top:15px;";
+        body.appendChild(credit); box.appendChild(body); document.body.appendChild(box);
+        window.dispatchEvent(new CustomEvent("exodus-dialog-open", {detail:box.id}));
+        box.addEventListener("wheel", function(e) { e.stopPropagation(); }, {passive:true});
+        box.style.left = Math.max(0, (window.innerWidth - box.offsetWidth) / 2) + "px";
+        var startX, startY, left, top;
+        head.addEventListener("pointerdown", function(e) {
+            if (e.target === close) return;
+            startX=e.clientX; startY=e.clientY;
+            left=box.getBoundingClientRect().left; top=box.getBoundingClientRect().top;
+            head.setPointerCapture(e.pointerId);
+        }, false);
+        head.addEventListener("pointermove", function(e) {
+            if (startX === undefined) return;
+            box.style.left=Math.max(0, Math.min(window.innerWidth-90, left+e.clientX-startX))+"px";
+            box.style.top=Math.max(0, Math.min(window.innerHeight-45, top+e.clientY-startY))+"px";
+        }, false);
+        head.addEventListener("pointerup", function() { startX=undefined; }, false);
+        head.addEventListener("pointercancel", function() { startX=undefined; }, false);
+    }
+    var imageryHint = document.createElement("div");
+    imageryHint.style.cssText = "font-size:11px;margin:5px 0 0 24px;opacity:.82;";
+    imageryHint.textContent = "Touche C : passer à la carte suivante";
+    content.appendChild(imageryHint);
+    function ensureImageryAccess() {
+        updateImageryLayers();
+        if (!document.body.classList.contains("huerta-edit-on") && m_hd_tiles.get_imagery() === "historic1956")
+            selectImagery("historic1956color");
+    }
+    window.addEventListener("exodus-imagery", function(event) {
+        updateImageryLayers();
+        if (!event.detail || !event.detail.loading) ensureImageryAccess();
+    });
+    new MutationObserver(ensureImageryAccess).observe(document.body, {attributes:true, attributeFilter:["class"]});
+    updateImageryLayers();    var addButton = document.createElement("button");
     addButton.type = "button";
     addButton.textContent = "Ajouter sur la carte";
     addButton.style.cssText = "cursor:pointer;padding:3px 6px;margin-right:4px;";
@@ -171,24 +364,24 @@ function create_panel() {
         }
         editorAction = "add";
         editorMoveIndex = -1;
+        window.dispatchEvent(new Event("huerta-parideras-edit-start"));
         editorStatus.textContent = "Clique un emplacement sur le terrain.";
     }, false);
-    editor.appendChild(addButton);
+    editorContent.appendChild(addButton);
     editorSaveButton = document.createElement("button");
     editorSaveButton.type = "button";
     editorSaveButton.textContent = "Enregistrer";
     editorSaveButton.disabled = true;
     editorSaveButton.style.cssText = "cursor:pointer;padding:3px 6px;";
     editorSaveButton.addEventListener("click", save_markers_file, false);
-    editor.appendChild(editorSaveButton);
+    editorContent.appendChild(editorSaveButton);
     editorStatus = document.createElement("div");
     editorStatus.style.cssText = "font-size:11px;margin:4px 0;";
     editorStatus.textContent = "Sélectionne Modifier pour gérer les repères.";
-    editor.appendChild(editorStatus);
+    editorContent.appendChild(editorStatus);
     editorList = document.createElement("div");
     editorList.style.cssText = "max-height:180px;overflow:auto;";
-    editor.appendChild(editorList);
-    content.appendChild(editor);
+    editorContent.appendChild(editorList);
     refresh_editor_list();
     panel.appendChild(header);
     panel.appendChild(content);
@@ -213,6 +406,11 @@ function focus_editor_marker(index) {
             header.textContent = "Calques ▲";
             header.setAttribute("aria-expanded", "true");
         }
+    }
+    if (editorContent && editorToggle) {
+        editorContent.style.display = "block";
+        editorToggle.textContent = "Modifier Parideras ▲";
+        editorToggle.setAttribute("aria-expanded", "true");
     }
     refresh_editor_list();
 }
@@ -243,6 +441,7 @@ function refresh_editor_list() {
             move.style.cssText = "cursor:pointer;padding:2px 4px;font-size:11px;";
             move.addEventListener("click", function() {
                 editorAction = "move"; editorMoveIndex = index;
+                window.dispatchEvent(new Event("huerta-parideras-edit-start"));
                 editorStatus.textContent = "Clique la nouvelle position du repère " + MARKERS[index].name + ".";
             }, false);
             var rename = document.createElement("button");
@@ -335,7 +534,7 @@ function create_markers() {
         el.title = "Repère " + data.name + " — " + data.lat.toFixed(6) + ", " + data.lon.toFixed(6);
         // Les repères restent visibles mais ne capturent aucun clic sur la carte.
         // La sélection, le centrage et le renommage se font depuis la liste.
-        el.style.cssText = "position:absolute;transform:translate(-50%,-100%);min-width:17px;height:20px;padding:0 3px;border-radius:10px 10px 10px 2px;background:#e83d2e;border:2px solid #fff;color:#fff;font:bold 11px/20px Arial,sans-serif;text-align:center;box-shadow:0 1px 4px #000;white-space:nowrap;pointer-events:none;cursor:default;";
+    el.style.cssText = "position:absolute;transform:translate(-50%,-100%);min-width:17px;height:20px;padding:0 3px;border-radius:10px 10px 10px 2px;background:#55aaf7;border:2px solid #fff;color:#fff;font:bold 11px/20px Arial,sans-serif;text-align:center;box-shadow:0 1px 4px #000;white-space:nowrap;pointer-events:none;cursor:default;";
         overlay.appendChild(el);
         entries.push({el:el, point:new Float32Array([world[0], world[1], 0]), ready:false});
     }
@@ -343,12 +542,14 @@ function create_markers() {
 }
 
 function load_markers_file(done) {
-    fetch("assets/parideras_edit.json?v=marker-data-20261009", {cache:"no-store"})
+    fetch("assets/parideras_edit.json?v=mur-layer-20261011", {cache:"no-store"})
         .then(function(response) {
             if (!response.ok) throw new Error("HTTP " + response.status);
             return response.json();
         })
         .then(function(data) {
+            if (workspaceManaged) {done(); return;}
+            if (!Array.isArray(data)) data = data && data.parideras;
             if (!Array.isArray(data)) throw new Error("format invalide");
             MARKERS = data.filter(function(item) {
                 return item && typeof item.name === "string" &&
@@ -389,6 +590,21 @@ function request_next_height() {
         request_next_height();
     }
 }
+
+// The layer editor owns one set of objects and one visibility state in all modes.
+// Keep the existing terrain occlusion and simulator hiding for Parideras.
+exports.sync_layer = function(markers, visible) {
+    workspaceManaged = true;
+    var signature = JSON.stringify(markers);
+    if (signature !== workspaceMarkerSignature) {
+        workspaceMarkerSignature = signature;
+        MARKERS = markers.map(function(item) {return {name:item.name, lat:Number(item.lat), lon:Number(item.lon)};});
+        rebuild_markers();
+        refresh_editor_list();
+    }
+    if (enabled !== !!visible) set_enabled(!!visible);
+    if (visibilityCheckbox) visibilityCheckbox.checked = !!visible;
+};
 
 function set_enabled(value) {
     enabled = value;
@@ -513,7 +729,7 @@ function init() {
     fetch("/__huerta_health__", {cache:"no-store"}).then(function(response) {
         return response.ok ? response.json() : null;
     }).then(function(info) {
-        localSaveAvailable = !!(info && info.local_only);
+        localSaveAvailable = !!(info && info.local_only && info.storage_version >= 2);
         if (editorSaveButton) editorSaveButton.disabled = !localSaveAvailable;
         if (editorStatus && !localSaveAvailable)
             editorStatus.textContent = "Enregistrement désactivé sur ce serveur.";
@@ -539,7 +755,3 @@ else
 });
 
 HuertaRuntime.require("huerta_calques");
-
-
-
-

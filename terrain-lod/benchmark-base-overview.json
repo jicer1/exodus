@@ -1,0 +1,26 @@
+{
+  "architecture": "original-1.0.15-overview-and-near-only-details",
+  "measurement": {
+    "version": "2.0.1-development",
+    "phase": "overview",
+    "initialReadyMs": 2480.5,
+    "fps": 58.502340093625335,
+    "worstFrameMs": 44.90000000037253,
+    "p95FrameMs": 20.5,
+    "activeTriangles": 1305728,
+    "camera": [
+      0,
+      0,
+      21063.236328125
+    ],
+    "errors": [],
+    "lod": {
+      "tiles": 0,
+      "geometryBytes": 36612128,
+      "cacheBytes": 0,
+      "cacheTiles": 0,
+      "maxUploadMs": 0,
+      "errors": []
+    }
+  }
+}

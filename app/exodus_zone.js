@@ -202,7 +202,9 @@ window.ExodusZone = (() => {
         let iframe, current, active=false;
         return {
             open(zone,material) {
-                if(current===zone)return;
+                // A new validation must always replace the previous local view.
+                // The same geographic zone can be validated again after returning
+                // to Terre, so object identity is not a reliable reuse check.
                 iframe?.contentWindow?.ExodusLocalApp?.dispose();
                 iframe?.remove(); current=zone;
                 iframe=document.createElement("iframe"); iframe.id="exodus_local_frame";
